@@ -1,0 +1,35 @@
+apply plugin: 'java'
+apply plugin: 'fatjar'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.2'
+    }
+}
+
+build.dependsOn fatJar
+
+fatJar {
+    exclude 'META-INF/*.DSA'
+}
+
+repositories { 
+  mavenCentral()
+}
+
+dependencies { 
+    compile libraries.enn_monitor_framework_common
+    compile libraries.enn_monitor_framework_kafka
+    compile libraries.enn_monitor_framework_log_core
+    
+    compile project(":enn-monitor-ai:enn-monitor-ai-ui")
+    
+    compile libraries.enn_monitor_framework_ai_common
+    compile libraries.enn_monitor_framework_ai_nn
+    compile libraries.enn_monitor_framework_ai_ga
+}
+

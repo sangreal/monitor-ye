@@ -1,0 +1,1128 @@
+{
+   "apiVersion": "v1",
+   "items": [
+      {
+         "apiVersion": "v1",
+         "kind": "Service",
+         "metadata": {
+            "annotations": { },
+            "labels": {
+               "app": "namenode1-svc",
+               "name": "namenode1"
+            },
+            "name": "namenode1",
+            "namespace": "monitor-system-metrics"
+         },
+         "spec": {
+            "ports": [
+               {
+                  "name": "nn-http-addr",
+                  "port": 50070
+               },
+               {
+                  "name": "nn-https-addr",
+                  "port": 50470
+               },
+               {
+                  "name": "defaultfs",
+                  "port": 8020
+               },
+               {
+                  "name": "zkfc",
+                  "port": 8019
+               }
+            ],
+            "selector": {
+               "app": "namenode1-pod",
+               "name": "namenode1"
+            }
+         }
+      },
+      {
+         "apiVersion": "v1",
+         "kind": "Service",
+         "metadata": {
+            "annotations": { },
+            "labels": {
+               "app": "namenode2-svc",
+               "name": "namenode2"
+            },
+            "name": "namenode2",
+            "namespace": "monitor-system-metrics"
+         },
+         "spec": {
+            "ports": [
+               {
+                  "name": "nn-http-addr",
+                  "port": 50070
+               },
+               {
+                  "name": "nn-https-addr",
+                  "port": 50470
+               },
+               {
+                  "name": "defaultfs",
+                  "port": 8020
+               },
+               {
+                  "name": "zkfc",
+                  "port": 8019
+               }
+            ],
+            "selector": {
+               "app": "namenode2-pod",
+               "name": "namenode2"
+            }
+         }
+      },
+      {
+         "apiVersion": "extensions/v1beta1",
+         "kind": "Deployment",
+         "metadata": {
+            "annotations": { },
+            "labels": {
+               "app": "namenode1-dp",
+               "name": "namenode1"
+            },
+            "name": "namenode1",
+            "namespace": "monitor-system-metrics"
+         },
+         "spec": {
+            "replicas": 1,
+            "selector": {
+               "matchLabels": {
+                  "app": "namenode1-pod",
+                  "name": "namenode1"
+               }
+            },
+            "template": {
+               "metadata": {
+                  "annotations": {
+                     "pod.beta.kubernetes.io/hostname": "namenode1"
+                  },
+                  "labels": {
+                     "app": "namenode1-pod",
+                     "name": "namenode1"
+                  }
+               },
+               "spec": {
+                  "containers": [
+                     {
+                        "args": [ ],
+                        "command": [
+                           "/opt/entrypoint.sh"
+                        ],
+                        "env": [
+                           {
+                              "name": "HADOOP_SERVER_TYPE",
+                              "value": "namenode"
+                           },
+                           {
+                              "name": "LOGPATTERN",
+                              "value": "^(?<year>[\\d]*)\/(?<month>[\\d]*)\/(?<day>[\\d]*)[\\s]*(?<time>[^\\s]*)[\\s]*(?<logLevel>[^\\s]*)[\\s]*(?<log>.*)$"
+                           },
+                           {
+                              "name": "LOGASSEMBLE",
+                              "value": "%logLevel%,%log%,<dateTime>20%year%-%month%-%day% %time%"
+                           }
+                        ],
+                        "image": "10.19.248.12:29006/tools/dep-centos7-hadoop-2.7.3:0.1",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "namenode1",
+                        "ports": [ ],
+                        "resources": {
+                           "limits": {
+                              "cpu": "0",
+                              "memory": "0"
+                           },
+                           "requests": {
+                              "cpu": "0",
+                              "memory": "0"
+                           }
+                        },
+                        "volumeMounts": [
+                           {
+                              "mountPath": "/hdfs",
+                              "name": "hdfs-storage"
+                           },
+                           {
+                              "mountPath": "/opt/hadoop/etc/hadoop",
+                              "name": "cephconf"
+                           }
+                        ]
+                     }
+                  ],
+                  "nodeSelector": {
+                     "kubernetes.io/hostname": "10.19.248.12"
+                  },
+                  "volumes": [
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/namenode1"
+                        },
+                        "name": "hdfs-storage"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/opt/monitor-system-metrics/namenode1"
+                        },
+                        "name": "cephconf"
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      {
+         "apiVersion": "extensions/v1beta1",
+         "kind": "Deployment",
+         "metadata": {
+            "annotations": { },
+            "labels": {
+               "app": "namenode2-dp",
+               "name": "namenode2"
+            },
+            "name": "namenode2",
+            "namespace": "monitor-system-metrics"
+         },
+         "spec": {
+            "replicas": 1,
+            "selector": {
+               "matchLabels": {
+                  "app": "namenode2-pod",
+                  "name": "namenode2"
+               }
+            },
+            "template": {
+               "metadata": {
+                  "annotations": {
+                     "pod.beta.kubernetes.io/hostname": "namenode2"
+                  },
+                  "labels": {
+                     "app": "namenode2-pod",
+                     "name": "namenode2"
+                  }
+               },
+               "spec": {
+                  "containers": [
+                     {
+                        "args": [ ],
+                        "command": [
+                           "/opt/entrypoint.sh"
+                        ],
+                        "env": [
+                           {
+                              "name": "HADOOP_SERVER_TYPE",
+                              "value": "namenode-standby"
+                           },
+                           {
+                              "name": "LOGPATTERN",
+                              "value": "^(?<year>[\\d]*)\/(?<month>[\\d]*)\/(?<day>[\\d]*)[\\s]*(?<time>[^\\s]*)[\\s]*(?<logLevel>[^\\s]*)[\\s]*(?<log>.*)$"
+                           },
+                           {
+                              "name": "LOGASSEMBLE",
+                              "value": "%logLevel%,%log%,<dateTime>20%year%-%month%-%day% %time%"
+                           }
+                        ],
+                        "image": "10.19.248.12:29006/tools/dep-centos7-hadoop-2.7.3:0.1",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "namenode2",
+                        "ports": [ ],
+                        "resources": {
+                           "limits": {
+                              "cpu": "0",
+                              "memory": "0"
+                           },
+                           "requests": {
+                              "cpu": "0",
+                              "memory": "0"
+                           }
+                        },
+                        "volumeMounts": [
+                           {
+                              "mountPath": "/hdfs",
+                              "name": "hdfs-storage"
+                           },
+                           {
+                              "mountPath": "/opt/hadoop/etc/hadoop",
+                              "name": "cephconf"
+                           }
+                        ]
+                     }
+                  ],
+                  "nodeSelector": {
+                     "kubernetes.io/hostname": "10.19.248.15"
+                  },
+                  "volumes": [
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/namenode2"
+                        },
+                        "name": "hdfs-storage"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/opt/monitor-system-metrics/namenode2"
+                        },
+                        "name": "cephconf"
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      {
+         "apiVersion": "v1",
+         "kind": "Service",
+         "metadata": {
+            "annotations": { },
+            "labels": {
+               "app": "journalnode1-svc",
+               "name": "journalnode1"
+            },
+            "name": "journalnode1",
+            "namespace": "monitor-system-metrics"
+         },
+         "spec": {
+            "ports": [
+               {
+                  "name": "journal-rpc",
+                  "port": 8485
+               },
+               {
+                  "name": "journal-http",
+                  "port": 8480
+               }
+            ],
+            "selector": {
+               "app": "journalnode1-pod",
+               "name": "journalnode1"
+            }
+         }
+      },
+      {
+         "apiVersion": "v1",
+         "kind": "Service",
+         "metadata": {
+            "annotations": { },
+            "labels": {
+               "app": "journalnode2-svc",
+               "name": "journalnode2"
+            },
+            "name": "journalnode2",
+            "namespace": "monitor-system-metrics"
+         },
+         "spec": {
+            "ports": [
+               {
+                  "name": "journal-rpc",
+                  "port": 8485
+               },
+               {
+                  "name": "journal-http",
+                  "port": 8480
+               }
+            ],
+            "selector": {
+               "app": "journalnode2-pod",
+               "name": "journalnode2"
+            }
+         }
+      },
+      {
+         "apiVersion": "v1",
+         "kind": "Service",
+         "metadata": {
+            "annotations": { },
+            "labels": {
+               "app": "journalnode3-svc",
+               "name": "journalnode3"
+            },
+            "name": "journalnode3",
+            "namespace": "monitor-system-metrics"
+         },
+         "spec": {
+            "ports": [
+               {
+                  "name": "journal-rpc",
+                  "port": 8485
+               },
+               {
+                  "name": "journal-http",
+                  "port": 8480
+               }
+            ],
+            "selector": {
+               "app": "journalnode3-pod",
+               "name": "journalnode3"
+            }
+         }
+      },
+      {
+         "apiVersion": "extensions/v1beta1",
+         "kind": "Deployment",
+         "metadata": {
+            "annotations": { },
+            "labels": {
+               "app": "journalnode1-dp",
+               "name": "journalnode1"
+            },
+            "name": "journalnode1",
+            "namespace": "monitor-system-metrics"
+         },
+         "spec": {
+            "replicas": 1,
+            "selector": {
+               "matchLabels": {
+                  "app": "journalnode1-pod",
+                  "name": "journalnode1"
+               }
+            },
+            "template": {
+               "metadata": {
+                  "annotations": {
+                     "pod.beta.kubernetes.io/hostname": "journalnode1"
+                  },
+                  "labels": {
+                     "app": "journalnode1-pod",
+                     "name": "journalnode1"
+                  }
+               },
+               "spec": {
+                  "containers": [
+                     {
+                        "args": [ ],
+                        "command": [
+                           "/opt/entrypoint.sh"
+                        ],
+                        "env": [
+                           {
+                              "name": "HADOOP_SERVER_TYPE",
+                              "value": "journalnode"
+                           },
+                           {
+                              "name": "LOGPATTERN",
+                              "value": "^(?<year>[\\d]*)\/(?<month>[\\d]*)\/(?<day>[\\d]*)[\\s]*(?<time>[^\\s]*)[\\s]*(?<logLevel>[^\\s]*)[\\s]*(?<log>.*)$"
+                           },
+                           {
+                              "name": "LOGASSEMBLE",
+                              "value": "%logLevel%,%log%,<dateTime>20%year%-%month%-%day% %time%"
+                           }
+                        ],
+                        "image": "10.19.248.12:29006/tools/dep-centos7-hadoop-2.7.3:0.1",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "journalnode1",
+                        "ports": [ ],
+                        "resources": {
+                           "limits": {
+                              "cpu": "0",
+                              "memory": "0"
+                           },
+                           "requests": {
+                              "cpu": "0",
+                              "memory": "0"
+                           }
+                        },
+                        "volumeMounts": [
+                           {
+                              "mountPath": "/hdfs",
+                              "name": "hdfs-storage"
+                           },
+                           {
+                              "mountPath": "/tmp",
+                              "name": "tmp"
+                           },
+                           {
+                              "mountPath": "/opt/hadoop/etc/hadoop",
+                              "name": "cephconf"
+                           }
+                        ]
+                     }
+                  ],
+                  "nodeSelector": {
+                     "kubernetes.io/hostname": "10.19.248.35"
+                  },
+                  "volumes": [
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/journalnode1"
+                        },
+                        "name": "hdfs-storage"
+                     },
+                     {
+                        "emptyDir": { },
+                        "name": "tmp"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/opt/monitor-system-metrics/journalnode1"
+                        },
+                        "name": "cephconf"
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      {
+         "apiVersion": "extensions/v1beta1",
+         "kind": "Deployment",
+         "metadata": {
+            "annotations": { },
+            "labels": {
+               "app": "journalnode2-dp",
+               "name": "journalnode2"
+            },
+            "name": "journalnode2",
+            "namespace": "monitor-system-metrics"
+         },
+         "spec": {
+            "replicas": 1,
+            "selector": {
+               "matchLabels": {
+                  "app": "journalnode2-pod",
+                  "name": "journalnode2"
+               }
+            },
+            "template": {
+               "metadata": {
+                  "annotations": {
+                     "pod.beta.kubernetes.io/hostname": "journalnode2"
+                  },
+                  "labels": {
+                     "app": "journalnode2-pod",
+                     "name": "journalnode2"
+                  }
+               },
+               "spec": {
+                  "containers": [
+                     {
+                        "args": [ ],
+                        "command": [
+                           "/opt/entrypoint.sh"
+                        ],
+                        "env": [
+                           {
+                              "name": "HADOOP_SERVER_TYPE",
+                              "value": "journalnode"
+                           },
+                           {
+                              "name": "LOGPATTERN",
+                              "value": "^(?<year>[\\d]*)\/(?<month>[\\d]*)\/(?<day>[\\d]*)[\\s]*(?<time>[^\\s]*)[\\s]*(?<logLevel>[^\\s]*)[\\s]*(?<log>.*)$"
+                           },
+                           {
+                              "name": "LOGASSEMBLE",
+                              "value": "%logLevel%,%log%,<dateTime>20%year%-%month%-%day% %time%"
+                           }
+                        ],
+                        "image": "10.19.248.12:29006/tools/dep-centos7-hadoop-2.7.3:0.1",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "journalnode2",
+                        "ports": [ ],
+                        "resources": {
+                           "limits": {
+                              "cpu": "0",
+                              "memory": "0"
+                           },
+                           "requests": {
+                              "cpu": "0",
+                              "memory": "0"
+                           }
+                        },
+                        "volumeMounts": [
+                           {
+                              "mountPath": "/hdfs",
+                              "name": "hdfs-storage"
+                           },
+                           {
+                              "mountPath": "/tmp",
+                              "name": "tmp"
+                           },
+                           {
+                              "mountPath": "/opt/hadoop/etc/hadoop",
+                              "name": "cephconf"
+                           }
+                        ]
+                     }
+                  ],
+                  "nodeSelector": {
+                     "kubernetes.io/hostname": "10.19.248.36"
+                  },
+                  "volumes": [
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/journalnode2"
+                        },
+                        "name": "hdfs-storage"
+                     },
+                     {
+                        "emptyDir": { },
+                        "name": "tmp"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/opt/monitor-system-metrics/journalnode2"
+                        },
+                        "name": "cephconf"
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      {
+         "apiVersion": "extensions/v1beta1",
+         "kind": "Deployment",
+         "metadata": {
+            "annotations": { },
+            "labels": {
+               "app": "journalnode3-dp",
+               "name": "journalnode3"
+            },
+            "name": "journalnode3",
+            "namespace": "monitor-system-metrics"
+         },
+         "spec": {
+            "replicas": 1,
+            "selector": {
+               "matchLabels": {
+                  "app": "journalnode3-pod",
+                  "name": "journalnode3"
+               }
+            },
+            "template": {
+               "metadata": {
+                  "annotations": {
+                     "pod.beta.kubernetes.io/hostname": "journalnode3"
+                  },
+                  "labels": {
+                     "app": "journalnode3-pod",
+                     "name": "journalnode3"
+                  }
+               },
+               "spec": {
+                  "containers": [
+                     {
+                        "args": [ ],
+                        "command": [
+                           "/opt/entrypoint.sh"
+                        ],
+                        "env": [
+                           {
+                              "name": "HADOOP_SERVER_TYPE",
+                              "value": "journalnode"
+                           },
+                           {
+                              "name": "LOGPATTERN",
+                              "value": "^(?<year>[\\d]*)\/(?<month>[\\d]*)\/(?<day>[\\d]*)[\\s]*(?<time>[^\\s]*)[\\s]*(?<logLevel>[^\\s]*)[\\s]*(?<log>.*)$"
+                           },
+                           {
+                              "name": "LOGASSEMBLE",
+                              "value": "%logLevel%,%log%,<dateTime>20%year%-%month%-%day% %time%"
+                           }
+                        ],
+                        "image": "10.19.248.12:29006/tools/dep-centos7-hadoop-2.7.3:0.1",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "journalnode3",
+                        "ports": [ ],
+                        "resources": {
+                           "limits": {
+                              "cpu": "0",
+                              "memory": "0"
+                           },
+                           "requests": {
+                              "cpu": "0",
+                              "memory": "0"
+                           }
+                        },
+                        "volumeMounts": [
+                           {
+                              "mountPath": "/hdfs",
+                              "name": "hdfs-storage"
+                           },
+                           {
+                              "mountPath": "/tmp",
+                              "name": "tmp"
+                           },
+                           {
+                              "mountPath": "/opt/hadoop/etc/hadoop",
+                              "name": "cephconf"
+                           }
+                        ]
+                     }
+                  ],
+                  "nodeSelector": {
+                     "kubernetes.io/hostname": "10.19.248.39"
+                  },
+                  "volumes": [
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/journalnode3"
+                        },
+                        "name": "hdfs-storage"
+                     },
+                     {
+                        "emptyDir": { },
+                        "name": "tmp"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/opt/monitor-system-metrics/journalnode3"
+                        },
+                        "name": "cephconf"
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      {
+         "apiVersion": "extensions/v1beta1",
+         "kind": "Deployment",
+         "metadata": {
+            "annotations": { },
+            "labels": {
+               "app": "datanode1-dp",
+               "name": "datanode1"
+            },
+            "name": "datanode1",
+            "namespace": "monitor-system-metrics"
+         },
+         "spec": {
+            "replicas": 1,
+            "selector": {
+               "matchLabels": {
+                  "app": "datanode1-pod",
+                  "name": "datanode1"
+               }
+            },
+            "template": {
+               "metadata": {
+                  "annotations": {
+                     "dns/pod.enable": "true",
+                     "pod.beta.kubernetes.io/hostname": "datanode1"
+                  },
+                  "labels": {
+                     "app": "datanode1-pod",
+                     "name": "datanode1"
+                  }
+               },
+               "spec": {
+                  "containers": [
+                     {
+                        "args": [ ],
+                        "command": [
+                           "/opt/entrypoint.sh"
+                        ],
+                        "env": [
+                           {
+                              "name": "HADOOP_SERVER_TYPE",
+                              "value": "datanode"
+                           },
+                           {
+                              "name": "LOGPATTERN",
+                              "value": "^(?<year>[\\d]*)\/(?<month>[\\d]*)\/(?<day>[\\d]*)[\\s]*(?<time>[^\\s]*)[\\s]*(?<logLevel>[^\\s]*)[\\s]*(?<log>.*)$"
+                           },
+                           {
+                              "name": "LOGASSEMBLE",
+                              "value": "%logLevel%,%log%,<dateTime>20%year%-%month%-%day% %time%"
+                           }
+                        ],
+                        "image": "10.19.248.12:29006/tools/dep-centos7-hadoop-2.7.3:0.1",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "datanode1",
+                        "ports": [ ],
+                        "resources": {
+                           "limits": {
+                              "cpu": "0",
+                              "memory": "0"
+                           },
+                           "requests": {
+                              "cpu": "0",
+                              "memory": "0"
+                           }
+                        },
+                        "volumeMounts": [
+                           {
+                              "mountPath": "/mnt/ssd1",
+                              "name": "ssd1"
+                           },
+                           {
+                              "mountPath": "/mnt/hdd1",
+                              "name": "hdd1"
+                           },
+                           {
+                              "mountPath": "/mnt/hdd2",
+                              "name": "hdd2"
+                           },
+                           {
+                              "mountPath": "/mnt/hdd3",
+                              "name": "hdd3"
+                           },
+                           {
+                              "mountPath": "/mnt/data4",
+                              "name": "hdd4"
+                           },
+                           {
+                              "mountPath": "/mnt/data5",
+                              "name": "hdd5"
+                           },
+                           {
+                              "mountPath": "/opt/hadoop/etc/hadoop",
+                              "name": "cephconf"
+                           }
+                        ]
+                     }
+                  ],
+                  "nodeSelector": {
+                     "kubernetes.io/hostname": "10.19.248.35"
+                  },
+                  "volumes": [
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode1/ssd1/dn"
+                        },
+                        "name": "ssd1"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode1/hdd1/dn"
+                        },
+                        "name": "hdd1"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode1/hdd2/dn"
+                        },
+                        "name": "hdd2"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode1/hdd3/dn"
+                        },
+                        "name": "hdd3"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode1/data4/dn"
+                        },
+                        "name": "hdd4"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode1/data5/dn"
+                        },
+                        "name": "hdd5"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/opt/monitor-system-metrics/datanode1"
+                        },
+                        "name": "cephconf"
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      {
+         "apiVersion": "extensions/v1beta1",
+         "kind": "Deployment",
+         "metadata": {
+            "annotations": { },
+            "labels": {
+               "app": "datanode2-dp",
+               "name": "datanode2"
+            },
+            "name": "datanode2",
+            "namespace": "monitor-system-metrics"
+         },
+         "spec": {
+            "replicas": 1,
+            "selector": {
+               "matchLabels": {
+                  "app": "datanode2-pod",
+                  "name": "datanode2"
+               }
+            },
+            "template": {
+               "metadata": {
+                  "annotations": {
+                     "dns/pod.enable": "true",
+                     "pod.beta.kubernetes.io/hostname": "datanode2"
+                  },
+                  "labels": {
+                     "app": "datanode2-pod",
+                     "name": "datanode2"
+                  }
+               },
+               "spec": {
+                  "containers": [
+                     {
+                        "args": [ ],
+                        "command": [
+                           "/opt/entrypoint.sh"
+                        ],
+                        "env": [
+                           {
+                              "name": "HADOOP_SERVER_TYPE",
+                              "value": "datanode"
+                           },
+                           {
+                              "name": "LOGPATTERN",
+                              "value": "^(?<year>[\\d]*)\/(?<month>[\\d]*)\/(?<day>[\\d]*)[\\s]*(?<time>[^\\s]*)[\\s]*(?<logLevel>[^\\s]*)[\\s]*(?<log>.*)$"
+                           },
+                           {
+                              "name": "LOGASSEMBLE",
+                              "value": "%logLevel%,%log%,<dateTime>20%year%-%month%-%day% %time%"
+                           }
+                        ],
+                        "image": "10.19.248.12:29006/tools/dep-centos7-hadoop-2.7.3:0.1",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "datanode2",
+                        "ports": [ ],
+                        "resources": {
+                           "limits": {
+                              "cpu": "0",
+                              "memory": "0"
+                           },
+                           "requests": {
+                              "cpu": "0",
+                              "memory": "0"
+                           }
+                        },
+                        "volumeMounts": [
+                           {
+                              "mountPath": "/mnt/ssd1",
+                              "name": "ssd1"
+                           },
+                           {
+                              "mountPath": "/mnt/hdd1",
+                              "name": "hdd1"
+                           },
+                           {
+                              "mountPath": "/mnt/hdd2",
+                              "name": "hdd2"
+                           },
+                           {
+                              "mountPath": "/mnt/hdd3",
+                              "name": "hdd3"
+                           },
+                           {
+                              "mountPath": "/mnt/data4",
+                              "name": "hdd4"
+                           },
+                           {
+                              "mountPath": "/mnt/data5",
+                              "name": "hdd5"
+                           },
+                           {
+                              "mountPath": "/opt/hadoop/etc/hadoop",
+                              "name": "cephconf"
+                           }
+                        ]
+                     }
+                  ],
+                  "nodeSelector": {
+                     "kubernetes.io/hostname": "10.19.248.36"
+                  },
+                  "volumes": [
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode2/ssd1/dn"
+                        },
+                        "name": "ssd1"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode2/hdd1/dn"
+                        },
+                        "name": "hdd1"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode2/hdd2/dn"
+                        },
+                        "name": "hdd2"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode2/hdd3/dn"
+                        },
+                        "name": "hdd3"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode2/data4/dn"
+                        },
+                        "name": "hdd4"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode2/data5/dn"
+                        },
+                        "name": "hdd5"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/opt/monitor-system-metrics/datanode2"
+                        },
+                        "name": "cephconf"
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      {
+         "apiVersion": "extensions/v1beta1",
+         "kind": "Deployment",
+         "metadata": {
+            "annotations": { },
+            "labels": {
+               "app": "datanode3-dp",
+               "name": "datanode3"
+            },
+            "name": "datanode3",
+            "namespace": "monitor-system-metrics"
+         },
+         "spec": {
+            "replicas": 1,
+            "selector": {
+               "matchLabels": {
+                  "app": "datanode3-pod",
+                  "name": "datanode3"
+               }
+            },
+            "template": {
+               "metadata": {
+                  "annotations": {
+                     "dns/pod.enable": "true",
+                     "pod.beta.kubernetes.io/hostname": "datanode3"
+                  },
+                  "labels": {
+                     "app": "datanode3-pod",
+                     "name": "datanode3"
+                  }
+               },
+               "spec": {
+                  "containers": [
+                     {
+                        "args": [ ],
+                        "command": [
+                           "/opt/entrypoint.sh"
+                        ],
+                        "env": [
+                           {
+                              "name": "HADOOP_SERVER_TYPE",
+                              "value": "datanode"
+                           },
+                           {
+                              "name": "LOGPATTERN",
+                              "value": "^(?<year>[\\d]*)\/(?<month>[\\d]*)\/(?<day>[\\d]*)[\\s]*(?<time>[^\\s]*)[\\s]*(?<logLevel>[^\\s]*)[\\s]*(?<log>.*)$"
+                           },
+                           {
+                              "name": "LOGASSEMBLE",
+                              "value": "%logLevel%,%log%,<dateTime>20%year%-%month%-%day% %time%"
+                           }
+                        ],
+                        "image": "10.19.248.12:29006/tools/dep-centos7-hadoop-2.7.3:0.1",
+                        "imagePullPolicy": "IfNotPresent",
+                        "name": "datanode3",
+                        "ports": [ ],
+                        "resources": {
+                           "limits": {
+                              "cpu": "0",
+                              "memory": "0"
+                           },
+                           "requests": {
+                              "cpu": "0",
+                              "memory": "0"
+                           }
+                        },
+                        "volumeMounts": [
+                           {
+                              "mountPath": "/mnt/ssd1",
+                              "name": "ssd1"
+                           },
+                           {
+                              "mountPath": "/mnt/hdd1",
+                              "name": "hdd1"
+                           },
+                           {
+                              "mountPath": "/mnt/hdd2",
+                              "name": "hdd2"
+                           },
+                           {
+                              "mountPath": "/mnt/hdd3",
+                              "name": "hdd3"
+                           },
+                           {
+                              "mountPath": "/mnt/data4",
+                              "name": "hdd4"
+                           },
+                           {
+                              "mountPath": "/mnt/data5",
+                              "name": "hdd5"
+                           },
+                           {
+                              "mountPath": "/opt/hadoop/etc/hadoop",
+                              "name": "cephconf"
+                           }
+                        ]
+                     }
+                  ],
+                  "nodeSelector": {
+                     "kubernetes.io/hostname": "10.19.248.39"
+                  },
+                  "volumes": [
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode3/ssd1/dn"
+                        },
+                        "name": "ssd1"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode3/hdd1/dn"
+                        },
+                        "name": "hdd1"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode3/hdd2/dn"
+                        },
+                        "name": "hdd2"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode3/hdd3/dn"
+                        },
+                        "name": "hdd3"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode3/data4/dn"
+                        },
+                        "name": "hdd4"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/mnt/monitor-system-metrics/datanode3/data5/dn"
+                        },
+                        "name": "hdd5"
+                     },
+                     {
+                        "hostPath": {
+                           "path": "/opt/monitor-system-metrics/datanode3"
+                        },
+                        "name": "cephconf"
+                     }
+                  ]
+               }
+            }
+         }
+      }
+   ],
+   "kind": "List"
+}

@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_log}"
+jar {
+	baseName = 'enn-monitor-log-analyse-storage-client'
+}
+
+dependencies { 
+	compile libraries.enn_monitor_framework_common
+	compile libraries.enn_monitor_framework_log_core
+
+	compile libraries.grpc_netty
+	compile libraries.grpc_protobuf
+	compile libraries.grpc_stub
+	compile libraries.protobuf_java
+	compile libraries.protobuf_java_format
+	
+	compile libraries.enn_monitor_log_analyse_storage_proto
+	//compile project(":enn-monitor-log:enn-monitor-log-analyse-storage-proto")
+}
+

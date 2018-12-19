@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: monitor-elasticsearch-master-pv-%index%
+  namespace: %NAMESPACE%
+  annotations:
+    io.enndata.user/alpha-pvhostpathmountpolicy: "keep"
+    io.enndata.user/alpha-pvhostpathquotaforonepod: "true"
+  labels:
+    name: monitor-elasticsearch-master-%index%
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /

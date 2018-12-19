@@ -1,0 +1,50 @@
+apply plugin: 'java'
+apply plugin: 'fatjar'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.2'
+    }
+}
+
+build.dependsOn fatJar
+
+fatJar {
+    exclude 'META-INF/*.DSA'
+}
+
+repositories { 
+  mavenCentral()
+}
+
+dependencies { 
+    compile libraries.jcommander
+    compile libraries.gson
+    
+    compile libraries.enn_monitor_framework_ai_common
+    //compile libraries.enn_monitor_framework_ai_nn
+    
+    compile libraries.enn_monitor_framework_common
+    compile libraries.enn_monitor_framework_metrics_kubelet_proto
+    compile libraries.enn_monitor_framework_log_core
+    compile libraries.enn_monitor_framework_ai_nn
+    
+    compile project(":enn-monitor-log:enn-monitor-log-train:enn-monitor-log-train-common")
+    compile project(":enn-monitor-log:enn-monitor-log-analyse:enn-monitor-log-analyse-storage-client")
+    
+    compile project(":enn-monitor-log:enn-monitor-log-analyse:enn-monitor-log-analyse-proto")
+    
+    compile libraries.enn_monitor_config_service_client
+    compile libraries.enn_monitor_log_config_client
+    
+    compile libraries.enn_monitor_log_analyse_template_client
+    
+    compile libraries.enn_monitor_log_config_cache_client
+    
+    compile libraries.enn_monitor_log_train_master_client
+}
+

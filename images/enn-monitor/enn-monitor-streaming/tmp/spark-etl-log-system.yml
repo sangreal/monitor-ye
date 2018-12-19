@@ -1,0 +1,81 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spark-etl-log-system
+  namespace: monitor-system-log
+  labels:
+    name: spark-etl-log-system
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: spark-etl-log-system
+    spec:
+      containers:
+        - name: spark-etl-log-system
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 1
+              memory: 3Gi
+            requests:
+              cpu: 500m
+              memory: 2Gi
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.namespace"
+            - name: "METANAME"
+              value: "spark-etl-log-system"
+            - name: CEPH_PATH
+              value: /opt/ceph
+            - name: WORKSPACE
+              value: /opt/workspace
+            - name: JOB_JAR
+              value: enn-monitor-log-streaming-0.10.0-SNAPSHOT.jar
+            - name: JOB_SH
+              value: start-etl-log-system_1.sh
+            - name: SPARK_MASTER
+              value: spark://pre2-master1.monitor-essential-service:7077,pre2-master2.monitor-essential-service:7077,pre2-master3.monitor-essential-service:7077
+            - name: MAIN_CLASS
+              value: enn.monitor.log.streaming.Collector
+            - name: TOTAL_CORES
+              value: 3
+            - name: EXECUTOR_MEM
+              value: 2g
+            - name: EXECUTOR_CORES
+              value: 1
+            - name: MAX_RATE
+              value: 10000
+            - name: KAFKA
+              value: pre2-kafka1.monitor-essential-service:9092,pre2-kafka2.monitor-essential-service:9092,pre2-kafka3.monitor-essential-service:9092
+            - name: PROM_PUSH
+              value: "off"
+            - name: ES_URL
+              value: elasticsearch-client.monitor-essential-service:9300
+            - name: RECEIVER_COUNT
+              value: 1
+            - name: TOPIC_NAME
+              value: log-k8s-system
+            - name: ASYNC
+              value: "off"
+            - name: GROUP_ID
+              value: etl-log-system
+            - name: ES_BATCH
+              value: 1000
+            - name: RDD_PARTITION
+              value: 0
+            - name: SPARK_BATCH
+              value: 5
+          image: 10.19.140.200:29006/enncloud/monitor-streaming-jobs:0.9.0.release
+          ports:
+            - containerPort: 4040
+          volumeMounts:
+            - name: monitor-etl-log
+              mountPath: /opt/ceph
+          command:
+            - /opt/start.sh
+      storage:
+        - name: monitor-etl-log

@@ -1,0 +1,2 @@
+include 'enn-monitor-metric:enn-monitor-metric-app-streaming'
+include 'enn-monitor-metric:enn-monitor-metric-kubelet-streaming'

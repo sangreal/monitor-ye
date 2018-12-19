@@ -1,0 +1,13 @@
+source ../../common_script/funcs.sh
+
+addr=$(getClusterAddr)
+source ../$addr/common.sh
+
+cp ../../../tools/jdk-8u102-linux-x64.tar.gz jdk-8u102-linux-x64.tar.gz
+cp ../../../tools/zookeeper-3.4.9.tar.gz zookeeper-3.4.9.tar.gz
+
+docker build -t "$IMAGEURL" .
+docker push $IMAGEURL
+
+rm -rf jdk-8u102-linux-x64.tar.gz
+rm -rf zookeeper-3.4.9.tar.gz

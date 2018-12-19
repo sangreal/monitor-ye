@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    labels:
+        name: laikang-grafana
+    name: laikang-grafana
+    namespace: g-laikang-sh-qa
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            name: laikang-grafana
+    template:
+        metadata:
+            labels:
+                name: laikang-grafana
+        spec:
+            containers:
+                -
+                    name: laikang-grafana
+                    image: 10.19.248.12:29006/enncloud/monitor-grafana:yancheng-0.2
+                    imagePullPolicy: IfNotPresent
+                    resources:
+                        requests:
+                            memory: 1000Mi
+                            cpu: 500m
+                        limits:
+                            memory: 2000Mi
+                            cpu: 1000m
+                    env:
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: METANAME
+                            value: laikang-grafana
+                    ports:
+                        -
+                            containerPort: 3000
+                    volumeMounts:
+                        - 
+                            name: config-volume
+                            mountPath: /opt/conf
+                        - name: laikang-grafana-storage
+                          mountPath: /data/grafana
+                          subPath: laikang-grafana
+            volumes:
+                - 
+                    name: config-volume
+                    configMap:
+                        name: grafana-conf
+            storage:
+                - name: laikang-grafana-storage

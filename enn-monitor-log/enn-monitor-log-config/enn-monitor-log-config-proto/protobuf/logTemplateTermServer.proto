@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.config.template.term.server";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogConfigTemplateTermConnection";
+
+import "protobuf/logTemplateTermParameters.proto";
+
+service EnnMonitorLogConfigTemplateTermServer {
+    // get TemplateTerm
+    rpc GetTemplateTerm (EnnMonitorLogConfigTemplateTermGetRequest) returns (EnnMonitorLogConfigTemplateTermGetResponse) {}
+    
+    // create TemplateTerm
+    rpc CreateTemplateTerm (EnnMonitorLogConfigTemplateTermCreateRequest) returns (EnnMonitorLogConfigTemplateTermCreateResponse) {}
+    
+    // delete TemplateTerm
+    rpc DeleteTemplateTerm (EnnMonitorLogConfigTemplateTermDeleteRequest) returns (EnnMonitorLogConfigTemplateTermDeleteResponse) {}
+
+}

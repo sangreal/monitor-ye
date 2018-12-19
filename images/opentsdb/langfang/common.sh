@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+IMAGEURL=10.19.248.12:29006/enncloud/monitor-opentsdb:langfang-0.1
+HOST="10.19.248.12 10.19.248.15 10.19.248.25"
+PORT=30242
+
+CPUREQ="500m"
+CPULIMIT="500m"
+
+MEMREQ="2000Mi"
+MEMLIMIT="2000Mi"

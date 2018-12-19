@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+IMAGEURL=10.19.248.12:29006/enncloud/chandao:0.9.4-RELEASE
+
+CPUREQ="500m"
+CPULIMIT="3000m"
+
+MEMREQ="1000Mi"
+MEMLIMIT="4000Mi"

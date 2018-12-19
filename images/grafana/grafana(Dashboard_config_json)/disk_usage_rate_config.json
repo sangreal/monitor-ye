@@ -1,0 +1,68 @@
+{
+  "columns": [
+    {
+      "text": "Current",
+      "value": "current"
+    }
+  ],
+  "datasource": "Prometheus",
+  "fontSize": "100%",
+  "id": 2,
+  "links": [],
+  "pageSize": null,
+  "scroll": true,
+  "showHeader": true,
+  "sort": {
+    "col": 1,
+    "desc": true
+  },
+  "span": 3,
+  "styles": [
+    {
+      "alias": "disk使用量",
+      "colorMode": "row",
+      "colors": [
+        "rgba(50, 172, 45, 0.97)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(245, 54, 54, 0.9)"
+      ],
+      "dateFormat": "YYYY-MM-DD HH🇲🇲ss",
+      "decimals": 2,
+      "pattern": "Current",
+      "thresholds": [
+        "0.75",
+        "0.9"
+      ],
+      "type": "number",
+      "unit": "percentunit"
+    },
+    {
+      "alias": "",
+      "colorMode": null,
+      "colors": [
+        "rgba(245, 54, 54, 0.9)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(50, 172, 45, 0.97)"
+      ],
+      "decimals": 2,
+      "pattern": "/.*/",
+      "thresholds": [],
+      "type": "number",
+      "unit": "short"
+    }
+  ],
+  "targets": [
+    {
+      "expr": "label_replace(1-disk_available/disk_capacity >= 0.75, \"disk\", \"$2\", \"devfs\", \"(.*%2F|^)(.*)$\")",
+      "format": "time_series",
+      "intervalFactor": 2,
+      "legendFormat": "{{host}}/{{disk}}",
+      "metric": "",
+      "refId": "A",
+      "step": 10
+    }
+  ],
+  "title": "物理机磁盘使用量报警",
+  "transform": "timeseries_aggregations",
+  "type": "table"
+}

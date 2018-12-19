@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: mongo%MONGO_NUM%
+    namespace: '%NAMESPACE%'
+    labels:
+        app: mongo
+        name: mongo%MONGO_NUM%
+        tier: backend
+spec:
+    type: NodePort
+    ports:
+        -
+            name: p1
+            port: 27017
+            port: 2932%MONGO_NUM%
+    selector:
+        name: mongo%MONGO_NUM%
+

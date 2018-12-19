@@ -1,0 +1,129 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.config.serviceLine.parameters";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorConfigServiceLineParameters";
+
+enum EnnMonitorConfigServiceLineStatus {
+    ServiceLineDefault = 0;
+    ServiceLineRunning = 1;
+    ServiceLineDeleting = 2;
+}
+
+message EnnMonitorConfigServiceLineTable {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+    
+    EnnMonitorConfigServiceLineStatus status = 3;
+    
+    string serviceLineName = 4;
+    uint64 belongToCluster = 5;
+    
+    uint64 createTime = 6;
+    uint64 lastUpdateTime = 7;
+    string createUser = 8;
+    string lastUpdateUser = 9;
+}
+
+// get service line
+message EnnMonitorConfigServiceLineGetRequest {
+    uint64 id = 1;
+    
+    EnnMonitorConfigServiceLineStatus status = 2;
+	string serviceLineName = 3;
+	uint64 belongToCluster = 4;
+	
+    string createUser = 5;
+    string lastUpdateUser = 6;
+}
+
+message EnnMonitorConfigServiceLineGetResponse {
+    bool isSuccess = 1;
+    repeated EnnMonitorConfigServiceLineTable serviceLineTable = 2;
+    string error = 3;
+}
+
+// create service line
+message EnnMonitorConfigServiceLineCreateRequest {
+	string serviceLineName = 1;
+	uint64 belongToCluster = 2;
+	string createUser = 3;
+}
+
+message EnnMonitorConfigServiceLineCreateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+// update service line
+message EnnMonitorConfigServiceLineUpdateRequest {
+    uint64 id = 1;
+	EnnMonitorConfigServiceLineStatus status = 2;
+    string serviceLineName = 3;
+    uint64 belongToCluster = 4;
+    string lastUpdateUser = 5;
+}
+
+message EnnMonitorConfigServiceLineUpdateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+// delete serviceLine
+message EnnMonitorConfigServiceLineDeleteRequest {
+    uint64 id = 1;
+    string lastUpdateUser = 2;
+}
+
+message EnnMonitorConfigServiceLineDeleteResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+// get max deleted seqno
+message EnnMonitorConfigServiceLineGetMaxDeletedRequest {
+}
+
+message EnnMonitorConfigServiceLineGetMaxDeletedResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    uint64 seqNo = 3;
+}
+
+// get valid data list
+message EnnMonitorConfigServiceLineGetValidDataListRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorConfigServiceLineGetValidDataListResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    repeated EnnMonitorConfigServiceLineTable serviceLineTableList = 3;
+}
+
+// get delete data list
+message EnnMonitorConfigServiceLineGetDeletedDataListRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorConfigServiceLineGetDeletedData {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+}
+
+message EnnMonitorConfigServiceLineGetDeletedDataListResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    repeated EnnMonitorConfigServiceLineGetDeletedData deletedDataList = 3;
+}
+
+message EnnMonitorConfigServiceLineCheckServiceLineIsExistedOrNotRequest {
+    string serviceLineName = 2;
+}
+
+message EnnMonitorConfigServiceLineCheckServiceLineIsExistedOrNotResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}

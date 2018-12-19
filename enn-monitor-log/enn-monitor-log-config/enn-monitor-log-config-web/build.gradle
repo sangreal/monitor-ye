@@ -1,0 +1,25 @@
+apply plugin: 'war'
+
+dependencies { 
+    compile libraries.enn_monitor_log_config_proto
+    compile libraries.enn_monitor_log_config_client
+    compile libraries.enn_monitor_log_normalizing_client
+    
+    compile libraries.commons_fileupload
+
+  	compile libraries.spring_aop
+  	compile libraries.spring_beans
+  	compile libraries.spring_context
+  	compile libraries.spring_core
+  	compile libraries.spring_expression
+  	compile libraries.spring_web
+  	compile libraries.spring_webmvc
+
+	compile libraries.log4j_api
+	compile libraries.log4j_jcl
+
+  	compile libraries.servlet_api
+  	runtime libraries.jps_api
+  	runtime libraries.jstl
+}
+

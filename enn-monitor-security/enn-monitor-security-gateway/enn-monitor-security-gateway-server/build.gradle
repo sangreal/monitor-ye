@@ -1,0 +1,76 @@
+apply plugin: 'java'
+apply plugin: 'fatjar'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.2'
+    }
+}
+
+build.dependsOn fatJar
+
+fatJar {
+    exclude 'META-INF/*.DSA'
+}
+
+repositories { 
+  mavenCentral()
+}
+
+dependencies { 
+    compile (libraries.enn_monitor_framework_common) {
+        exclude group: 'io.netty'
+        exclude group: 'log4j'
+    }
+    compile (libraries.enn_monitor_framework_kafka) {
+        exclude group: 'log4j'
+    }
+
+    compile (libraries.enn_monitor_framework_log_core) {
+        exclude group: 'log4j'
+    }
+    compile (libraries.enn_monitor_security_gateway_proto) {
+        exclude group: 'log4j'
+    }
+    compile (libraries.enn_monitor_config_business_client) {
+        exclude group: 'log4j'
+    }
+    compile (libraries.enn_monitor_config_service_client) {
+        exclude group: 'log4j'
+    }
+    
+    compile (libraries.enn_monitor_security_gateway_client) {
+        exclude group: 'log4j'
+    }
+    
+    compile libraries.jcommander
+    
+	compile libraries.log4j_api
+	compile libraries.log4j_jcl
+	
+	compile (libraries.grpc_netty) {
+        exclude group: 'log4j'
+    }
+	compile (libraries.grpc_protobuf) {
+        exclude group: 'log4j'
+    }
+	compile (libraries.grpc_stub) {
+        exclude group: 'log4j'
+    }
+	compile (libraries.protobuf_java) {
+        exclude group: 'log4j'
+    }
+	compile (libraries.protobuf_java_format) {
+        exclude group: 'log4j'
+    }
+
+    compile (libraries.enn_monitor_framework_trace) {
+        exclude group: 'io.netty'
+        exclude group: 'log4j'
+    }
+}
+

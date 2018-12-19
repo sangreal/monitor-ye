@@ -1,0 +1,15 @@
+apply plugin: 'java'
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_trace}"
+jar {
+    baseName = 'enn-monitor-trace-proto'
+}
+
+dependencies {
+//    compile libraries.gson
+    compile 'com.google.code.gson:gson:2.8.2'
+
+    compile 'enn-monitor:enn-monitor-framework-common:0.9.3.trace-SNAPSHOT'
+}
+

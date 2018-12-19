@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_framework}"
+jar {
+	baseName = 'enn-monitor-framework-trace'
+}
+
+dependencies {
+	compile libraries.google_inject
+	compile libraries.gson
+	compile libraries.bytebuddy
+
+	compile libraries.zipkin_brave
+	compile libraries.zipkin_brave_instrumentation_grpc
+	compile libraries.zipkin_brave_instrumentation_servlet
+	compile libraries.zipkin_brave_instrumentation_httpclient
+	compile libraries.zipkin_brave_instrumentation_kafkaclients
+	compile libraries.zipkin2_okhttp
+	compile libraries.zipkin2_kafka11
+
+	compile libraries.grpc_core
+	compile libraries.grpc_netty
+	compile libraries.grpc_protobuf
+	compile libraries.grpc_stub
+
+	compile libraries.servlet_api
+	compile libraries.httpclient
+
+	compile libraries.log4j_api
+	compile libraries.log4j_jcl
+	compile libraries.log4j_core
+//	compile project(":enn-monitor-framework:enn-monitor-framework-common")
+	compile('enn-monitor:enn-monitor-framework-common:0.9.3.trace-SNAPSHOT'){
+		exclude group: 'org.apache.logging.log4j'
+		exclude group: 'org.slf4j'
+	}
+}
+

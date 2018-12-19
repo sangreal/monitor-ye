@@ -1,0 +1,65 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    name: mongo%MONGO_NUM%
+    namespace: %NAMESPACE%
+    labels:
+        name: mongo%MONGO_NUM%
+spec:
+    replicas: 1
+    template:
+        metadata:
+            labels:
+                name: mongo%MONGO_NUM%
+            annotations:
+                pod.beta.kubernetes.io/hostname: mongo%MONGO_NUM%
+        spec:
+            containers:
+                -
+                    name: mongo%MONGO_NUM%
+                    image: %IMAGEURL%
+                    imagePullPolicy: IfNotPresent
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    env:
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: PODNAME
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.name
+                        -
+                            name: METANAME
+                            value: mongo%MONGO_NUM%
+                        -
+                            name: GATEWAYTOKEN
+                            value: 'F2179D39ABE5BC22AB856AA778D02E35'
+                    ports:
+                        -
+                            name: p1
+                            containerPort: 27017
+                    volumeMounts:
+                        -
+                            name: mongo-storage
+                            mountPath: /data/db
+                        - 
+                            name: config-volume
+                            mountPath: /opt/conf
+            volumes:
+                -
+                    name: mongo-storage
+                    persistentVolumeClaim:
+                        claimName: monitor-security-mongo-pvc
+                - 
+                    name: config-volume
+                    configMap:
+                        name: mongo-conf

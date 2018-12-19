@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+IMAGEURL=127.0.0.1:29006/enncloud/elasticsearch-fluent-bit-0.12:0.8.2-RELEASE
+K8SAPISERVER=https://10.38.64.132:6443
+K8SUSERNAME=admin
+K8SPWD=admin
+
+GATEWAYSERVER=10.38.240.28
+GATEWAYPORT=30111
+
+CLUSTERNAME=enn-cluster
+
+DOCKERLOGPATH=/var/lib/docker/containers
+
+CPUREQ="500m"
+CPULIMIT="1500m"
+
+MEMREQ="500Mi"
+MEMLIMIT="10000Mi"

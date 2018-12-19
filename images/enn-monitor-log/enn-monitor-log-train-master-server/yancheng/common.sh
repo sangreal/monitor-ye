@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+IMAGEURL=10.19.248.12:29006/enncloud/enn-monitor-log-train-master-server:0.10.7-RELEASE
+NUM=1
+
+LISTENPORT=10000
+EXTERNPORT=29302
+
+CPUREQ="300m"
+CPULIMIT="1500m"
+
+MEMREQ="1G"
+MEMLIMIT="4G"

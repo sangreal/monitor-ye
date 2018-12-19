@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+IMAGEURL=10.19.248.12:29006/enncloud/enn-monitor-log-config-server:0.10.21-RELEASE
+NUM=1
+
+LISTENPORT=10000
+EXTERNPORT=29415
+
+CPUREQ="300m"
+CPULIMIT="1000m"
+
+MEMREQ="1G"
+MEMLIMIT="1G"

@@ -1,0 +1,54 @@
+apply plugin: 'java'
+apply plugin: 'fatjar'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.2'
+    }
+}
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_streaming}"
+jar {
+    baseName = 'enn-monitor-log-event-extraction'
+}
+
+build.dependsOn fatJar
+
+fatJar {
+    exclude 'META-INF/*.DSA'
+    zip64 = true
+}
+
+dependencies {
+    compile fileTree(dir: "../../libs/bcprov_jdk15on",include: '*.jar')
+    compile (libraries.gson)
+    compile (libraries.jcommander)
+    compile (libraries.log4j_api)
+    compile (libraries.log4j_jcl)
+    compile (libraries.log4j_core)
+
+    compile (libraries.spark_core_2_11) {
+        exclude group: 'org.slf4j'
+        exclude group: 'log4j'
+    }
+    compile (libraries.spark_streaming_2_11)
+    compile (libraries.spark_streaming_2_11_kafka10)
+    compile (libraries.spark_sql_2_11_kafka10)
+    compile (libraries.spark_ml_2_11)
+    compile (libraries.elasticsearch_spark_2_11) {
+        exclude group: 'org.slf4j'
+        exclude group: 'log4j'
+    }
+
+    compile (libraries.enn_monitor_framework_log_proto)
+    compile (libraries.enn_monitor_streaming_common)
+    compile (libraries.enn_monitor_streaming_sink_opentsdb)
+    compile (libraries.enn_monitor_security_gateway_proto)
+    compile (libraries.enn_monitor_security_gateway_client)
+}
+

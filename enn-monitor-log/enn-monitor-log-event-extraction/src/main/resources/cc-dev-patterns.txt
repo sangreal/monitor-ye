@@ -1,0 +1,19 @@
+# line format: "$eventType###$pattern_str"
+Exception.Access.Kafka.Timeout###Failed to process status from kafka Timed out
+Exception.Access.Kafka.BrokerUnavailable###clients Connection could not be established Broker not available
+Request.Kafka.CommitOffset###kafka clients sendOffsetCommitRequest
+Request.Audit###RequestAuditMessage service requestId userId
+Exception.Access.Etcd###etcdserver failed to create client transport
+Process.PV.Controller###controller started pv processing
+Process.PV.CSI###csi_handler processing PV
+Success.Kafka.Coordinate###ConsumerCoordinator onSuccess
+Exception.Process.Kafka.CommitOffset###ConsumerCoordinator Offset commit failed for group
+Exception.Process.Kafka.CommitOffset###CommitFailedException Commit cannot be completed group already rebalanced
+Connection.Rabbit###rabbit Attempting connect
+Ignore.Process.PV###csi_handler processing PV ignoring
+Exception.Connection.Rabbit###rabbit ConnectException
+Exception.All.Rabbit###rabbit exception
+Exception.Token.Invalid###token invalid
+Query.Notification###NotificationEndpoint queries
+Discovery.Coordinator###Discovered coordinator
+Status.Kafka.StabilizedGroup###Stabilized group GroupCoordinator

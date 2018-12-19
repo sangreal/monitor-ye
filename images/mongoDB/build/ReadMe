@@ -1,0 +1,5 @@
+first create mongoDb, need exec
+
+/opt/mongodb-linux-x86_64-ubuntu1604-3.4.2/bin/mongo /opt/conf/mongo.js
+
+in the pod

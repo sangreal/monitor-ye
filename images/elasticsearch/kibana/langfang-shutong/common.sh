@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+IMAGEURL="10.38.240.34:29006/enncloud/kibana:0.4.0-RELEASE"
+
+CPUREQ="500m"
+CPULIMIT="5000m"
+
+MEMREQ="2000Mi"
+MEMLIMIT="10000Mi"

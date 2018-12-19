@@ -1,0 +1,37 @@
+RegexStatement = StartLine?(Statement | SegmentStatement)*EndLine?
+
+SegmentStatement = (?<\w+>(Statement)*)
+
+Statement = BlockStatement(QualifierStatement)?
+
+BlockStatement = BracketStatement | ParenthesisStatement | TerminatorStatement
+
+BracketStatement = [BracketSentence]
+BracketSentence = BracketNotSymbol?BracketExpression
+BracketExpression = BracketTerm*
+BracketTerm = BracketWord | BracketWord - BracketWord | RegexWord
+
+BracketWord = ^BracketKeyword
+BracketNotSymbol =^
+BracketKeyword = ^ | - |  [ | ]
+
+ParenthesisStatement =(ParenthesisSentence)
+ParenthesisSentence = ParenthesisExpression (| ParenthesisExpression)*
+ParenthesisExpression =(ParenthesisWord | RegexWord | CommonWord | \ParenthesisKeyword)+
+
+ParenthesisWord = ^ParenthesisKeyword
+ParenthesisKeyword = | | ( | ) | CommonWord
+
+TerminatorStatement = TerminatorStatementWord | \Keyword | CommonWord | RegexWord
+
+TerminatorStatementWord = ^Keyword
+
+QualifierStatement =    {\d} | + | ? | * 
+
+CommonWord = .
+RegexWord =     \s | \S | \d | \D | \w | \W
+
+StartLine = ^
+EndLine = $
+
+Keyword = \ | ^ | $ | * | + | [ | ] | ( | ) | { | } | CommonWord | ?

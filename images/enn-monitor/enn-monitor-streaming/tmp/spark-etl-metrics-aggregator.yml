@@ -1,0 +1,71 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spark-etl-metrics-aggregator
+  namespace: monitor-system-metrics
+  labels:
+    name: spark-etl-metrics-aggregator
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: spark-etl-metrics-aggregator
+    spec:
+      containers:
+        - name: spark-etl-metrics-aggregator
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 1
+              memory: 3Gi
+            requests:
+              cpu: 500m
+              memory: 2Gi
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.namespace"
+            - name: "METANAME"
+              value: "spark-etl-metrics-aggregator"
+            - name: CEPH_PATH
+              value: /opt/ceph
+            - name: WORKSPACE
+              value: /opt/workspace
+            - name: JOB_JAR
+              value: enn-monitor-metric-kubelet-streaming-0.10.0-SNAPSHOT.jar
+            - name: JOB_SH
+              value: start-etl-metrics-aggregator_1.sh
+            - name: SPARK_MASTER
+              value: spark://pre2-master1.monitor-essential-service:7077,pre2-master2.monitor-essential-service:7077,pre2-master3.monitor-essential-service:7077
+            - name: MAIN_CLASS
+              value: enn.monitor.metric.kubelet.streaming.Aggregator
+            - name: TOTAL_CORES
+              value: 3
+            - name: EXECUTOR_MEM
+              value: 3g
+            - name: EXECUTOR_CORES
+              value: 1
+            - name: MAX_RATE
+              value: 1000
+            - name: KAFKA
+              value: pre2-kafka1.monitor-essential-service:9092,pre2-kafka2.monitor-essential-service:9092,pre2-kafka3.monitor-essential-service:9092
+            - name: OPENTSDB_URL
+              value: monitoring-opentsdb.monitor-essential-service:4242
+            - name: TOPIC_NAME
+              value: k8s-kubelet
+            - name: GROUP_ID
+              value: etl-agg
+            - name: GATEWAYTOKEN
+              value: "174E305D9A1AFD1E626CA19792C6177F"
+          image: 10.19.140.200:29006/enncloud/monitor-streaming-jobs:0.9.0.release
+          ports:
+            - containerPort: 4040
+          volumeMounts:
+            - name: monitor-etl-metrics
+              mountPath: /opt/ceph
+          command:
+            - /opt/start.sh
+      storage:
+        - name: monitor-etl-metrics

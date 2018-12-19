@@ -1,0 +1,7 @@
+logFormat= logItem,logItem,logItem
+logItem= logKey?logValue 
+logKey= <\w+>  # logValue= [^$%]*logField[[^$%]|logField]* 
+logField= logFunction| logVariable  # logFunction= $variable$ 
+logVariable= %variable\[logReplace[/logReplace]*\]% 
+logReplace= \w+ : \w+ 
+variable = \w+

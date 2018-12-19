@@ -1,0 +1,43 @@
+apply plugin: 'java'
+apply plugin: 'fatjar'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.2'
+    }
+}
+
+build.dependsOn fatJar
+
+fatJar {
+    exclude 'META-INF/*.DSA'
+    zip64 = true
+}
+
+dependencies {
+    compile (libraries.gson)
+    compile (libraries.jcommander)
+    compile (libraries.log4j_api)
+    compile (libraries.log4j_jcl)
+    compile (libraries.log4j_core)
+
+    compile (libraries.spark_streaming_2_11)
+    compile (libraries.spark_streaming_2_11_kafka10)
+
+    compile (libraries.enn_monitor_framework_log_proto)
+    compile (libraries.enn_monitor_framework_log_core)
+    compile (libraries.enn_monitor_streaming_common)
+    
+    compile libraries.netlit_java
+    compile libraries.spark_ml_2_11
+    compile libraries.spark_sql_2_11
+    
+    compile libraries.enn_monitor_security_gateway_client
+
+    compile libraries.elasticsearch_spark_2_11_532
+}
+

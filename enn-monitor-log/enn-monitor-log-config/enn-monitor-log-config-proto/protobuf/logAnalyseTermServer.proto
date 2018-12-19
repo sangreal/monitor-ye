@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.config.analyse.term.server";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogConfigAnalyseTermConnection";
+
+import "protobuf/logAnalyseTermParameters.proto";
+
+service EnnMonitorLogConfigAnalyseTermServer {
+
+    // get AnalyseTerm
+    rpc GetAnalyseTerm (EnnMonitorLogConfigAnalyseTermGetRequest) returns (EnnMonitorLogConfigAnalyseTermGetResponse) {}
+    
+    // create AnalyseTerm
+    rpc CreateAnalyseTerm (EnnMonitorLogConfigAnalyseTermCreateRequest) returns (EnnMonitorLogConfigAnalyseTermCreateResponse) {}
+    
+    // update AnalyseTerm
+    rpc UpdateAnalyseTerm (EnnMonitorLogConfigAnalyseTermUpdateRequest) returns (EnnMonitorLogConfigAnalyseTermUpdateResponse) {}
+    
+    // delete AnalyseTerm
+    rpc DeleteAnalyseTerm (EnnMonitorLogConfigAnalyseTermDeleteRequest) returns (EnnMonitorLogConfigAnalyseTermDeleteResponse) {}
+
+}

@@ -1,0 +1,112 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    name: elasticsearch-data
+    namespace: %NAMESPACE%
+    labels:
+        name: elasticsearch-data
+spec:
+    replicas: %DATANUM%
+    strategy:
+        type: RollingUpdate
+        maxUnavailable: 1
+        maxSurge: 0
+    template:
+        metadata:
+            labels:
+                name: elasticsearch-data
+        spec:
+            containers:
+                -
+                    image: %imageurl%
+                    name: elasticsearch-data
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    securityContext:
+                        privileged: true
+                        capabilities:
+                            add:
+                                - IPC_LOCK
+                    env:
+                        -
+                            name: ES_NETWORK_WORK
+                            value: '%ES_NETWORK_WORK%'
+                        -
+                            name: PUBLISH_HOST
+                            value: '%PUBLISH_HOST%'
+                        -
+                            name: PUBLISH_PORT
+                            value: '%PUBLISH_PORT%'
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: XMS
+                            value: '-Xms%DATAJVMMEM%'
+                        -
+                            name: XMX
+                            value: '-Xmx%DATAJVMMEM%'
+                        -
+                            name: METANAME
+                            value: elasticsearch-data
+                        -
+                            name: PODNAME
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.name
+                        -
+                            name: NODE_NAME
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.name
+                        -
+                            name: NODE_MASTER
+                            value: 'false'
+                        -
+                            name: NODE_DATA
+                            value: 'true'
+                        -
+                            name: NODE_INGEST
+                            value: 'false'
+                        -
+                            name: SEARCH_REMOTE_CONNECT
+                            value: 'true'
+                        -
+                            name: GATEWAYTOKEN
+                            value: 'micklongen-elasticsearch-token'
+                    command:
+                        - /bin/sh
+                        - '-c'
+                    args:
+                        - '/opt/start.sh; su es -c "export JAVA_HOME=/opt/jdk1.8.0_102/bin;export JRE_HOME=/opt/jdk1.8.0_102/jre/bin;export PATH=$PATH:$JAVA_HOME:$JRE_HOME;/opt/elasticsearch-5.4.0/bin/elasticsearch -EnableMetrics -TokenIp=%TokenIp% -TokenPort=%TokenPort% -MetricsFreq=1 -Token=%Token%"'
+                    ports:
+                        -
+                            name: db
+                            containerPort: 9200
+                        -
+                            name: transport
+                            containerPort: 9300
+                    volumeMounts:
+                        -
+                            name: es-persistent-storage
+                            mountPath: /data/db
+                        - 
+                            name: config-volume
+                            mountPath: /opt/conf
+            volumes:
+                -
+                    name: es-persistent-storage
+                    persistentVolumeClaim:
+                        claimName: monitor-elasticsearch-data-pvc
+                - 
+                    name: config-volume
+                    configMap:
+                        name: es-conf
+

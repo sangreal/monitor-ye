@@ -1,0 +1,44 @@
+# line format: "$eventType###$pattern_str"
+Warn.UpstreamServer.TempDisabled###upstream server temporarily disabled
+Process.Paxosservice.Upgraded###paxosservice refresh upgraded
+Process.Scrub.Ok###log scrub ok
+Report.Rocksdb.Compaction.Finished###rocksdb event compaction_finished
+Report.Server.ToStandby###fault server going to standby
+Process.Start.Request###starting new request
+Process.Rocksdb.Compaction.SyncingLog###rocksdb Syncing log
+Process.Rocksdb.Compaction.Interval###Interval compaction write read
+Process.Rocksdb.Compaction.FlushMemToFile###rocksdb FlushMemTableToOutputFile
+Process.Rocksdb.MemTable.Created###rocksdb memtable created
+Process.Rocksdb.MemTable.Created###rocksdb memtable created
+Process.Rocksdb.Compaction.L1###rocksdb compacting files to L1
+Process.Rocksdb.Compaction.L2###rocksdb compacting files to L2
+Warn.SlowRequest.Client###slow request client_request
+Process.Rocksdb.Compaction.Start###rocksdb Compaction start
+Process.Rocksdb.Compaction.OK###rocksdb compacted OK
+Process.Rocksdb.Compaction.Manual###rocksdb Manual compaction
+Process.Rocksdb.GeneratTable###rocksdb Generated table
+Process.Rocksdb.L0.CommitSuccess###rocksdb Level-0 commit table done
+Process.Rocksdb.L0.FlushStart###rocksdb Level-0 flush table started
+Process.Mon.Rank###starting mon rank
+Process.Rocksdb.Delete.WAL###rocksdb delete WAL files
+Process.Rocksdb.StopWrite.WaitFlush###rocksdb Stopping writes waiting for flush
+Report.Connection.Accept###accept connect_seq
+Process.Rocksdb.Compaction.Start2###rocksdb EVENT_LOG_V1 compaction_started
+Exception.UpstreamServer.Connect###error connect failed
+Process.MDSStandby.Replay.Done###mds replay_done standby
+Process.Rocksdb.Compaction.MovingTo.L1###rocksdb Moving to level-1
+Report.Request.Done###req done http_status 200
+Report.Cluster.NewLeader###cluster mon is new leader
+Exception.Cephx.CouldNotFindEntity###cephx server couldn't find entity
+Process.Rocksdb.Compaction.MovedTo.L1###rocksdb Moved files to level-1 OK
+Report.OsdPool.Enable###audit osd pool application enable
+Process.Rocksdb.TableFileCreate###rocksdb table_file_creation
+Process.CheckSub.SendingToClient###mon check_sub sending message to client
+Warn.Paxos.Recovering###mon paxos recovering
+
+
+
+
+
+
+

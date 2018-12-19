@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: k%KAFKA_NUM%
+    namespace: %NAMESPACE%
+    labels:
+        app: k%KAFKA_NUM%
+        name: k%KAFKA_NUM%-svc
+        tier: backend
+spec:
+    type: NodePort
+    ports:
+        -
+            name: p1
+            port: 9092
+            nodePort: %KAFKA_PORT1%
+        -
+            name: p2
+            port: 22
+    selector:
+        name: k%KAFKA_NUM%
+

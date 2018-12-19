@@ -1,0 +1,81 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spark-etl-log-system
+  namespace: monitor-system-log
+  labels:
+    name: spark-etl-log-system
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: spark-etl-log-system
+    spec:
+      containers:
+        - name: spark-etl-log-system
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: %CPU_LIMIT_LOG_SYSTEM%
+              memory: %MEM_LIMIT_LOG_SYSTEM%
+            requests:
+              cpu: %CPU_REQ_LOG_SYSTEM%
+              memory: %MEM_REQ_LOG_SYSTEM%
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.namespace"
+            - name: "METANAME"
+              value: "spark-etl-log-system"
+            - name: CEPH_PATH
+              value: %CEPH_PATH%
+            - name: WORKSPACE
+              value: %WORKSPACE%
+            - name: JOB_JAR
+              value: %JOB_JAR%
+            - name: JOB_SH
+              value: %JOB_SH%
+            - name: SPARK_MASTER
+              value: %SPARK_MASTER%
+            - name: MAIN_CLASS
+              value: %MAIN_CLASS%
+            - name: TOTAL_CORES
+              value: %TOTAL_CORES%
+            - name: EXECUTOR_MEM
+              value: %EXECUTOR_MEM%
+            - name: EXECUTOR_CORES
+              value: %EXECUTOR_CORES%
+            - name: MAX_RATE
+              value: %MAX_RATE%
+            - name: KAFKA
+              value: %KAFKA%
+            - name: PROM_PUSH
+              value: "%PROM_PUSH%"
+            - name: ES_URL
+              value: %ES_URL%
+            - name: RECEIVER_COUNT
+              value: %RECEIVER_COUNT%
+            - name: TOPIC_NAME
+              value: %TOPIC_NAME%
+            - name: ASYNC
+              value: "%ASYNC%"
+            - name: GROUP_ID
+              value: %GROUP_ID%
+            - name: ES_BATCH
+              value: %ES_BATCH%
+            - name: RDD_PARTITION
+              value: %RDD_PARTITION%
+            - name: SPARK_BATCH
+              value: %SPARK_BATCH%
+          image: %IMAGEURL%
+          ports:
+            - containerPort: 4040
+          volumeMounts:
+            - name: monitor-etl-log
+              mountPath: /opt/ceph
+          command:
+            - /opt/start.sh
+      storage:
+        - name: monitor-etl-log

@@ -1,0 +1,26 @@
+apply plugin: 'java'
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_alarm}"
+jar {
+	baseName = 'enn-monitor-alarm-config-client'
+}
+
+dependencies { 
+	compile libraries.enn_monitor_framework_common
+    compile libraries.enn_monitor_framework_log_grpc
+    compile libraries.enn_monitor_framework_pipe
+    
+    compile libraries.enn_monitor_alarm_config_proto
+
+	compile fileTree(dir: "../../../libs/commons-logging/1.2",include: '*.jar')
+	compile libraries.log4j_api
+	compile libraries.log4j_jcl
+
+	compile libraries.grpc_netty
+	compile libraries.grpc_protobuf
+	compile libraries.grpc_stub
+	compile libraries.protobuf_java
+	compile libraries.protobuf_java_format
+}
+

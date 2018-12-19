@@ -1,0 +1,131 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.train.proto";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogTrainParameters";
+
+enum EnnMonitorLogTrainJobCtlEnum {
+	Continue = 0;
+	Replace = 1;
+	Stop = 2;
+}
+
+message EnnMonitorLogTrainJobInput {
+    repeated double input = 1;
+}
+
+message EnnMonitorLogTrainJobOutput {
+    repeated double output = 1;
+}
+
+message EnnMonitorLogTrainJob {
+    uint64 jobId = 1;
+    string job = 2;
+
+    uint64 genomNum = 3;
+    uint64 returnBestNum = 4;
+    
+    uint64 changeParameter = 5;
+    uint64 eliteGenerator = 6;
+
+    repeated EnnMonitorLogTrainJobInput input = 7;
+    repeated EnnMonitorLogTrainJobOutput output = 8;
+}
+
+message EnnMonitorLogTrainJobStatus {
+	uint64 jobId = 1;
+	
+	string identityId = 2;
+
+        string bestJob = 3;
+	
+	uint64 bestGeneration = 4;
+	double bestError = 5;
+	
+	uint64 worstGeneration = 6;
+	double worstError = 7;
+}
+
+message EnnMonitorLogTrainJobCtl {
+        uint64 jobId = 1;
+        EnnMonitorLogTrainJobCtlEnum ctl = 3;
+        repeated string bestJob = 4;
+}
+
+// ------------------------------------------------------------------------------------------------------------
+message EnnMonitorLogTrainMasterGetJobReq {
+	string identityId = 1;
+}
+
+message EnnMonitorLogTrainMasterGetJobRsp {
+    bool isSuccess = 1;
+    string error = 2;
+    
+    repeated EnnMonitorLogTrainJob trainJob = 4;
+}
+
+message EnnMonitorLogTrainMasterGetJobCtlReq {
+    string identityId = 1;
+}
+
+message EnnMonitorLogTrainMasterGetJobCtlRsp {
+    bool isSuccess = 1;
+    string error = 2;
+    
+    repeated EnnMonitorLogTrainJobCtl jobCtl = 3;
+}
+
+message EnnMonitorLogTrainMasterReportJobStatusReq {
+	repeated EnnMonitorLogTrainJobStatus jobStatus = 1;
+}
+
+message EnnMonitorLogTrainMasterReportJobStatusRsp {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+// ------------------------------------------------------------------------------------------------------------
+
+message EnnMonitorLogTrainJobDeployReq {
+	EnnMonitorLogTrainJob job = 1;
+}
+
+message EnnMonitorLogTrainJobDeployRsp {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorLogTrainJobCtlReq {
+    string identityId = 1;
+    uint64 jobId = 2;
+    EnnMonitorLogTrainJobCtlEnum ctl = 3;
+}
+
+message EnnMonitorLogTrainJobCtlRsp {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorLogTrainJobGeStatusReq {
+    uint64 jobId = 1;
+}
+
+message EnnMonitorLogTrainJobGeStatusRsp {
+    bool isSuccess = 1;
+    string error = 2;
+    
+    repeated EnnMonitorLogTrainJobStatus jobStatus = 3;
+}
+
+message EnnMonitorLogTrainJogGetBestJobReq {
+    uint64 jobId = 1;
+}
+
+message EnnMonitorLogTrainJogGetBestJobRsp {
+    bool isSuccess = 1;
+    string error = 2;
+    
+    string bestJob = 3;
+}
+
+

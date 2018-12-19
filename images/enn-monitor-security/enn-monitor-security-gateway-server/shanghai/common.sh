@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+#IMAGEURL=127.0.0.1:29006/library/enn-monitor-security-gateway-server:0.9.7-trace-SNAPSHOT
+IMAGEURL=10.19.140.200:29006/library/enn-monitor-security-gateway-server:0.10.4-SNAPSHOT
+NUM=2
+
+KAFKAURL=10.19.137.141:30191,10.19.137.142:30192,10.19.137.143:30193
+
+LISTENPORT=10000
+NODEPORT=29014
+
+CPUREQ="500m"
+CPULIMIT="3000m"
+
+MEMREQ="6000Mi"
+MEMLIMIT="10000Mi"

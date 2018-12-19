@@ -1,0 +1,8 @@
+include 'enn-monitor-config:enn-monitor-config-business:enn-monitor-config-business-proto'
+include 'enn-monitor-config:enn-monitor-config-business:enn-monitor-config-business-client'
+include 'enn-monitor-config:enn-monitor-config-business:enn-monitor-config-business-server'
+include 'enn-monitor-config:enn-monitor-config-business:enn-monitor-config-business-web'
+include 'enn-monitor-config:enn-monitor-config-service:enn-monitor-config-service-proto'
+include 'enn-monitor-config:enn-monitor-config-service:enn-monitor-config-service-client'
+include 'enn-monitor-config:enn-monitor-config-service:enn-monitor-config-service-server'
+include 'enn-monitor-config:enn-monitor-config-service:enn-monitor-config-service-web'

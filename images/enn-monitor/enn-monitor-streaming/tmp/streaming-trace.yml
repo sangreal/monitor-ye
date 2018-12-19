@@ -1,0 +1,73 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: monitor-streaming-trace
+  namespace: monitor-system-trace
+  labels:
+    name: monitor-streaming-trace
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: monitor-streaming-trace
+    spec:
+      containers:
+        - name: monitor-streaming-trace
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: 2Gi
+              cpu: 500m
+            limits:
+              memory: 2Gi
+              cpu: 1
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.namespace"
+            - name: "METANAME"
+              value: "monitor-streaming-trace"
+            - name: SPARK_MASTER
+              value: spark://pre2-master1.monitor-essential-service:7077,pre2-master2.monitor-essential-service:7077,pre2-master3.monitor-essential-service:7077
+            - name: TOTAL_CORES
+              value: 3
+            - name: EXECUTOR_MEM
+              value: 2g
+            - name: EXECUTOR_CORES
+              value: 1
+            - name: MAX_RATE
+              value: 500
+            - name: CEPH_PATH
+              value: /opt/ceph
+            - name: WORKSPACE
+              value: /opt/workspace
+            - name: JOB_JAR
+              value: enn-monitor-trace-streaming-0.10.0-SNAPSHOT.jar
+            - name: JOB_SH
+              value: start-streaming-trace.sh
+            - name: MAIN_CLASS
+              value: enn.monitor.trace.streaming.Collector
+            - name: KAFKA
+              value: pre2-kafka1.monitor-essential-service:9092,pre2-kafka2.monitor-essential-service:9092,pre2-kafka3.monitor-essential-service:9092
+            - name: GROUP_ID
+              value: etl1
+            - name: ESCLUSTERNAME
+              value: es-log
+            - name: ES_REST
+              value: elasticsearch-client.monitor-essential-service:9200
+            - name: ES_TCP
+              value: elasticsearch-client.monitor-essential-service:9300
+            - name: GATEWAYTOKEN
+              value: "687E41628C62ECEF94A414647F46FE08"
+          image: 10.19.140.200:29006/enncloud/monitor-streaming-jobs:0.9.0.release
+          ports:
+            - containerPort: 4040
+          volumeMounts:
+            - name: monitor-etl-trace
+              mountPath: /opt/ceph
+          command:
+            - /opt/start.sh
+      storage:
+        - name: monitor-etl-trace

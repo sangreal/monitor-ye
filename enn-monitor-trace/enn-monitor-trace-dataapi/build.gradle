@@ -1,0 +1,62 @@
+apply plugin: 'java'
+apply plugin: 'fatjar'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.2'
+    }
+}
+
+build.dependsOn fatJar
+
+fatJar {
+    exclude 'META-INF/*.DSA'
+}
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_trace}"
+jar {
+    baseName = 'enn-monitor-trace-dataapi'
+}
+
+dependencies {
+    compile (project(":enn-monitor-security:enn-monitor-security-gateway:enn-monitor-security-gateway-client")){
+        exclude group: 'org.apache.logging.log4j'
+//        exclude group: 'org.slf4j'
+    }
+
+    compile (project(":enn-monitor-framework:enn-monitor-framework-trace")){
+        exclude group: 'org.apache.logging.log4j'
+        exclude group: 'org.slf4j'
+    }
+    compile (project(":enn-monitor-trace:enn-monitor-trace-proto")){
+        exclude group: 'org.apache.logging.log4j'
+        exclude group: 'org.slf4j'
+    }
+
+    compile("org.elasticsearch.client:elasticsearch-rest-high-level-client:5.6.5"){
+        exclude group: 'org.apache.logging.log4j'
+        exclude group: 'org.slf4j'
+    }
+
+    compile('enn-monitor:enn-monitor-framework-common:0.9.3.trace-SNAPSHOT'){
+        exclude group: 'org.apache.logging.log4j'
+        exclude group: 'org.slf4j'
+    }
+
+    compile libraries.elasticsearch
+
+    compile("org.apache.logging.log4j:log4j-core:2.9.1")
+    compile("org.apache.logging.log4j:log4j-1.2-api:2.9.1")
+
+    compile libraries.slf4j_log4j12
+
+    compile libraries.jcommander
+    compile libraries.jetty_server
+    compile libraries.jetty_servlet
+}
+

@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: master
+  namespace: %NAMESPACE%
+  labels:
+    app: hbase
+    name: hbase-master-svc
+    tier: backend
+spec:
+  type: LoadBalancer
+  ports:
+    # hbase
+    - name: p12
+      port: 60000
+    - name: p13
+      port: 60010
+      targetPort: 60010
+    - name: p14
+      port: 60020
+      targetPort: 60020
+    - name: p15
+      port: 60030
+      targetPort: 60030
+    - name: p16
+      port: 2181
+    - name: p17
+      port: 2888
+    - name: p18
+      port: 3888
+    - name: t1
+      port: 16010
+      targetPort: 16010
+    - name: t2
+      port: 16020
+    - name: p3
+      port: 16030
+  #  - name: ssh
+  #    port: 2222
+  #    targetPort: 22
+
+  #k8s集群节点ip
+  externalIPs:
+    - %MASTER_EXTERNAL_IP%
+  selector:
+    app: hbase
+    name: hbase-master-rc

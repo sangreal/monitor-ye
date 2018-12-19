@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.config.template.term.parameters";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogConfigTemplateTermParameters";
+
+message EnnMonitorLogConfigTemplateTermTable {
+    uint64 id = 1;
+    
+    string templateTerm = 2;
+    uint64 belongToServiceId = 3;
+    
+    double templateTermValue = 4;
+    bool isSelected = 5;
+    
+    uint64 batchId = 6;
+    
+    uint64 createTime = 7;
+    uint64 lastUpdateTime = 8;
+    string createUser = 9;
+    string lastUpdateUser = 10;
+    
+    string templateTermKey = 100;    
+}
+
+message EnnMonitorLogConfigTemplateTermGetRequest {
+    uint64 id = 1;
+    
+	string templateTerm = 2;
+    uint64 belongToServiceId = 3;
+    
+    bool isSelected = 4;
+    
+    uint64 batchId = 5;
+	
+    string createUser = 6;
+    string lastUpdateUser = 7;
+}
+
+message EnnMonitorLogConfigTemplateTermGetResponse {
+    bool isSuccess = 1;
+    repeated EnnMonitorLogConfigTemplateTermTable templateTermTable = 2;
+    string error = 3;
+}
+
+message EnnMonitorLogConfigTemplateTermCreateRequest {
+	string templateTerm = 1;
+    uint64 belongToServiceId = 2;
+    
+    double templateTermValue = 3;
+    bool isSelected = 4;
+    
+    uint64 batchId = 5;
+	
+	string createUser = 6;
+}
+
+message EnnMonitorLogConfigTemplateTermCreateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorLogConfigTemplateTermDeleteRequest {
+    uint64 batchId = 1;
+}
+
+message EnnMonitorLogConfigTemplateTermDeleteResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}

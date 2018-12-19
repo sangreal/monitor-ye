@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.config.serviceLine.server";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorConfigServiceLineConnection";
+
+import "protobuf/serviceLineParameters.proto";
+
+service EnnMonitorConfigServiceLineServer {
+    // get service
+    rpc GetServiceLine (EnnMonitorConfigServiceLineGetRequest) returns (EnnMonitorConfigServiceLineGetResponse) {}
+    
+    // create service
+    rpc CreateServiceLine (EnnMonitorConfigServiceLineCreateRequest) returns (EnnMonitorConfigServiceLineCreateResponse) {}
+    
+    // update service
+    rpc UpdateServiceLine (EnnMonitorConfigServiceLineUpdateRequest) returns (EnnMonitorConfigServiceLineUpdateResponse) {}
+    
+    // delete serviceLine
+    rpc DeleteServiceLine (EnnMonitorConfigServiceLineDeleteRequest) returns (EnnMonitorConfigServiceLineDeleteResponse) {}
+    
+    // get max deleted seqNo
+    rpc getMaxDeletedSeqNo (EnnMonitorConfigServiceLineGetMaxDeletedRequest) returns (EnnMonitorConfigServiceLineGetMaxDeletedResponse) {}
+    
+    // get valid data
+    rpc getValidDataList (EnnMonitorConfigServiceLineGetValidDataListRequest) returns (EnnMonitorConfigServiceLineGetValidDataListResponse) {}
+    
+    // get deleted data
+    rpc getDeletedDataList (EnnMonitorConfigServiceLineGetDeletedDataListRequest) returns (EnnMonitorConfigServiceLineGetDeletedDataListResponse) {}
+
+    // check whether or not the serviceLine has existed
+    rpc checkServiceLineIsExistedOrNot(EnnMonitorConfigServiceLineCheckServiceLineIsExistedOrNotRequest) returns (EnnMonitorConfigServiceLineCheckServiceLineIsExistedOrNotResponse) {}
+}

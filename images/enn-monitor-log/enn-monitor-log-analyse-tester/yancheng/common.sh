@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+IMAGEURL=10.19.248.12:29006/enncloud/enn-monitor-log-analyse-tester:0.10.0-RELEASE
+NUM=1
+
+LISTENPORT=10000
+EXTERNPORT=29303
+
+CPUREQ="500m"
+CPULIMIT="3000m"
+
+MEMREQ="1G"
+MEMLIMIT="2G"

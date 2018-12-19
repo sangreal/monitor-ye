@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_framework}"
+jar {
+	baseName = 'enn-monitor-framework-metrics-kubelet-proto'
+}
+
+dependencies {
+	compile libraries.gson
+}
+

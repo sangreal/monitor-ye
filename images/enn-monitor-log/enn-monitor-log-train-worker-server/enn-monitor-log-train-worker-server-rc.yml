@@ -1,0 +1,57 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    name: enn-monitor-log-train-worker-server
+    labels:
+        name: enn-monitor-log-train-worker-server
+    namespace: %NAMESPACE%
+spec:
+    replicas: %REPLICSNUM%
+    strategy:
+        type: RollingUpdate
+        maxUnavailable: 1
+        maxSurge: 0
+    template:
+        metadata:
+            labels:
+                name: enn-monitor-log-train-worker-server
+        spec:
+            containers:
+                -
+                    name: enn-monitor-log-train-worker-server
+                    image: %IMAGEURL%
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    env:
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: PODNAME
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.name
+                        -
+                            name: GATEWAYTOKEN
+                            value: '86AEF80BC4CFD2322D35BCF853E4EFB0'
+                    command:
+                        - /bin/sh
+                        - '-c'
+                    args:
+                        - 'cp /opt/conf/run.sh /opt/run.sh; chmod a+x /opt/run.sh; /opt/run.sh'
+                    volumeMounts:
+                        - 
+                            name: config-volume
+                            mountPath: /opt/conf
+            volumes:
+                - 
+                    name: config-volume
+                    configMap:
+                        name: log-train-worker-conf

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.alarm.ticket.Server";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorAlarmTicketServers";
+
+import "protobuf/ticketParameter.proto";
+
+service EnnMonitorAlarmTicketServer {
+	rpc getEnnMonitorAlarmTicket(EnnMonitorAlarmTicketGetRequest) returns (EnnMonitorAlarmTicketGetResponse) {}
+	rpc createEnnMonitorAlarmTicket(EnnMonitorAlarmTicketCreateRequest) returns (EnnMonitorAlarmTicketCreateResponse) {}
+	rpc updateEnnMonitorAlarmTicket(EnnMonitorAlarmTicketUpdateRequest) returns (EnnMonitorAlarmTicketUpdateResponse) {}
+	rpc deleteEnnMonitorAlarmTicket(EnnMonitorAlarmTicketDeleteRequest) returns (EnnMonitorAlarmTicketDeleteResponse) {}
+	rpc getEnnMonitorAlarmTicketMaxDeletedSeqNo(EnnMonitorAlarmTicketGetMaxDeletedRequest) returns (EnnMonitorAlarmTicketGetMaxDeletedResponse) {}
+	rpc getEnnMonitorAlarmTicketValid(EnnMonitorAlarmTicketGetValidRequest) returns (EnnMonitorAlarmTicketGetValidResponse) {}
+	rpc getEnnMonitorAlarmTicketDeleted(EnnMonitorAlarmTicketGetDeletedRequest) returns (EnnMonitorAlarmTicketGetDeletedResponse) {}
+	
+	rpc updateEnnMonitorAlarmTicketTransformState(EnnMonitorAlarmTicketTransformState) returns (EnnMonitorAlarmTicketTransformStateResponse) {}
+}

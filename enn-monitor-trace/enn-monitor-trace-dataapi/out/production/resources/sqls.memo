@@ -1,0 +1,3 @@
+"select sum(count) as all_counts " +
+            "from enn-dependency-2018-01-02 " +
+            "group by range(minute, 25248022, 25248026, 25248029)"

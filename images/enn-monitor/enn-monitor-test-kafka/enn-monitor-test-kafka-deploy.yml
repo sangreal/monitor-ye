@@ -1,0 +1,105 @@
+---
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: extensions/v1beta1
+    kind: Deployment
+    metadata:
+        name: enn-monitor-test-kafka-consumer
+        namespace: %NAMESPACE%
+        labels:
+            name: enn-monitor-test-kafka-consumer
+    spec:
+        replicas: %REPLICSNUM_CONSUMER%
+        template:
+            metadata:
+                labels:
+                    name: enn-monitor-test-kafka-consumer
+            spec:
+                containers:
+                    -
+                        name: enn-monitor-test-kafka-consumer
+                        imagePullPolicy: Always
+                        image: %IMAGEURL_CONSUMER%
+                        resources:
+                            requests:
+                                memory: %MEMREQ%
+                                cpu: %CPUREQ%
+                            limits:
+                                memory: %MEMLIMIT%
+                                cpu: %CPULIMIT%
+                        ports:
+                            -
+                                containerPort: %LISTENPORT%
+                                protocol: TCP
+                        env:
+                            -
+                                name: NAMESPACE
+                                valueFrom:
+                                    fieldRef:
+                                        fieldPath: metadata.namespace
+                            -
+                                name: PODNAME
+                                valueFrom:
+                                    fieldRef:
+                                        fieldPath: metadata.name
+                            -
+                                name: APPNAME
+                                value: enn-monitor-test-kafka-consumer
+                        command:
+                            - "java"
+                            - "-cp"
+                            - "/opt/enn-monitor-test-kafka-1.0.jar"
+                            - "enn.monitor.test.kafka.TestConsumer"
+
+  - apiVersion: extensions/v1beta1
+    kind: Deployment
+    metadata:
+        name: enn-monitor-test-kafka-producer
+        namespace: %NAMESPACE%
+        labels:
+            name: enn-monitor-test-kafka-producer
+    spec:
+        replicas: %REPLICSNUM_PRODUCER%
+        template:
+            metadata:
+                labels:
+                    name: enn-monitor-test-kafka-producer
+            spec:
+                containers:
+                    -
+                        name: enn-monitor-test-kafka-producer
+                        imagePullPolicy: Always
+                        image: %IMAGEURL_PRODUCER%
+                        resources:
+                            requests:
+                                memory: %MEMREQ%
+                                cpu: %CPUREQ%
+                            limits:
+                                memory: %MEMLIMIT%
+                                cpu: %CPULIMIT%
+                        ports:
+                            -
+                                containerPort: %LISTENPORT%
+                                protocol: TCP
+                        env:
+                            -
+                                name: NAMESPACE
+                                valueFrom:
+                                    fieldRef:
+                                        fieldPath: metadata.namespace
+                            -
+                                name: PODNAME
+                                valueFrom:
+                                    fieldRef:
+                                        fieldPath: metadata.name
+                            -
+                                name: APPNAME
+                                value: enn-monitor-test-kafka-producer
+                        command:
+                            - "java"
+                            - "-cp"
+                            - "/opt/enn-monitor-test-kafka-1.0.jar"
+                            - "enn.monitor.test.kafka.TestProducer"
+                            - "--send_interval"
+                            - "1"

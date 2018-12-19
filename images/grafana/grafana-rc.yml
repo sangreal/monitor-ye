@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+    labels:
+        name: Grafana
+    name: monitoring-grafana
+    namespace: %NAMESPACE%
+spec:
+    replicas: 1
+    selector:
+        name: Grafana
+    template:
+        metadata:
+            labels:
+                name: Grafana
+        spec:
+            containers:
+                -
+                    name: grafana
+                    image: %IMAGEURL%
+                    imagePullPolicy: IfNotPresent
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    env:
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: METANAME
+                            value: Grafana
+                    ports:
+                        -
+                            containerPort: 3000
+                    volumeMounts:
+                        - 
+                            name: config-volume
+                            mountPath: /opt/conf
+            volumes:
+                - 
+                    name: config-volume
+                    configMap:
+                        name: grafana-conf

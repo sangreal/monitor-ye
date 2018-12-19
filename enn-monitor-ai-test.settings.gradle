@@ -1,0 +1,5 @@
+include 'enn-monitor-ai:enn-monitor-ai-common'
+include 'enn-monitor-ai:enn-monitor-ai-ui'
+include 'enn-monitor-ai:enn-monitor-ai-ga'
+include 'enn-monitor-ai:enn-monitor-ai-ga-nn'
+include 'enn-monitor-ai:enn-monitor-ai-nn'

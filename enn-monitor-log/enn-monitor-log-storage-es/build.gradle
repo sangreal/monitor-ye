@@ -1,0 +1,23 @@
+apply plugin: 'java'
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_log}"
+jar {
+	baseName = 'enn-monitor-log-storage-es'
+}
+
+dependencies {
+    compile (libraries.gson)
+    compile (libraries.jcommander)
+    compile (libraries.log4j_api)
+    compile (libraries.log4j_jcl)
+    compile (libraries.log4j_core)
+
+    compile (libraries.enn_monitor_framework_log_proto)
+    compile (libraries.enn_monitor_framework_log_core)
+    
+    compile libraries.enn_monitor_security_gateway_client
+    
+    compile libraries.enn_monitor_log_analyse_storage_client
+    compile libraries.enn_monitor_log_analyse_proto
+}

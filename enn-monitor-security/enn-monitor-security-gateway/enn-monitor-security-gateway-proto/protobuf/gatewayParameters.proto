@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.security.gateway.parameters";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorSecurityGatewayParameters";
+
+// metrics-app
+// metrics-k8s
+// log-app
+// log-k8s
+// log-kernel
+
+message EnnMonitorSecurityGatewayRequest {
+	string source = 1;
+    string token = 2;
+    string jsonList = 3;
+}
+
+message EnnMonitorSecurityGatewayResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}

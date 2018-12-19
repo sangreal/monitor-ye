@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.config.event.server";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogConfigEventConnection";
+
+import "protobuf/logEventParameters.proto";
+
+service EnnMonitorLogConfigEventServer {
+
+    // get Event
+    rpc GetEvent (EnnMonitorLogConfigEventGetRequest) returns (EnnMonitorLogConfigEventGetResponse) {}
+    
+    // create Event
+    rpc CreateEvent (EnnMonitorLogConfigEventCreateRequest) returns (EnnMonitorLogConfigEventCreateResponse) {}
+    
+    // update Event
+    rpc UpdateEvent (EnnMonitorLogConfigEventUpdateRequest) returns (EnnMonitorLogConfigEventUpdateResponse) {}
+    
+    // delete Event
+    rpc DeleteEvent (EnnMonitorLogConfigEventDeleteRequest) returns (EnnMonitorLogConfigEventDeleteResponse) {}
+
+    // get max deleted seqNo
+    rpc getMaxDeletedSeqNo (EnnMonitorLogConfigEventGetMaxDeletedRequest) returns (EnnMonitorLogConfigEventGetMaxDeletedResponse) {}
+    
+    // get valid data
+    rpc getValidDataList (EnnMonitorLogConfigEventGetValidDataListRequest) returns (EnnMonitorLogConfigEventGetValidDataListResponse) {}
+    
+    // get deleted data
+    rpc getDeletedDataList (EnnMonitorLogConfigEventGetDeletedDataListRequest) returns (EnnMonitorLogConfigEventGetDeletedDataListResponse) {}
+}

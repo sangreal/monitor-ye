@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: monitor-security-mongo-pvc
+  namespace: %NAMESPACE%
+  labels:
+    name: monitor-security-mongo
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+  selector:
+    matchLabels:
+      name: monitor-security-mongo
+

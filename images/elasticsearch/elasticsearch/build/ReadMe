@@ -1,0 +1,140 @@
+curl -u elastic:changeme -XPUT 'http://10.19.248.200:31921/_template/template_1' -d '{
+  "template": "*",
+  "settings": {
+    "number_of_shards": 3,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "log_type": {
+      "_source": {
+        "enabled": false
+      },
+      "properties": {
+        "dateTime": {
+          "type": "date"
+        },
+        "createTime": {
+          "type": "date"
+        },
+        "logLevel": {
+          "type": "keyword"
+        },
+        "logType": {
+          "type": "keyword"
+        },
+        "clusterName": {
+          "type": "keyword"
+        },
+        "nodeName": {
+          "type": "ip"
+        },
+        "appName": {
+          "type": "keyword"
+        },
+        "nameSpace": {
+          "type": "keyword"
+        },
+        "podName": {
+          "type": "keyword"
+        },
+        "position": {
+          "type": "text"
+        },
+        "pid": {
+          "type": "keyword"
+        },
+        "threadName": {
+          "type": "text"
+        },
+        "traceId": {
+          "type": "keyword"
+        },
+        "parentPod": {
+          "type": "keyword"
+        },
+        "log": {
+          "type": "text"
+        },
+        "token": {
+          "type": "keyword"
+        },
+        "templateKey": {
+          "type": "keyword"
+        },
+        "tag": {
+          "type": "keyword"
+        },
+        "match": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}'
+
+PUT _template/template_1
+{
+  "template": "*",
+  "settings": {
+    "number_of_shards": 3,
+    "number_of_replicas": 0
+  },
+  "mappings": {
+    "log_type": {
+      "_source": {
+        "enabled": false
+      },
+      "properties": {
+        "dateTime": {
+          "type": "date"
+        },
+        "createTime": {
+          "type": "date"
+        },
+        "logLevel": {
+          "type": "keyword"
+        },
+        "logType": {
+          "type": "keyword"
+        },
+        "clusterName": {
+          "type": "keyword"
+        },
+        "nodeName": {
+          "type": "ip"
+        },
+        "appName": {
+          "type": "text"
+        },
+        "nameSpace": {
+          "type": "keyword"
+        },
+        "podName": {
+          "type": "text"
+        },
+        "position": {
+          "type": "text"
+        },
+        "pid": {
+          "type": "text"
+        },
+        "threadName": {
+          "type": "text"
+        },
+        "traceId": {
+          "type": "keyword"
+        },
+        "parentPod": {
+          "type": "text"
+        },
+        "log": {
+          "type": "text"
+        },
+        "token": {
+          "type": "text"
+        }
+      }
+    }
+  }
+}
+

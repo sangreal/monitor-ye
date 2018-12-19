@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.config.template.server";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogConfigTemplateConnection";
+
+import "protobuf/logTemplateParameters.proto";
+
+service EnnMonitorLogConfigTemplateServer {
+    // get Template
+    rpc GetTemplate (EnnMonitorLogConfigTemplateGetRequest) returns (EnnMonitorLogConfigTemplateGetResponse) {}
+    
+    // create Template
+    rpc CreateTemplate (EnnMonitorLogConfigTemplateCreateRequest) returns (EnnMonitorLogConfigTemplateCreateResponse) {}
+    
+    // update Template
+    rpc UpdateTemplate (EnnMonitorLogConfigTemplateUpdateRequest) returns (EnnMonitorLogConfigTemplateUpdateResponse) {}
+    
+    // delete Template
+    rpc DeleteTemplate (EnnMonitorLogConfigTemplateDeleteRequest) returns (EnnMonitorLogConfigTemplateDeleteResponse) {}
+
+    // get max deleted seqNo
+    rpc getMaxDeletedSeqNo (EnnMonitorLogConfigTemplateGetMaxDeletedRequest) returns (EnnMonitorLogConfigTemplateGetMaxDeletedResponse) {}
+    
+    // get valid data
+    rpc getValidDataList (EnnMonitorLogConfigTemplateGetValidDataListRequest) returns (EnnMonitorLogConfigTemplateGetValidDataListResponse) {}
+    
+    // get deleted data
+    rpc getDeletedDataList (EnnMonitorLogConfigTemplateGetDeletedDataListRequest) returns (EnnMonitorLogConfigTemplateGetDeletedDataListResponse) {}
+}

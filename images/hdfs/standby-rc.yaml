@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: namenode2
+  namespace: %NAMESPACE%
+  labels:
+    app: hadoop-ha
+    name: hadoop-namenode2-rc
+    tier: backend
+spec:
+  nodeName: %HOST%
+  containers:
+    - name: namenode2
+      image: %IMAGEURL%
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 50070
+        - containerPort: 50470
+        - containerPort: 8020
+        - containerPort: 8485
+        - containerPort: 8480
+        - containerPort: 8030
+        - containerPort: 8031
+        - containerPort: 8088
+        - containerPort: 8033
+        - containerPort: 10020
+        - containerPort: 19888
+        - containerPort: 60000

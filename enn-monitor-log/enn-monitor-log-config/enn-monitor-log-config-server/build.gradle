@@ -1,0 +1,43 @@
+apply plugin: 'java'
+apply plugin: 'fatjar'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.2'
+    }
+}
+
+build.dependsOn fatJar
+
+fatJar {
+    exclude 'META-INF/*.DSA'
+}
+
+repositories { 
+  mavenCentral()
+}
+
+dependencies { 
+    compile libraries.enn_monitor_framework_common
+    compile libraries.enn_monitor_framework_log_core
+    compile libraries.enn_monitor_framework_pipe
+    
+    compile libraries.enn_monitor_log_config_proto
+    compile libraries.enn_monitor_security_gateway_client
+    
+    compile libraries.jcommander
+    
+	compile libraries.log4j_api
+	compile libraries.log4j_jcl
+	
+	compile libraries.grpc_netty
+	compile libraries.grpc_protobuf
+	compile libraries.grpc_stub
+	compile libraries.protobuf_java
+	compile libraries.protobuf_java_format
+}
+

@@ -1,0 +1,194 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.alarm.ticket.parameter";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorAlarmTicketParameter";
+
+enum EnnMonitorAlarmTicketTransformStateEnum {
+	AutoRecoverFailed = 0;
+	AutoRecoverSuccess = 1;
+	Notified = 2;
+	Received = 3;
+	ManualResolved = 4;
+	SelfRecover = 5;
+}
+
+message EnnMonitorAlarmTicketTransformState {
+	string ticketKey = 1;
+	EnnMonitorAlarmTicketTransformStateEnum ticketTransformState = 2;
+}
+
+message EnnMonitorAlarmTicketTransformStateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+enum EnnMonitorAlarmTicketStatus {
+    EnnMonitorAlarmTicketStatusDefault = 0;
+    WaitingAutoRecover = 1;
+    WaitingNotify = 2;
+    WaitingReceive = 3;
+    WaitingResolve = 4;
+    Resolved = 5;
+}
+
+enum EnnMonitorAlarmTicketLevel {
+    EnnMonitorAlarmTicketLevelDefault = 0;
+    Warning = 1;
+    Critical = 2;
+}
+
+message EnnMonitorAlarmTicketTable {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+    
+    // 输入的key值
+    string ticketKey = 3;
+    
+    uint64 createTime = 4;
+    uint64 lastUpdateTime = 5;
+    string createUser = 6;
+    string lastUpdateUser = 7;
+  
+    EnnMonitorAlarmTicketStatus ennMonitorAlarmTicketStatus = 8;
+  
+    EnnMonitorAlarmTicketLevel ennMonitorAlarmTicketLevel = 9;
+    
+    bool automation = 10;
+    
+    string grourName = 11;
+    
+    string clusterName = 12;
+    string ip = 13;
+    string nameSpace = 14;
+    string podName = 15;
+    string appName = 16;
+    
+    string error = 17;
+    string errorReason = 18;
+    
+    string remark = 19;
+}
+
+message EnnMonitorAlarmTicketGetRequest {
+    uint64 id = 1;
+    
+    string createUser = 2;
+    string lastUpdateUser = 3;
+    
+    string ticketKey = 4;
+    
+    EnnMonitorAlarmTicketStatus ennMonitorAlarmTicketStatus = 5;
+    EnnMonitorAlarmTicketLevel ennMonitorAlarmTicketLevel = 6;
+    
+    string grourName = 7;
+    
+    string clusterName = 8;
+    string ip = 9;
+    string nameSpace = 10;
+    string podName = 11;
+    string appName = 12;
+}
+
+message EnnMonitorAlarmTicketGetResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    
+    repeated EnnMonitorAlarmTicketTable ennMonitorAlarmTicketTableList = 3;
+}
+
+message EnnMonitorAlarmTicketCreateRequest {
+	string createUser = 1;
+	
+	string ticketKey = 2;
+
+	EnnMonitorAlarmTicketStatus ennMonitorAlarmTicketStatus = 3;
+    EnnMonitorAlarmTicketLevel ennMonitorAlarmTicketLevel = 4;
+    
+    bool automation = 5;
+    
+    string grourName = 6;
+    
+    string clusterName = 7;
+    string ip = 8;
+    string nameSpace = 9;
+    string podName = 10;
+    string appName = 11;
+    
+    string error = 12;
+    string errorReason = 13;
+    
+    string remark = 14;
+}
+
+message EnnMonitorAlarmTicketCreateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorAlarmTicketUpdateRequest {
+    uint64 id = 1;
+    
+    string lastUpdateUser = 2;
+    
+    EnnMonitorAlarmTicketStatus ennMonitorAlarmTicketStatus = 3;
+    
+    string grourName = 5;
+    
+    string error = 11;
+    string errorReason = 12;
+    
+    string remark = 13;
+}
+
+message EnnMonitorAlarmTicketUpdateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorAlarmTicketDeleteRequest {
+    uint64 id = 1;
+}
+
+message EnnMonitorAlarmTicketDeleteResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorAlarmTicketGetMaxDeletedRequest {
+}
+
+message EnnMonitorAlarmTicketGetMaxDeletedResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    uint64 seqNo = 3;
+}
+
+message EnnMonitorAlarmTicketGetValidRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorAlarmTicketGetValidResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    
+    repeated EnnMonitorAlarmTicketTable ennMonitorAlarmTicketTableList = 3;
+}
+
+message EnnMonitorAlarmTicketGetDeletedRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorAlarmTicketGetDeleted {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+}
+
+message EnnMonitorAlarmTicketGetDeletedResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    
+    repeated EnnMonitorAlarmTicketGetDeleted ennMonitorAlarmTicketGetDeletedList = 3;
+}

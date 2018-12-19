@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_streaming}"
+jar {
+    baseName = 'enn-monitor-streaming-common'
+}
+
+dependencies {
+    compile (libraries.enn_monitor_framework_common)
+}
+

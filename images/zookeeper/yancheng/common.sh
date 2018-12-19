@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+IMAGEURL="10.19.248.12:29006/enncloud/monitor-zookeeper:0.2"
+HOST=(10.19.248.32 10.19.248.33 10.19.248.34)
+NUM=3
+
+ISEXTERNPORT=true
+ZKPORT=("30281" "30282" "30283")
+
+CPUREQ="100m"
+CPULIMIT="100m"
+
+MEMREQ="100Mi"
+MEMLIMIT="100Mi"

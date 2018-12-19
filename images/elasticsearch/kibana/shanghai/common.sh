@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+IMAGEURL="127.0.0.1:29006/library/kibana-5.4.0:0.4.1-RELEASE"
+
+#HOST="10.19.137.151 10.19.137.152"
+
+CPUREQ="500m"
+CPULIMIT="2000m"
+
+MEMREQ="500Mi"
+MEMLIMIT="2000Mi"

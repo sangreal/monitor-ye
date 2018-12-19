@@ -1,0 +1,19 @@
+apply plugin: 'java'
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_streaming}"
+jar {
+    baseName = 'enn-monitor-streaming-sink-pushgateway'
+}
+
+dependencies {
+    compile (libraries.httpclient)
+    compile (libraries.gson)
+    compile (libraries.log4j_api)
+    compile (libraries.log4j_jcl)
+    compile (libraries.log4j_core)
+    compile (libraries.prometheus_push)
+
+    compile (libraries.enn_monitor_streaming_common)
+}
+

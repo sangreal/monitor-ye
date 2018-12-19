@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+IMAGEURL_PRODUCER=10.19.140.200:29006/enncloud/enn-monitor-test-kafka-producer:0.9.2.trace-SNAPSHOT
+IMAGEURL_CONSUMER=10.19.140.200:29006/enncloud/enn-monitor-test-kafka-consumer:0.9.2.trace-SNAPSHOT
+REPLICSNUM_PRODUCER=5
+REPLICSNUM_CONSUMER=2
+
+LISTENPORT=8888
+
+CPUREQ="300m"
+CPULIMIT="500m"
+
+MEMREQ="1Gi"
+MEMLIMIT="1Gi"

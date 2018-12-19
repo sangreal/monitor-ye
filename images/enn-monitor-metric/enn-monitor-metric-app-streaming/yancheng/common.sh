@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+IMAGEURL=10.19.248.12:29006/enncloud/enn-monitor-metric-app-streaming:0.10.1-RELEASE
+NUM=1
+
+LISTENPORT=4040
+EXTERNPORT=29041
+
+CPUREQ="500m"
+CPULIMIT="2000m"
+
+MEMREQ="1G"
+MEMLIMIT="2G"
+

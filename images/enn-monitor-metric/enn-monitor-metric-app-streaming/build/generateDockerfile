@@ -1,0 +1,11 @@
+source ../../../common_script/funcs.sh
+
+addr=$(getClusterAddr)
+source ../$addr/common.sh
+
+cp ../../../../tools/spark-2.1.0-bin-hadoop2.7.tgz spark-2.1.0-bin-hadoop2.7.tgz
+
+docker build -t "$IMAGEURL" .
+docker push $IMAGEURL
+
+rm -rf spark-2.1.0-bin-hadoop2.7.tgz

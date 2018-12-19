@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+    labels:
+        name: monitoring-opentsdb
+    name: monitoring-opentsdb
+    namespace: %NAMESPACE%
+spec:
+    replicas: 3
+    selector:
+        name: monitoring-opentsdb
+    template:
+        metadata:
+            labels:
+                name: monitoring-opentsdb
+        spec:
+            containers:
+                -
+                    name: opentsdb
+                    image: %IMAGEURL%
+                    imagePullPolicy: IfNotPresent
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    ports:
+                        -
+                            containerPort: 4242
+                    env:
+                        -
+                            name: LOGPATTERN
+                            value: '^(?<dateTime>[\d\-\s\d\:]*),(?<millsSecond>[\d]*)[\s]*(?<logLevel>[^\s]*)[\s]*\[(?<threadName>[^\]]*)\][\s]*(?<log>.*)$'
+                        -
+                            name: LOGASSEMBLE
+                            value: '<dateTime>%dateTime%.%millsSecond%,%logLevel%,%log%,%threadName%'
+                    volumeMounts:
+                        - 
+                            name: config-volume
+                            mountPath: /opt/conf
+            volumes:
+                - 
+                    name: config-volume
+                    configMap:
+                        name: opentsdb-conf

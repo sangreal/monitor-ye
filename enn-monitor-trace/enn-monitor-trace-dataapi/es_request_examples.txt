@@ -1,0 +1,25 @@
+1. 根据query字段进行筛选，根据aggs字段进行聚合
+POST http://10.19.138.169:9200/zipkin:span-2017-11-28/_search
+{
+    "size": 0,
+    "query": {
+        "bool": {
+            "must": [
+                {
+                    "match": {
+                        "kind": "SERVER"
+                    }
+                }
+            ]
+        }
+    },
+    "aggs": {
+        "avg_duration": {
+            "avg": {
+                "field": "duration"
+            }
+        }
+    }
+}
+
+2.

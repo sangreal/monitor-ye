@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    name: chandao
+    namespace: %NAMESPACE%
+    labels:
+        name: chandao
+spec:
+    replicas: 1
+    template:
+        metadata:
+            labels:
+                name: chandao
+        spec:
+            containers:
+                -
+                    name: chandao
+                    image: %IMAGEURL%
+                    imagePullPolicy: IfNotPresent
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    env:
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: PODNAME
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.name
+                        -
+                            name: METANAME
+                            value: chandao
+                    ports:
+                        -
+                            containerPort: 80
+                    volumeMounts:
+                        -
+                            name: %NAMESPACE%-chandao
+                            mountPath: /opt/zbox
+            storage:
+                -
+                    name: %NAMESPACE%-chandao

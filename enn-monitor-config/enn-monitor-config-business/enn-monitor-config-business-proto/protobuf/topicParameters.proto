@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.config.business.topic.parameters";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorConfigBusinessTopicParameters";
+
+message EnnMonitorConfigBusinessTopicTable {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+    
+    string source = 3;
+    string topic = 4;
+    
+    uint64 createTime = 5;
+    uint64 lastUpdateTime = 6;
+    string createUser = 7;
+    string lastUpdateUser = 8;
+}
+
+message EnnMonitorConfigBusinessTopicGetRequest {
+    uint64 id = 1;
+	string source = 2;
+	string topic = 3;
+	
+    string createUser = 4;
+    string lastUpdateUser = 5;
+}
+
+message EnnMonitorConfigBusinessTopicGetResponse {
+    bool isSuccess = 1;
+    repeated EnnMonitorConfigBusinessTopicTable topic = 2;
+    string error = 3;
+}
+
+message EnnMonitorConfigBusinessTopicCreateRequest {
+	string source = 1;
+	string topic = 2;
+	
+	string createUser = 3;
+}
+
+message EnnMonitorConfigBusinessTopicCreateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorConfigBusinessTopicUpdateRequest {
+    uint64 id = 1;
+    
+	string source = 2;
+	string topic = 3;
+    
+    string lastUpdateUser = 4;
+}
+
+message EnnMonitorConfigBusinessTopicUpdateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorConfigBusinessTopicDeleteRequest {
+    uint64 id = 1;
+    
+	string source = 2;
+	string topic = 3;
+}
+
+message EnnMonitorConfigBusinessTopicDeleteResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+// get max deleted seqno
+message EnnMonitorConfigBusinessTopicGetMaxDeletedRequest {
+}
+
+message EnnMonitorConfigBusinessTopicGetMaxDeletedResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    uint64 seqNo = 3;
+}
+
+// get valid data list
+message EnnMonitorConfigBusinessTopicGetValidDataListRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorConfigBusinessTopicGetValidDataListResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    repeated EnnMonitorConfigBusinessTopicTable topicTableList = 3;
+}
+
+// get delete data list
+message EnnMonitorConfigBusinessTopicGetDeletedDataListRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorConfigBusinessTopicGetDeletedData {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+}
+
+message EnnMonitorConfigBusinessTopicGetDeletedDataListResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    repeated EnnMonitorConfigBusinessTopicGetDeletedData deletedDataList = 3;
+}

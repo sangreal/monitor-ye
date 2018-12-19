@@ -1,0 +1,14 @@
+source ../../common_script/funcs.sh
+
+addr=$(getClusterAddr)
+source ../$addr/common.sh
+
+cp ../../../tools/jdk-8u102-linux-x64.tar.gz jdk-8u102-linux-x64.tar.gz
+cp ../../../tools/kafka_2.11-0.10.0.0.tgz kafka_2.11-0.10.0.0.tgz
+
+docker build -t "$IMAGEURL" .
+docker push $IMAGEURL
+
+rm -rf jdk-8u102-linux-x64.tar.gz
+rm -rf kafka_2.11-0.10.0.0.tgz
+

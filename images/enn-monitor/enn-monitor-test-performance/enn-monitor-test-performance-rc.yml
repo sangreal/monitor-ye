@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+    name: enn-monitor-test-performance
+    namespace: '%NAMESPACE%'
+    labels:
+        k8s-app: enn-monitor-test-performance
+spec:
+    replicas: %REPLICSNUM%
+    selector:
+        k8s-app: enn-monitor-test-performance
+    template:
+        metadata:
+            name: enn-monitor-test-performance
+            namespace: '%NAMESPACE%'
+            labels:
+                k8s-app: enn-monitor-test-performance
+        spec:
+            containers:
+                -
+                    image: '%IMAGEURL%'
+                    name: enn-monitor-test-performance
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    securityContext:
+                        privileged: true
+                    env:
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: PODNAME
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.name
+                        -
+                            name: LOGPATTERN
+                            value: '^(?<dateTime>[\d\-]+[\s]+[\d\:\.]+)[\s]*\[(?<threadName>[^\]\s]*)\][\s]*(?<logLevel>[^\s]*)[\s]*(?<position>[^\s]*)[\s\-]*\[(?<traceId>[^\]]*)\][\s\-]*\[(?<parentPod>[^\]]*)\][\s\-]*(?<log>.*)$'
+                        -
+                            name: LOGASSEMBLE
+                            value: '%logLevel%,%position%,%log%,%dateTime%,%traceId%,%parentPod%,%threadName%'
+                    command:
+                        - "/opt/Test"
+                        - "enn-monitor-security-gateway-server.monitor-system-security"
+                        - "10000"
+                        - "24"

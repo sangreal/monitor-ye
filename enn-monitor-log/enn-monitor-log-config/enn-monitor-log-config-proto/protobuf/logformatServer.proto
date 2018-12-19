@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.config.logformat.server";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogConfigLogformatConnection";
+
+import "protobuf/logformatParameters.proto";
+
+service EnnMonitorLogConfigLogformatServer {
+    // get logformat
+    rpc GetLogformat (EnnMonitorLogConfigLogformatGetRequest) returns (EnnMonitorLogConfigLogformatGetResponse) {}
+    
+    // create logformat
+    rpc CreateLogformat (EnnMonitorLogConfigLogformatCreateRequest) returns (EnnMonitorLogConfigLogformatCreateResponse) {}
+    
+    // update logformat
+    rpc UpdateLogformat (EnnMonitorLogConfigLogformatUpdateRequest) returns (EnnMonitorLogConfigLogformatUpdateResponse) {}
+    
+    // delete logformat
+    rpc DeleteLogformat (EnnMonitorLogConfigLogformatDeleteRequest) returns (EnnMonitorLogConfigLogformatDeleteResponse) {}
+
+    // get max deleted seqNo
+    rpc getMaxDeletedSeqNo (EnnMonitorLogConfigLogformatGetMaxDeletedRequest) returns (EnnMonitorLogConfigLogformatGetMaxDeletedResponse) {}
+    
+    // get valid data
+    rpc getValidDataList (EnnMonitorLogConfigLogformatGetValidDataListRequest) returns (EnnMonitorLogConfigLogformatGetValidDataListResponse) {}
+    
+    // get deleted data
+    rpc getDeletedDataList (EnnMonitorLogConfigLogformatGetDeletedDataListRequest) returns (EnnMonitorLogConfigLogformatGetDeletedDataListResponse) {}
+}

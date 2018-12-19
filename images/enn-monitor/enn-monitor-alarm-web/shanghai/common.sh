@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+IMAGEURL=10.19.140.200:29006/library/enn-monitor-alarm-web:0.8.1-SNAPSHOT
+NUM=1
+
+EXTERNPORT=30146
+
+CPUREQ="500m"
+CPULIMIT="1000m"
+
+MEMREQ="1024Mi"
+MEMLIMIT="2048Mi"

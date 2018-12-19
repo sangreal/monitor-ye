@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.train.proto";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogTrainConnection";
+
+import "protobuf/trainParameters.proto";
+
+service EnnMonitorLogTrainMasterServer {
+    rpc getJob (EnnMonitorLogTrainMasterGetJobReq) returns (EnnMonitorLogTrainMasterGetJobRsp) {}
+    rpc getJobCtl (EnnMonitorLogTrainMasterGetJobCtlReq) returns (EnnMonitorLogTrainMasterGetJobCtlRsp) {}
+    rpc reportJobStatus (EnnMonitorLogTrainMasterReportJobStatusReq) returns (EnnMonitorLogTrainMasterReportJobStatusRsp) {}
+    
+    rpc deloyJob (EnnMonitorLogTrainJobDeployReq) returns (EnnMonitorLogTrainJobDeployRsp) {}
+    rpc ctlJob (EnnMonitorLogTrainJobCtlReq) returns (EnnMonitorLogTrainJobCtlRsp) {}
+    rpc getJobStatus (EnnMonitorLogTrainJobGeStatusReq) returns (EnnMonitorLogTrainJobGeStatusRsp) {}
+    rpc getBestJob (EnnMonitorLogTrainJogGetBestJobReq) returns (EnnMonitorLogTrainJogGetBestJobRsp) {}
+}

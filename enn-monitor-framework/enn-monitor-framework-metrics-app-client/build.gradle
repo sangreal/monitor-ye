@@ -1,0 +1,21 @@
+apply plugin: 'java'
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_framework}"
+jar {
+	baseName = 'enn-monitor-framework-metrics-app-client'
+}
+
+dependencies { 
+	compile libraries.gson
+	
+	compile fileTree(dir: "../../libs/commons-logging/1.2",include: '*.jar')
+	compile libraries.avaje_metric_core
+	compile libraries.httpclient
+	compile libraries.json_simple
+	
+	compile libraries.enn_monitor_framework_common
+	compile libraries.enn_monitor_framework_kafka
+	compile libraries.enn_monitor_framework_log_core
+}
+

@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+    name: k%KAFKA_NUM%
+    namespace: %NAMESPACE%
+    labels:
+        name: k%KAFKA_NUM%
+spec:
+    replicas: 1
+    selector:
+        name: k%KAFKA_NUM%
+    template:
+        metadata:
+            labels:
+                name: k%KAFKA_NUM%
+        spec:
+            containers:
+                -
+                    name: k%KAFKA_NUM%
+                    image: %IMAGEURL%
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    env:
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: METANAME
+                            value: k%KAFKA_NUM%
+                        -
+                            name: LOGPATTERN
+                            value: '^\[(?<dateTime>[\d\-]+[\s]*[\d\:]+),(?<millSecond>[\d]+)\][\s]*(?<logLevel>[^\s]*)[\s]*(?<log>.*)$'
+                        -
+                            name: LOGASSEMBLE
+                            value: '%logLevel%,%log%,<dateTime>%dateTime%.%millSecond%'
+                    ports:
+                        -
+                            containerPort: 22
+                        -
+                            containerPort: 9092
+                    volumeMounts:
+                        -
+                            name: kafka-storage
+                            mountPath: /data/db
+                        - 
+                            name: config-volume
+                            mountPath: /opt/conf
+            volumes:
+                -
+                    name: kafka-storage
+                    hostPath:
+                        path: /mnt/%NAMESPACE%/k%KAFKA_NUM%
+                - 
+                    name: config-volume
+                    configMap:
+                        name: kafka%KAFKA_NUM%-config
+            nodeName: %HOST%
+

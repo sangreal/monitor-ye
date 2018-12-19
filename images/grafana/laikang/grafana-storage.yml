@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Storage
+metadata:
+  name: laikang-grafana-storage
+  namespace: g-laikang-sh-qa
+spec:
+  type: CephFS
+  accessModes: ReadWriteMany
+  persisted: true
+  unshared: true
+  resources:
+    requests:
+      storage: 1Gi

@@ -1,0 +1,1 @@
+g++ -std=c++11 -I/opt/grpc/third_party/protobuf/src/ -Iproto/ -pthread proto/protobuf/gatewayParameters.pb.cc proto/protobuf/gatewayParameters.grpc.pb.cc proto/protobuf/gatewayServer.pb.cc proto/protobuf/gatewayServer.grpc.pb.cc src/EnnMonitorSecurityGatewayClient.cc -shared -o libEnnMonitorSecurityGatewayClient.so -I./ -fPIC

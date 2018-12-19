@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+IMAGEURL="127.0.0.1:29006/library/monitor-zookeeper:0.19"
+HOST=(10.19.137.141 10.19.137.142 10.19.137.143)
+NUM=3
+
+ISEXTERNPORT=true
+ZKPORT=("30281" "30282" "30283")
+
+CPUREQ="200m"
+CPULIMIT="200m"
+
+MEMREQ="500Mi"
+MEMLIMIT="500Mi"

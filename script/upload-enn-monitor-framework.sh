@@ -1,0 +1,13 @@
+gradle \
+enn-monitor-framework:enn-monitor-framework-common:upload \
+enn-monitor-framework:enn-monitor-framework-mongo:upload \
+enn-monitor-framework:enn-monitor-framework-trace:upload \
+enn-monitor-framework:enn-monitor-framework-kafka:upload \
+enn-monitor-framework:enn-monitor-framework-log-core:upload \
+enn-monitor-framework:enn-monitor-framework-log-proto:upload \
+enn-monitor-framework:enn-monitor-framework-lang-format:upload \
+enn-monitor-framework:enn-monitor-framework-pipe:upload \
+enn-monitor-framework:enn-monitor-framework-trace:upload \
+enn-monitor-framework:enn-monitor-framework-metrics-app-client:upload \
+enn-monitor-framework:enn-monitor-framework-metrics-kubelet-proto:upload \
+-x javadoc

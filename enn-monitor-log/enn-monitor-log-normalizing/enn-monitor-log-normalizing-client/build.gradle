@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_log}"
+jar {
+	baseName = 'enn-monitor-log-normalizing-client'
+}
+
+dependencies { 
+	compile libraries.enn_monitor_log_normalizing_proto
+}
+

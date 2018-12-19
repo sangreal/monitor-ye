@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+IMAGEURL=10.19.140.200:29006/library/enn-monitor-log-config-web:0.10.9-SNAPSHOT
+NUM=1
+
+EXTERNPORT=29316
+
+CPUREQ="100m"
+CPULIMIT="500m"
+
+MEMREQ="512Mi"
+MEMLIMIT="1024Mi"

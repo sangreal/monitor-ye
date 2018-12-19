@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    name: enn-monitor-security-gateway-web
+    labels:
+        name: enn-monitor-security-gateway-web
+    namespace: %NAMESPACE%
+spec:
+    replicas: %REPLICSNUM%
+    template:
+        metadata:
+            labels:
+                name: enn-monitor-security-gateway-web
+        spec:
+            containers:
+                -
+                    name: enn-monitor-security-gateway-web
+                    image: %IMAGEURL%
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    env:
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: PODNAME
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.name
+                        -
+                            name: APPNAME
+                            value: enn-monitor-security-gateway-web
+                        -
+                            name: GATEWAYTOKEN
+                            value: '8F300F50BDBA05BF7EADD64F98CF6A8D'
+                    command:
+                        - "java"
+                        - "-cp"
+                        - "/opt/enn-monitor-security-gateway-web.jar"
+                        - "enn.monitor.security.gateway.web.EnnMonitorSecurityGatewayServer"
+                        - "--listen_port"
+                        - "%ENNMONITORSECURITYGATEWAYLISTENPORT%"
+                        - "--gateway_server"
+                        - "enn-monitor-security-gateway-server"
+                        - "--gatewayPort"
+                        - "10000"

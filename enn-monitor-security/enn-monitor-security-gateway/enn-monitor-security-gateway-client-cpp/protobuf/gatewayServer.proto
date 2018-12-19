@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.security.gateway.server";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorSecurityGatewayConnection";
+
+import "protobuf/gatewayParameters.proto";
+
+service EnnMonitorSecurityGatewayServer {
+    rpc put (EnnMonitorSecurityGatewayRequest) returns (EnnMonitorSecurityGatewayResponse) {}
+}

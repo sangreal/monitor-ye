@@ -1,0 +1,13 @@
+10.19.132.182  /root/monitor/enn-monitor/images
+
+1. 启动zookeeper
+2. 启动kafka
+3. 启动hdfs （清除掉zk上面跟hadoop和hbase相关的数据）
+4. 启动hbase, 创建opentsdb的数据库表  ---  脚本要创建成功
+5. 启动opentsdb
+6. 如果需要，启动grafana  --- opentsdb要连得上去
+7. 启动mongo，namespace=monitor-essential-service
+8. 启动enn-monitor-secure-token-server, namespace=monitor-essential-service
+9. 启动enn-monitor-secure-token-web, namespace=monitor-essential-service
+10. 启动enn-monitor-app-reader-server
+11. 启动enn-monitor-kubelet-reader-server

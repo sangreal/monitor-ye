@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.analyse.storage.server";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogAnalyseStorageConnection";
+
+import "protobuf/storageParameters.proto";
+
+service EnnMonitorLogAnalyseStorageServer {
+
+    rpc searchNN(EnnMonitorLogAnalyseStorageSearchRequest) returns (EnnMonitorLogAnalyseStorageSearchResponse) {}
+
+    rpc createNN(EnnMonitorLogAnalyseStorageCreateRequest) returns (EnnMonitorLogAnalyseStorageCreateResponse) {}
+    
+    rpc getLastestNNData(EnnMonitorLogAnalyseStorageLastestNNDataRequest) returns (EnnMonitorLogAnalyseStorageLastestNNDataResponse) {}
+    
+}

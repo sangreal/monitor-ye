@@ -1,0 +1,3 @@
+include 'enn-monitor-trace:enn-monitor-trace-streaming'
+include 'enn-monitor-trace:enn-monitor-trace-dataapi'
+include 'enn-monitor-trace:enn-monitor-trace-proto'

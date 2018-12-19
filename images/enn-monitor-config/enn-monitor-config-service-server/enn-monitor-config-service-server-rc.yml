@@ -1,0 +1,65 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    name: enn-monitor-config-service-server
+    labels:
+        name: enn-monitor-config-service-server
+    namespace: %NAMESPACE%
+spec:
+    replicas: %REPLICSNUM%
+    strategy:
+        type: RollingUpdate
+        maxUnavailable: 1
+        maxSurge: 0
+    template:
+        metadata:
+            labels:
+                name: enn-monitor-config-service-server
+        spec:
+            containers:
+                -
+                    name: enn-monitor-config-service-server
+                    image: %IMAGEURL%
+                    imagePullPolicy: Always
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    ports:
+                        -
+                            containerPort: %LISTENPORT%
+                    env:
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: PODNAME
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.name
+                        -
+                            name: APPNAME
+                            value: enn-monitor-config-service-server
+                        -
+                            name: GATEWAYTOKEN
+                            value: 'B5200A64B9DBFA0C209490727BAAFC9B'
+                    command:
+                        - "java"
+                        - "-Xms512m"
+                        - "-Xmx1000m"
+                        - "-cp"
+                        - "/opt/enn-monitor-config-service-server.jar"
+                        - "enn.monitor.config.server.EnnMonitorConfigServer"
+                        - "--workThreadNum"
+                        - "16"
+                        - "--listen_port"
+                        - "%LISTENPORT%"
+                        - "--mongoUrl"
+                        - "mongodb://mongo1.monitor-essential-service:27017,mongo2.monitor-essential-service:27017,mongo3.monitor-essential-service:27017/EnnMonitorConfigService"
+                        - "--dbName"
+                        - "EnnMonitorConfigService"

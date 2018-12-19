@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.config.cache.parameters";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogConfigCacheParameters";
+
+// create service
+message EnnMonitorLogConfigCacheRequest {
+	string templateKey = 1;
+}
+
+message EnnMonitorLogConfigCacheResponse {
+    bool isSuccess = 1;
+    string tag = 2;
+    string error = 3;
+}
+
+// create tag
+message EnnMonitorLogConfigCacheTagIdRequest {
+	string tag = 1;
+}
+
+message EnnMonitorLogConfigCacheTagIdResponse {
+    bool isSuccess = 1;
+    uint64 tagId = 2;
+    string error = 3;
+}

@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.config.service.server";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorConfigServiceConnection";
+
+import "protobuf/serviceParameters.proto";
+
+service EnnMonitorConfigServiceServer {
+    // get service
+    rpc GetService (EnnMonitorConfigServiceGetRequest) returns (EnnMonitorConfigServiceGetResponse) {}
+    
+    // count service
+    rpc CountService (EnnMonitorConfigServiceGetRequest) returns (EnnMonitorConfigServiceCountResponse) {}
+    
+    // create service
+    rpc CreateService (EnnMonitorConfigServiceCreateRequest) returns (EnnMonitorConfigServiceCreateResponse) {}
+    
+    // update service
+    rpc UpdateService (EnnMonitorConfigServiceUpdateRequest) returns (EnnMonitorConfigServiceUpdateResponse) {}
+    
+    // delete service
+    rpc DeleteService (EnnMonitorConfigServiceDeleteRequest) returns (EnnMonitorConfigServiceDeleteResponse) {}
+    
+    // generator token
+    rpc GenerateServiceToken (EnnMonitorConfigServiceTokenGeneratorRequest) returns (EnnMonitorConfigServiceTokenGeneratorResponse) {}
+    
+    // get max deleted seqNo
+    rpc getMaxDeletedSeqNo (EnnMonitorConfigServiceGetMaxDeletedRequest) returns (EnnMonitorConfigServiceGetMaxDeletedResponse) {}
+    
+    // get valid data
+    rpc getValidDataList (EnnMonitorConfigServiceGetValidDataListRequest) returns (EnnMonitorConfigServiceGetValidDataListResponse) {}
+    
+    // get deleted data
+    rpc getDeletedDataList (EnnMonitorConfigServiceGetDeletedDataListRequest) returns (EnnMonitorConfigServiceGetDeletedDataListResponse) {}
+
+    // check whether or not the serviceName has existed
+    rpc checkServiceIsExistedOrNot(EnnMonitorConfigServiceCheckServiceIsExistedOrNotRequest) returns (EnnMonitorConfigServiceCheckServiceIsExistedOrNotResponse) {}
+    }

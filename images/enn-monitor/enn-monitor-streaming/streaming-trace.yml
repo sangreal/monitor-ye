@@ -1,0 +1,73 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: monitor-streaming-trace
+  namespace: monitor-system-trace
+  labels:
+    name: monitor-streaming-trace
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: monitor-streaming-trace
+    spec:
+      containers:
+        - name: monitor-streaming-trace
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: %MEM_REQ_TRACE%
+              cpu: %CPU_REQ_TRACE%
+            limits:
+              memory: %MEM_LIMIT_TRACE%
+              cpu: %CPU_LIMIT_TRACE%
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.namespace"
+            - name: "METANAME"
+              value: "monitor-streaming-trace"
+            - name: SPARK_MASTER
+              value: %SPARK_MASTER%
+            - name: TOTAL_CORES
+              value: %TOTAL_CORES%
+            - name: EXECUTOR_MEM
+              value: %EXECUTOR_MEM%
+            - name: EXECUTOR_CORES
+              value: %EXECUTOR_CORES%
+            - name: MAX_RATE
+              value: %MAX_RATE%
+            - name: CEPH_PATH
+              value: %CEPH_PATH%
+            - name: WORKSPACE
+              value: %WORKSPACE%
+            - name: JOB_JAR
+              value: %JOB_JAR%
+            - name: JOB_SH
+              value: %JOB_SH%
+            - name: MAIN_CLASS
+              value: %MAIN_CLASS%
+            - name: KAFKA
+              value: %KAFKA%
+            - name: GROUP_ID
+              value: %GROUP_ID%
+            - name: ESCLUSTERNAME
+              value: %ESCLUSTERNAME%
+            - name: ES_REST
+              value: %ES_REST%
+            - name: ES_TCP
+              value: %ES_TCP%
+            - name: GATEWAYTOKEN
+              value: "687E41628C62ECEF94A414647F46FE08"
+          image: %IMAGEURL%
+          ports:
+            - containerPort: 4040
+          volumeMounts:
+            - name: monitor-etl-trace
+              mountPath: /opt/ceph
+          command:
+            - /opt/start.sh
+      storage:
+        - name: monitor-etl-trace

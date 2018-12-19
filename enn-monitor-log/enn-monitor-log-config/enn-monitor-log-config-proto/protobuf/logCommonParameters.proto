@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.config.common.parameters";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogConfigTemplateTermTermParameters";
+
+message EnnMonitorLogConfigCommonBatchIdGetRequest {
+    string key = 1;
+}
+
+message EnnMonitorLogConfigBatchIdGetResponse {
+    bool isSuccess = 1;
+    uint64 batchId = 2;
+    string error = 3;
+}

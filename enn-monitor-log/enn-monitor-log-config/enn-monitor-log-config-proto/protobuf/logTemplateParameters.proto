@@ -1,0 +1,147 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.config.template.parameters";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogConfigTemplateParameters";
+
+enum EnnMonitorLogConfigTemplateSetType {
+    None = 0;
+    Manual = 1;
+    Auto = 2;
+}
+
+message EnnMonitorLogConfigTemplateTable {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+    
+    string templateKey = 3;
+    string belongToParentTemplate = 4;
+    
+    uint64 belongToServiceId = 5;
+    
+    EnnMonitorLogConfigTemplateSetType setType = 6;
+    
+    uint64 tagId = 7;
+    
+    uint64 batchId = 8;
+    
+    uint64 createTime = 9;
+    uint64 lastUpdateTime = 10;
+    string createUser = 11;
+    string lastUpdateUser = 12;
+}
+
+message EnnMonitorLogConfigTemplateGetRequest {
+    uint64 id = 1;
+    string belongToParentTemplate = 2;
+	
+    uint64 belongToServiceId = 3;
+    
+    EnnMonitorLogConfigTemplateSetType setType = 4;
+	
+    uint64 tagId = 5;
+    bool   isRoot = 6;
+    
+    uint64 batchId = 7;
+	
+    string createUser = 8;
+    string lastUpdateUser = 9;
+}
+
+message EnnMonitorLogConfigTemplateGetResponse {
+    bool isSuccess = 1;
+    repeated EnnMonitorLogConfigTemplateTable templateTable = 2;
+    string error = 3;
+}
+
+message EnnMonitorLogConfigTemplateCreateRequest {
+	string templateKey = 1;
+    string belongToParentTemplate = 2;
+	
+	uint64 belongToServiceId = 3;
+	
+	EnnMonitorLogConfigTemplateSetType setType = 4;
+	
+	uint64 tagId = 5;
+    
+    uint64 batchId = 6;
+	
+	string createUser = 7;
+}
+
+message EnnMonitorLogConfigTemplateCreateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorLogConfigTemplateUpdateRequest {
+    uint64 id = 1;
+    
+	string templateKey = 2;
+    string belongToParentTemplate = 3;
+	
+	uint64 belongToServiceId = 4;
+	
+	EnnMonitorLogConfigTemplateSetType setType = 5;
+	
+	uint64 tagId = 6;
+    
+    string lastUpdateUser = 7;
+}
+
+message EnnMonitorLogConfigTemplateUpdateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorLogConfigTemplateDeleteRequest {
+    uint64 id = 1;
+    uint64 batchId = 2;
+}
+
+message EnnMonitorLogConfigTemplateDeleteResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+// get max deleted seqno
+message EnnMonitorLogConfigTemplateGetMaxDeletedRequest {
+}
+
+message EnnMonitorLogConfigTemplateGetMaxDeletedResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    uint64 seqNo = 3;
+}
+
+// get valid data list
+message EnnMonitorLogConfigTemplateGetValidDataListRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+
+    uint64 belongToServiceId = 3;
+    EnnMonitorLogConfigTemplateSetType setType = 4;
+}
+
+message EnnMonitorLogConfigTemplateGetValidDataListResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    repeated EnnMonitorLogConfigTemplateTable templateTable = 3;
+}
+
+// get delete data list
+message EnnMonitorLogConfigTemplateGetDeletedDataListRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorLogConfigTemplateGetDeletedData {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+}
+
+message EnnMonitorLogConfigTemplateGetDeletedDataListResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    repeated EnnMonitorLogConfigTemplateGetDeletedData deletedDataList = 3;
+}

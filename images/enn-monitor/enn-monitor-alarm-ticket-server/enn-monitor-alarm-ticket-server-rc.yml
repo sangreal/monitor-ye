@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+    name: enn-monitor-alarm-ticket-server
+    labels:
+        name: enn-monitor-alarm-ticket-server
+    namespace: %NAMESPACE%
+spec:
+    replicas: %REPLICSNUM%
+    selector:
+        name: enn-monitor-alarm-ticket-server
+    template:
+        metadata:
+            labels:
+                name: enn-monitor-alarm-ticket-server
+        spec:
+            containers:
+                -
+                    name: enn-monitor-alarm-ticket-server
+                    image: %IMAGEURL%
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    env:
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: PODNAME
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.name
+                        -
+                            name: APPNAME
+                            value: enn-monitor-alarm-ticket-server
+                        -
+                            name: LOGPATTERN
+                            value: '^(?<dateTime>[\d\-]+[\s]+[\d\:\.]+)[\s]*\[(?<threadName>[^\]\s]*)\][\s]*(?<logLevel>[^\s]*)[\s]*(?<position>[^\s]*)[\s\-]*\[(?<traceId>[^\]]*)\][\s\-]*\[(?<parentPod>[^\]]*)\][\s\-]*(?<log>.*)$'
+                        -
+                            name: LOGASSEMBLE
+                            value: '%logLevel%,%position%,%log%,%dateTime%,%traceId%,%parentPod%,%threadName%'
+                    command:
+                        - "java"
+                        - "-cp"
+                        - "/opt/enn-monitor-alarm-ticket-server.jar"
+                        - "enn.monitor.alarm.ticket.server.EnnMonitorAlarmTicketServer"
+                        - "--workThreadNum"
+                        - "16"
+                        - "--listen_port"
+                        - "%TICKETLISTENPORT%"
+                        - "--mongoUrl"
+                        - "mongodb://mongo1.monitor-essential-service:27017,mongo2.monitor-essential-service:27017,mongo3.monitor-essential-service:27017/EnnMonitorAlarmTicket"
+                        - "--dbName"
+                        - "EnnMonitorAlarmTicket"
+                        - "--enable_metrics"
+                        - "--token"
+                        - "micklongen-alarm-ticket-server"
+                        - "--gateway_server"
+                        - "enn-monitor-security-gateway-server.monitor-system-security"
+                        - "--gatewayPort"
+                        - "10100"
+                        - "--config_server"
+                        - "enn-monitor-alarm-config-server"
+                        - "--configPort"
+                        - "10000"

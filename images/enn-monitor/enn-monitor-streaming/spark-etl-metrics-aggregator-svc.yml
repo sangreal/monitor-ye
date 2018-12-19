@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spark-etl-metrics-aggregator
+  namespace: monitor-system-metrics
+  labels:
+    app: spark-etl-metrics-aggregator
+    name: spark-etl-metrics-aggregator
+    tier: backend
+spec:
+  externalIPs:
+    - 10.19.137.149
+  ports:
+    - name: application-ui
+      port: 24042
+      targetPort: 4040
+  selector:
+    name: spark-etl-metrics-aggregator

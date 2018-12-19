@@ -1,0 +1,13 @@
+apply plugin: 'java'
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_framework}"
+jar {
+	baseName = 'enn-monitor-framework-log-core'
+}
+
+dependencies { 
+	compile libraries.log4j_api
+	compile libraries.log4j_jcl
+}
+

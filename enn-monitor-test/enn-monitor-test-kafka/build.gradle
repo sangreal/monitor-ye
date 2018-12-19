@@ -1,0 +1,53 @@
+group 'com.enn.monitor'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'fatjar'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.2'
+    }
+}
+
+build.dependsOn fatJar
+
+fatJar {
+    exclude 'META-INF/*.DSA'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile project(":enn-monitor-framework:enn-monitor-framework-common")
+    compile project(":enn-monitor-framework:enn-monitor-framework-kafka")
+
+    compile libraries.enn_monitor_security_gateway_proto
+//    compile libraries.enn_monitor_security_gateway_client
+    compile project(":enn-monitor-security:enn-monitor-security-gateway:enn-monitor-security-gateway-client")
+    compile libraries.enn_monitor_security_config_proto
+    compile libraries.enn_monitor_security_config_client
+//    compile libraries.enn_monitor_framework_trace
+    compile project(":enn-monitor-framework:enn-monitor-framework-trace")
+
+    compile libraries.log4j_api
+    compile libraries.log4j_jcl
+
+    compile libraries.grpc_netty
+    compile libraries.grpc_protobuf
+    compile libraries.grpc_stub
+    compile libraries.protobuf_java
+    compile libraries.protobuf_java_format
+    compile libraries.jcommander
+
+
+}

@@ -1,0 +1,4 @@
+include 'enn-monitor-security:enn-monitor-security-gateway:enn-monitor-security-gateway-proto'
+include 'enn-monitor-security:enn-monitor-security-gateway:enn-monitor-security-gateway-client'
+include 'enn-monitor-security:enn-monitor-security-gateway:enn-monitor-security-gateway-server'
+include 'enn-monitor-security:enn-monitor-security-gateway:enn-monitor-security-gateway-web'

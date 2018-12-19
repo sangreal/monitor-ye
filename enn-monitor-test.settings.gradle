@@ -1,0 +1,6 @@
+//include 'enn-monitor-test:enn-monitor-test-elasticsearch'
+include 'enn-monitor-test:enn-monitor-test-log'
+include 'enn-monitor-test:enn-monitor-test-kafka'
+include 'enn-monitor-test:enn-monitor-test-sdk'
+include 'enn-monitor-test:enn-monitor-test-tensorflow-cpu'
+include 'enn-monitor-test:enn-monitor-test-tensorflow-gpu'

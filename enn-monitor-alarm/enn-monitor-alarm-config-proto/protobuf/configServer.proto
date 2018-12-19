@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.alarm.config.Server";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorAlarmConfigServers";
+
+import "protobuf/configEmailParameter.proto";
+
+service EnnMonitorAlarmConfigEmailServer {
+    rpc getEnnMonitorAlarmConfigEmail(EnnMonitorAlarmConfigEmailGetRequest) returns (EnnMonitorAlarmConfigEmailGetResponse) {}
+    rpc createEnnMonitorAlarmConfigEmail(EnnMonitorAlarmConfigEmailCreateRequest) returns (EnnMonitorAlarmConfigEmailCreateResponse) {}
+    rpc updateEnnMonitorAlarmConfigEmail(EnnMonitorAlarmConfigEmailUpdateRequest) returns (EnnMonitorAlarmConfigEmailUpdateResponse) {}
+    rpc deleteEnnMonitorAlarmConfigEmail(EnnMonitorAlarmConfigEmailDeleteRequest) returns (EnnMonitorAlarmConfigEmailDeleteResponse) {}
+    rpc getMaxEnnMonitorAlarmConfigEmailDeletedSeqNo (EnnMonitorAlarmConfigEmailMaxDeletedRequest) returns (EnnMonitorAlarmConfigEmailGetMaxDeletedResponse) {}
+    rpc getEnnMonitorAlarmConfigEmailValid(EnnMonitorAlarmConfigEmailGetValidRequest) returns (EnnMonitorAlarmConfigEmailGetValidResponse) {}
+    rpc getEnnMonitorAlarmConfigEmailDeleted(EnnMonitorAlarmConfigEmailGetDeletedRequest) returns (EnnMonitorAlarmConfigEmailGetDeletedResponse) {}
+}

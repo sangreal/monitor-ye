@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.config.cache.server";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogConfigCacheConnection";
+
+import "protobuf/logConfigCacheParameter.proto";
+
+service EnnMonitorLogConfigCacheServer {
+
+    rpc getTagByTemplateKey (EnnMonitorLogConfigCacheRequest) returns (EnnMonitorLogConfigCacheResponse) {}
+    
+    rpc getTagIdByTagKey (EnnMonitorLogConfigCacheTagIdRequest) returns (EnnMonitorLogConfigCacheTagIdResponse) {}
+    
+}

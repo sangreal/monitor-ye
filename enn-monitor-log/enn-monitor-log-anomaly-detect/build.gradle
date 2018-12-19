@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: 'fatjar'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.2'
+    }
+}
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_streaming}"
+jar {
+    baseName = 'enn-monitor-log-anomaly-detect'
+}
+
+build.dependsOn fatJar
+
+fatJar {
+    exclude 'META-INF/*.DSA'
+    zip64 = true
+}
+
+dependencies {
+    compile fileTree(dir: "../../libs/bcprov_jdk15on",include: '*.jar')
+    compile (libraries.gson)
+    compile (libraries.jcommander)
+    compile (libraries.log4j_api)
+    compile (libraries.log4j_jcl)
+    compile (libraries.log4j_core)
+
+    compile (libraries.enn_monitor_framework_kafka)
+    compile (libraries.enn_monitor_streaming_sink_opentsdb)
+}
+

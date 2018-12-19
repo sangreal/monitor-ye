@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.config.common.server";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogConfigCommonConnection";
+
+import "protobuf/logCommonParameters.proto";
+
+service EnnMonitorLogConfigCommonServer {
+
+    // get batchId
+    rpc GetBatchId (EnnMonitorLogConfigCommonBatchIdGetRequest) returns (EnnMonitorLogConfigBatchIdGetResponse) {}
+
+}

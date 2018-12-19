@@ -1,0 +1,106 @@
+{
+  "apiVersion": "v1",
+  "kind": "ReplicationController",
+  "metadata": {
+    "name": "kube-dns",
+    "namespace": "kube-system",
+    "labels": {
+      "k8s-app": "kube-dns",
+      "kubernetes.io/cluster-service": "true"
+    }
+  },
+  "spec": {
+    "replicas": 1,
+    "selector": {
+      "k8s-app": "kube-dns"
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "k8s-app": "kube-dns",
+          "kubernetes.io/cluster-service": "true"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "etcd",
+            "image": "index.alauda.cn/googlecontainer/etcd-amd64:2.2.5",
+            "resources": {
+              "limits": {
+                "cpu": "100m",
+                "memory": "50Mi"
+              },
+              "requests": {
+                "cpu": "100m",
+                "memory": "50Mi"
+              }
+            },
+            "command": [
+              "/usr/local/bin/etcd",
+              "-data-dir",
+              "/var/etcd/data",
+              "-listen-client-urls",
+              "http://127.0.0.1:2379,http://127.0.0.1:4001",
+              "-advertise-client-urls",
+              "http://127.0.0.1:2379,http://127.0.0.1:4001",
+              "-initial-cluster-token",
+              "skydns-etcd"
+            ]
+          },
+          {
+            "name": "kube2sky",
+            "image": "index.alauda.cn/googlecontainer/kube2sky-amd64:1.15",
+            "resources": {
+              "limits": {
+                "cpu": "100m",
+                "memory": "50Mi"
+              },
+              "requests": {
+                "cpu": "100m",
+                "memory": "50Mi"
+              }
+            },
+            "args": [
+              "--kube-master-url=http://10.19.132.167:8080",
+              "--domain=cn.enn"
+            ]
+          },
+          {
+            "name": "skydns",
+            "image": "index.alauda.cn/googlecontainer/skydns-amd64:1.0",
+            "resources": {
+              "limits": {
+                "cpu": "100m",
+                "memory": "50Mi"
+              },
+              "requests": {
+                "cpu": "100m",
+                "memory": "50Mi"
+              }
+            },
+            "args": [
+              "-machines=http://127.0.0.1:2379",
+              "-addr=0.0.0.0:53",
+              "-ns-rotate=false",
+              "-domain=cn.enn"
+            ],
+            "ports": [
+              {
+                "containerPort": 53,
+                "name": "dns",
+                "protocol": "UDP"
+              },
+              {
+                "containerPort": 53,
+                "name": "dns-tcp",
+                "protocol": "TCP"
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "Default"
+      }
+    }
+  }
+}

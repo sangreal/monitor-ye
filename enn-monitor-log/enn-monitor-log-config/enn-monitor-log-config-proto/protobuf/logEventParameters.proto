@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.config.event.parameters";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogConfigEventParameters";
+
+message EnnMonitorLogConfigEventTable {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+    
+    string eventKey = 3;
+    
+    string eventName = 4;
+    uint64 belongToServiceId = 5;
+    
+    uint64 createTime = 6;
+    uint64 lastUpdateTime = 7;
+    string createUser = 8;
+    string lastUpdateUser = 9;
+}
+
+message EnnMonitorLogConfigEventGetRequest {
+    uint64 id = 1;
+	
+	string eventName = 2;
+	uint64 belongToServiceId = 3;
+	
+    string createUser = 4;
+    string lastUpdateUser = 5;
+}
+
+message EnnMonitorLogConfigEventGetResponse {
+    bool isSuccess = 1;
+    repeated EnnMonitorLogConfigEventTable eventTable = 2;
+    string error = 3;
+}
+
+message EnnMonitorLogConfigEventCreateRequest {
+	string eventName = 1;
+	uint64 belongToServiceId = 2;
+	string createUser = 3;
+}
+
+message EnnMonitorLogConfigEventCreateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorLogConfigEventUpdateRequest {
+    uint64 id = 1;
+	string eventName = 2;
+	uint64 belongToServiceId = 3;
+    string lastUpdateUser = 4;
+}
+
+message EnnMonitorLogConfigEventUpdateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorLogConfigEventDeleteRequest {
+    uint64 id = 1;
+}
+
+message EnnMonitorLogConfigEventDeleteResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+//--------------------------------------------------------------------
+// get max deleted seqno
+message EnnMonitorLogConfigEventGetMaxDeletedRequest {
+}
+
+message EnnMonitorLogConfigEventGetMaxDeletedResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    uint64 seqNo = 3;
+}
+
+// get valid data list
+message EnnMonitorLogConfigEventGetValidDataListRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorLogConfigEventGetValidDataListResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    repeated EnnMonitorLogConfigEventTable eventTable = 3;
+}
+
+// get delete data list
+message EnnMonitorLogConfigEventGetDeletedDataListRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorLogConfigEventGetDeletedData {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+}
+
+message EnnMonitorLogConfigEventGetDeletedDataListResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    repeated EnnMonitorLogConfigEventGetDeletedData deletedDataList = 3;
+}
+

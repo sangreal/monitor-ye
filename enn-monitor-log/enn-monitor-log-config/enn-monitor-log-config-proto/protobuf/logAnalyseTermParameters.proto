@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.config.analyse.term.parameters";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogConfigAnalyseTermParameters";
+
+message EnnMonitorLogConfigAnalyseTermTable {
+    uint64 id = 1;
+    
+    uint64 belongToServiceId = 2;
+    
+    string analyseTermKey = 3;
+    
+    string addTerm = 4;
+    string filterTerm = 5;
+    
+    uint64 createTime = 6;
+    uint64 lastUpdateTime = 7;
+    string createUser = 8;
+    string lastUpdateUser = 9;
+}
+
+message EnnMonitorLogConfigAnalyseTermGetRequest {
+    uint64 id = 1;
+	
+	uint64 belongToServiceId = 2;
+	
+    string createUser = 3;
+    string lastUpdateUser = 4;
+}
+
+message EnnMonitorLogConfigAnalyseTermGetResponse {
+    bool isSuccess = 1;
+    repeated EnnMonitorLogConfigAnalyseTermTable analyseTermTable = 2;
+    string error = 3;
+}
+
+message EnnMonitorLogConfigAnalyseTermCreateRequest {
+	string addTerm = 1;
+	string filterTerm = 2;
+	
+	uint64 belongToServiceId = 3;
+	
+	string createUser = 4;
+}
+
+message EnnMonitorLogConfigAnalyseTermCreateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorLogConfigAnalyseTermUpdateRequest {
+    uint64 id = 1;
+    
+	string addTerm = 2;
+	string filterTerm = 3;
+	
+	uint64 belongToServiceId = 4;
+    
+    string lastUpdateUser = 5;
+}
+
+message EnnMonitorLogConfigAnalyseTermUpdateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorLogConfigAnalyseTermDeleteRequest {
+    uint64 id = 1;
+}
+
+message EnnMonitorLogConfigAnalyseTermDeleteResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}

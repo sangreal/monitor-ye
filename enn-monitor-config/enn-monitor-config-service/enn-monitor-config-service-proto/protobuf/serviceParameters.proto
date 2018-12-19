@@ -1,0 +1,161 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.config.service.parameters";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorConfigServiceParameters";
+
+enum EnnMonitorConfigServiceStatus {
+    ServiceDefault = 0;
+    ServiceRunning = 1;
+    ServiceStop = 2;
+}
+
+message EnnMonitorConfigServiceTable {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+    
+    string serviceName = 3;
+    uint64 belongToServiceLine = 4;
+    
+    string token = 5;
+    EnnMonitorConfigServiceStatus status = 6;
+    
+    uint64 createTime = 7;
+    uint64 lastUpdateTime = 8;
+    
+    string owner = 11;
+    repeated string guest = 12;
+}
+
+// get service
+message EnnMonitorConfigServiceGetRequest {
+    uint64 id = 1;
+	string serviceName = 2;
+	
+	uint64 belongToServiceLine = 3;
+	
+	string token = 4;
+	
+	EnnMonitorConfigServiceStatus status = 5;
+	
+    string owner = 6;
+    string guest = 7;
+}
+
+message EnnMonitorConfigServiceGetResponse {
+    bool isSuccess = 1;
+    repeated EnnMonitorConfigServiceTable serviceTable = 2;
+    string error = 3;
+}
+
+message EnnMonitorConfigServiceCountResponse {
+    bool isSuccess = 1;
+    uint64 count = 2;
+    string error = 3;
+}
+
+// create service
+message EnnMonitorConfigServiceCreateRequest {
+	string serviceName = 1;
+	uint64 belongToServiceLine = 2;
+	
+	string token = 3;
+	
+	string owner = 4;
+    repeated string guest = 5;
+}
+
+message EnnMonitorConfigServiceCreateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+// update service
+message EnnMonitorConfigServiceUpdateRequest {
+    uint64 id = 1;
+    
+    string serviceName = 2;
+    uint64 belongToServiceLine = 3;
+    
+    string token = 4;
+    
+    EnnMonitorConfigServiceStatus status = 5;
+    
+    string owner = 7;
+    repeated string guest = 8;
+}
+
+message EnnMonitorConfigServiceUpdateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+// delete service
+message EnnMonitorConfigServiceDeleteRequest {
+    uint64 id = 1;
+}
+
+message EnnMonitorConfigServiceDeleteResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+// generator token
+message EnnMonitorConfigServiceTokenGeneratorRequest {
+	string userdId = 1;
+}
+
+message EnnMonitorConfigServiceTokenGeneratorResponse {
+	bool isSuccess = 1;
+    string error = 2;
+	string token = 3;
+}
+
+// get max deleted seqno
+message EnnMonitorConfigServiceGetMaxDeletedRequest {
+}
+
+message EnnMonitorConfigServiceGetMaxDeletedResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    uint64 seqNo = 3;
+}
+
+// get valid data list
+message EnnMonitorConfigServiceGetValidDataListRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorConfigServiceGetValidDataListResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    repeated EnnMonitorConfigServiceTable serviceTableList = 3;
+}
+
+// get delete data list
+message EnnMonitorConfigServiceGetDeletedDataListRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorConfigServiceGetDeletedData {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+}
+
+message EnnMonitorConfigServiceGetDeletedDataListResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    repeated EnnMonitorConfigServiceGetDeletedData deletedDataList = 3;
+}
+
+message EnnMonitorConfigServiceCheckServiceIsExistedOrNotRequest {
+    uint64 id = 1;
+    string serviceName = 2;
+}
+
+message EnnMonitorConfigServiceCheckServiceIsExistedOrNotResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}

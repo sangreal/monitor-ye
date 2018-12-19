@@ -1,0 +1,36 @@
+# line format: "$eventType###$pattern_str"
+Exception.VolumeScanner.Saving###VolumeScanner error saving fsdataset
+Process.Purge.EditLog###Purging edit log
+Report.Journal.LatestLog###Journal Latest log
+Exception.Replay.EditLog###Error replaying edit log
+Report.Journal.Register###JournalNode registered
+Exception.Read.EditLog###error reading edit log
+Exception.IO###IOException
+Process.Transfer.Image###TransferFsImage Uploaded image
+Success.Register.Block###datanode pool successfully registered
+Warn.Read.Edit###Error reading edits
+Process.Purge.Remote.Journal###Purging remote journals
+Process.Load.Edit###EditLogTailer Loaded edits starting from
+Request.ruok###Processing ruok command from
+Report.Open.IPC###Opened IPC Server at
+Process.Purge.Storage###Purging no-longer needed file
+Exception.Initialize.EditLog###EditLogInputStream caught exception initializing
+Process.Close.Connection###Closed socket Connection
+Exception.Premature.EditLog###got premature end-of-file
+Report.Fast-forward.EditLog###Fast-forwarding stream
+Success.Send.Block###Successfully sent block report
+Exception.Unsupported.Operation###Operation category not supported
+Report.BlockState.Change###BlockStateChange processReport
+Process.Trigger.Checkpoint###Triggering checkpoint
+Report.Batch.Transaction###namenode transactions batched
+Report.State.Standby###datanode with standby state
+Report.State.Active###datanode with active state
+Process.Accept.Connection###Accepted socket connection
+Process.Trigger.LogRoll###Triggering log roll
+Exception.IO.Diskquota###java io Disk quota
+Process.Rescan.Bpid###rescanning bpid
+Process.Delete.File###Deleted File
+Process.Add.Volume###Added new volume
+Process.Purge.Storage###Purging logs older than
+Warn.Detect.Pause###Detected pause in
+Process.Start.IPCReader###ipc Starting Socket Reader

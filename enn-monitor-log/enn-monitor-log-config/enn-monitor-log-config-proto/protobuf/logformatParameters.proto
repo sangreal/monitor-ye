@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.config.logformat.parameters";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogConfigLogformatParameters";
+
+message EnnMonitorLogConfigLogformatTable {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+    
+    string regex = 3;
+    string logformat = 4;
+    
+    uint64 belongToServiceId = 5;
+    
+    uint64 createTime = 6;
+    uint64 lastUpdateTime = 7;
+    string createUser = 8;
+    string lastUpdateUser = 9;
+}
+
+message EnnMonitorLogConfigLogformatGetRequest {
+    uint64 id = 1;
+	
+	uint64 belongToServiceId = 2;
+	
+    string createUser = 3;
+    string lastUpdateUser = 4;
+}
+
+message EnnMonitorLogConfigLogformatGetResponse {
+    bool isSuccess = 1;
+    repeated EnnMonitorLogConfigLogformatTable logformat = 2;
+    string error = 3;
+}
+
+message EnnMonitorLogConfigLogformatCreateRequest {
+	string regex = 1;
+	string logformat = 2;
+	
+	uint64 belongToServiceId = 3;
+	
+	string createUser = 4;
+}
+
+message EnnMonitorLogConfigLogformatCreateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorLogConfigLogformatUpdateRequest {
+    uint64 id = 1;
+    
+	string regex = 2;
+	string logformat = 3;
+	
+	uint64 belongToServiceId = 4;
+    
+    string lastUpdateUser = 5;
+}
+
+message EnnMonitorLogConfigLogformatUpdateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorLogConfigLogformatDeleteRequest {
+    uint64 id = 1;
+}
+
+message EnnMonitorLogConfigLogformatDeleteResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+// get max deleted seqno
+message EnnMonitorLogConfigLogformatGetMaxDeletedRequest {
+}
+
+message EnnMonitorLogConfigLogformatGetMaxDeletedResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    uint64 seqNo = 3;
+}
+
+// get valid data list
+message EnnMonitorLogConfigLogformatGetValidDataListRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorLogConfigLogformatGetValidDataListResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    repeated EnnMonitorLogConfigLogformatTable logformatTableList = 3;
+}
+
+// get delete data list
+message EnnMonitorLogConfigLogformatGetDeletedDataListRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorLogConfigLogformatGetDeletedData {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+}
+
+message EnnMonitorLogConfigLogformatGetDeletedDataListResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    repeated EnnMonitorLogConfigLogformatGetDeletedData deletedDataList = 3;
+}

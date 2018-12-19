@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.alarm.config.email.parameter";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorAlarmConfigEmailParameter";
+
+//email_configs:
+// - to: 'yiren@he2.io'
+// from: 'weize@he2.io'
+// # smarthost: 'mail.he2.io:25'
+// smarthost: '10.19.248.200:30071'
+// auth_username: "weize@he2.io"
+// auth_identity: "weize@he2.io"
+// auth_password: "xbz0515@NJU"
+// require_tls: false
+
+message EnnMonitorAlarmConfigEmailTable {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+    
+    uint64 createTime = 3;
+    uint64 lastUpdateTime = 4;
+    string createUser = 5;
+    string lastUpdateUser = 6;
+  
+    string groupName = 7;
+  
+    string mail = 8;
+    string name = 9;
+}
+
+message EnnMonitorAlarmConfigEmailGetRequest {
+    uint64 id = 1;
+  
+    string groupName = 2;
+  
+    string name = 3;
+    
+    string createUser = 4;
+    string lastUpdateUser = 5;
+}
+
+message EnnMonitorAlarmConfigEmailGetResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    
+    repeated EnnMonitorAlarmConfigEmailTable ennMonitorAlarmConfigEmailTableList = 3;
+}
+
+message EnnMonitorAlarmConfigEmailCreateRequest {
+    string groupName = 1;
+    string mail = 2;
+    string name = 3;
+    
+    string createUser = 4;
+}
+
+message EnnMonitorAlarmConfigEmailCreateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorAlarmConfigEmailUpdateRequest {
+    uint64 id = 1;
+    string groupName = 2;
+    string mail = 3;
+    string name = 4;
+    
+    string lastUpdateUser = 5;
+}
+
+message EnnMonitorAlarmConfigEmailUpdateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+message EnnMonitorAlarmConfigEmailDeleteRequest {
+    uint64 id = 1;
+}
+
+message EnnMonitorAlarmConfigEmailDeleteResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+// get max deleted seqno
+message EnnMonitorAlarmConfigEmailMaxDeletedRequest {
+}
+
+message EnnMonitorAlarmConfigEmailGetMaxDeletedResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    uint64 seqNo = 3;
+}
+
+message EnnMonitorAlarmConfigEmailGetValidRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorAlarmConfigEmailGetValidResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    
+    repeated EnnMonitorAlarmConfigEmailTable ennMonitorAlarmConfigEmailTableList = 3;
+}
+
+message EnnMonitorAlarmConfigEmailGetDeletedRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorAlarmConfigEmailGetDeleted {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+}
+
+message EnnMonitorAlarmConfigEmailGetDeletedResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    
+    repeated EnnMonitorAlarmConfigEmailGetDeleted ennMonitorAlarmConfigEmailGetDeletedList = 3;
+}
+

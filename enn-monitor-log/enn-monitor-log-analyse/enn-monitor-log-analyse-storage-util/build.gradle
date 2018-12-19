@@ -1,0 +1,20 @@
+apply plugin: 'java'
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_log}"
+jar {
+	baseName = 'enn-monitor-log-analyse-storage-util'
+}
+
+dependencies { 
+	compile libraries.enn_monitor_framework_common
+	compile libraries.enn_monitor_framework_mongo
+    
+	//compile libraries.enn_monitor_log_storage_proto
+
+	compile libraries.enn_monitor_framework_log_core
+
+	compile libraries.protobuf_java
+	compile libraries.protobuf_java_format
+}
+

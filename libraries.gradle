@@ -1,0 +1,194 @@
+ext {
+    versions = [
+        ennew_monitor_framework:        	'0.10.34.dev-SNAPSHOT',
+        ennew_monitor_framework_ai:        	'0.10.35.dev-SNAPSHOT',
+        ennew_monitor_security:            	'0.10.35.dev-SNAPSHOT',
+        ennew_monitor_alarm:                	'0.10.0.dev-SNAPSHOT',
+        ennew_monitor_log:            		'0.10.100.dev-SNAPSHOT',
+        ennew_monitor_ai:                    	'0.10.3.dev-SNAPSHOT',
+        ennew_monitor_trace:            	'0.10.25.dev-SNAPSHOT',
+        ennew_monitor_config:            	'0.10.35.dev-SNAPSHOT',
+        ennew_monitor_streaming:            	'0.10.25.dev-SNAPSHOT',
+                spring:                         '3.2.9.RELEASE'
+       ]
+
+    libraries = [
+        avaje_metric_core:            "org.avaje.metric:avaje-metric-core:4.4.2",
+
+        bcpkix_jdk15on:                "org.bouncycastle:bcpkix-jdk15on:1.58",
+        bcprov_jdk15on:                "org.bouncycastle:bcprov-jdk15on:1.58",
+
+        bytebuddy:                    "net.bytebuddy:byte-buddy:1.7.9",
+
+        cat_client:                "com.dianping.cat:cat-client:1.4.0",
+        cat_core:                "com.dianping.cat:cat-core:1.4.0",
+
+        commons_fileupload:             'commons-fileupload:commons-fileupload:1.3',
+        commons_io:                "commons-io:commons-io:2.5",
+        commons_logging:            "commons-logging:commons-logging:1.2",
+
+        elasticsearch_client:            "org.elasticsearch.client:transport:5.3.2",
+        elasticsearch_xpack_client:        "org.elasticsearch.client:x-pack-transport:5.3.2",
+        elasticsearch_xpack_api:        "org.elasticsearch.plugin:x-pack-api:5.3.2",
+        elasticsearch_rest_high_level_client:   "org.elasticsearch.client:elasticsearch-rest-high-level-client:5.6.5",
+        elasticsearch:                    "org.elasticsearch:elasticsearch:5.6.5",
+        elasticsearch_spark_2_11:                        "org.elasticsearch:elasticsearch-spark-20_2.11:6.2.1",
+        elasticsearch_spark_2_11_532:                        "org.elasticsearch:elasticsearch-spark-20_2.11:5.3.2",
+
+        enn_monitor_alarm_config_client:        "enn-monitor:enn-monitor-alarm-config-client:${versions.ennew_monitor_alarm}",
+        enn_monitor_alarm_config_proto:         "enn-monitor:enn-monitor-alarm-config-proto:${versions.ennew_monitor_alarm}",
+        enn_monitor_alarm_ticket_client:        "enn-monitor:enn-monitor-alarm-ticket-client:${versions.ennew_monitor_alarm}",
+        enn_monitor_alarm_ticket_proto:         "enn-monitor:enn-monitor-alarm-ticket-proto:${versions.ennew_monitor_alarm}",
+        enn_monitor_alarm_prometheus_proto:      "enn-monitor:enn-monitor-alarm-promethus-proto:${versions.ennew_monitor_alarm}",
+
+        enn_monitor_config_service_proto:    "enn-monitor:enn-monitor-config-service-proto:${versions.ennew_monitor_config}",
+        enn_monitor_config_service_client:    "enn-monitor:enn-monitor-config-service-client:${versions.ennew_monitor_config}",
+
+        enn_monitor_config_business_proto:       "enn-monitor:enn-monitor-config-business-proto:${versions.ennew_monitor_config}",
+        enn_monitor_config_business_client:      "enn-monitor:enn-monitor-config-business-client:${versions.ennew_monitor_config}",
+
+        enn_monitor_framework_common:           "enn-monitor:enn-monitor-framework-common:${versions.ennew_monitor_framework}",
+        enn_monitor_framework_mongo:            "enn-monitor:enn-monitor-framework-mongo:${versions.ennew_monitor_framework}",
+        enn_monitor_framework_kafka:            "enn-monitor:enn-monitor-framework-kafka:${versions.ennew_monitor_framework}",
+        enn_monitor_framework_log_core:         "enn-monitor:enn-monitor-framework-log-core:${versions.ennew_monitor_framework}",
+        enn_monitor_framework_log_proto:        "enn-monitor:enn-monitor-framework-log-proto:${versions.ennew_monitor_framework}",
+        enn_monitor_framework_lang_format:      "enn-monitor:enn-monitor-framework-lang-format:${versions.ennew_monitor_framework}",
+        enn_monitor_framework_pipe:             "enn-monitor:enn-monitor-framework-pipe:${versions.ennew_monitor_framework}",
+        enn_monitor_framework_trace:            "enn-monitor:enn-monitor-framework-trace:${versions.ennew_monitor_framework}",
+        enn_monitor_framework_metrics_app_client:         "enn-monitor:enn-monitor-framework-metrics-app-client:${versions.ennew_monitor_framework}",
+        enn_monitor_framework_metrics_kubelet_proto:      "enn-monitor:enn-monitor-framework-metrics-kubelet-proto:${versions.ennew_monitor_framework}",
+
+	enn_monitor_framework_ai_common:        "enn-monitor:enn-monitor-framework-ai-common:${versions.ennew_monitor_framework_ai}",
+	enn_monitor_framework_ai_nn:            "enn-monitor:enn-monitor-framework-ai-nn:${versions.ennew_monitor_framework_ai}",
+	enn_monitor_framework_ai_ga:        	"enn-monitor:enn-monitor-framework-ai-ga:${versions.ennew_monitor_framework_ai}",
+
+        enn_monitor_log_archive_proto:               "enn-monitor:enn-monitor-log-archive-proto:${versions.ennew_monitor_log}",
+        enn_monitor_log_normalizing_proto:           "enn-monitor:enn-monitor-log-normalizing-proto:${versions.ennew_monitor_log}",
+        enn_monitor_log_normalizing_client:          "enn-monitor:enn-monitor-log-normalizing-client:${versions.ennew_monitor_log}",
+        enn_monitor_log_config_proto:                "enn-monitor:enn-monitor-log-config-proto:${versions.ennew_monitor_log}",
+        enn_monitor_log_config_client:               "enn-monitor:enn-monitor-log-config-client:${versions.ennew_monitor_log}",
+
+        enn_monitor_log_config_gateway_proto:		"enn-monitor:enn-monitor-log-config-gateway-proto:${versions.ennew_monitor_log}",
+        enn_monitor_log_config_gateway_client:	"enn-monitor:enn-monitor-log-config-gateway-client:${versions.ennew_monitor_log}",
+
+        enn_monitor_log_config_cache_proto:          "enn-monitor:enn-monitor-log-config-cache-proto:${versions.ennew_monitor_log}",
+        enn_monitor_log_config_cache_client:         "enn-monitor:enn-monitor-log-config-cache-client:${versions.ennew_monitor_log}",
+
+        enn_monitor_log_train_common:             "enn-monitor:enn-monitor-log-train-common:${versions.ennew_monitor_log}",
+        enn_monitor_log_train_proto:             "enn-monitor:enn-monitor-log-train-proto:${versions.ennew_monitor_log}",
+        enn_monitor_log_train_master_client:             "enn-monitor:enn-monitor-log-train-master-client:${versions.ennew_monitor_log}",
+
+        enn_monitor_log_analyse_template_client:   "enn-monitor:enn-monitor-log-analyse-template-client:${versions.ennew_monitor_log}",
+
+        enn_monitor_log_analyse_storage_proto:    "enn-monitor:enn-monitor-log-analyse-storage-proto:${versions.ennew_monitor_log}",
+        enn_monitor_log_analyse_storage_client:   "enn-monitor:enn-monitor-log-analyse-storage-client:${versions.ennew_monitor_log}",
+        enn_monitor_log_analyse_storage_util:     "enn-monitor:enn-monitor-log-analyse-storage-util:${versions.ennew_monitor_log}",
+
+        enn_monitor_log_analyse_proto:            "enn-monitor:enn-monitor-log-analyse-proto:${versions.ennew_monitor_log}",
+
+        enn_monitor_security_gateway_proto:       "enn-monitor:enn-monitor-security-gateway-proto:${versions.ennew_monitor_security}",
+        enn_monitor_security_gateway_client:      "enn-monitor:enn-monitor-security-gateway-client:${versions.ennew_monitor_security}",
+
+        enn_monitor_trace_proto:        "enn-monitor:enn-monitor-trace-proto:${versions.ennew_monitor_trace}",
+        enn_monitor_streaming_common:        "enn-monitor:enn-monitor-streaming-common:${versions.ennew_monitor_streaming}",
+        enn_monitor_streaming_sink_elasticsearch:        "enn-monitor:enn-monitor-streaming-sink-elasticsearch:${versions.ennew_monitor_streaming}",
+        enn_monitor_streaming_sink_opentsdb:        "enn-monitor:enn-monitor-streaming-sink-opentsdb:${versions.ennew_monitor_streaming}",
+        enn_monitor_streaming_sink_pushgateway:        "enn-monitor:enn-monitor-streaming-sink-pushgateway:${versions.ennew_monitor_streaming}",
+        enn_monitor_streaming_sink_pushprom:        "enn-monitor:enn-monitor-streaming-sink-pushprom:${versions.ennew_monitor_streaming}",
+
+        google_inject:                "com.google.inject:guice:4.1.0",
+
+        grpc_core:                "io.grpc:grpc-core:1.2.0",
+        grpc_netty:                "io.grpc:grpc-netty:1.2.0",
+        grpc_protobuf:                "io.grpc:grpc-protobuf:1.2.0",
+        grpc_stub:                "io.grpc:grpc-stub:1.2.0",
+
+        gson:                    "com.google.code.gson:gson:2.2.4",
+
+        httpclient:                "org.apache.httpcomponents:httpclient:4.5.2",
+
+        javax_mail:                    "javax.mail:mail:1.4.1",
+
+        jcommander:                "com.beust:jcommander:1.48",
+
+        jetty_server:                          "org.eclipse.jetty:jetty-server:9.4.6.v20170531",
+        jetty_servlet:                          "org.eclipse.jetty:jetty-servlet:9.4.6.v20170531",
+        jetty_servlets:                          "org.eclipse.jetty:jetty-servlets:9.4.6.v20170531",
+
+        json_simple:                "com.googlecode.json-simple:json-simple:1.1.1",
+        json_lib:                   "net.sf.json-lib:json-lib:2.4",
+
+        jstl:                     "javax.servlet:jstl:1.2",
+
+        jps_api:                "javax.servlet.jsp:jsp-api:2.1",
+
+        kafka:                    "org.apache.kafka:kafka_2.11:0.8.2.1",
+        kafka10:                    "org.apache.kafka:kafka_2.11:0.10.0.0",
+        kafka11:                    "org.apache.kafka:kafka_2.11:0.11.0.2",
+
+        log4j_api:                "org.apache.logging.log4j:log4j-1.2-api:2.7",
+        log4j_jcl:                "org.apache.logging.log4j:log4j-jcl:2.7",
+        log4j_core:                "org.apache.logging.log4j:log4j-core:2.7",
+
+        mongo_java_driver:            "org.mongodb:mongo-java-driver:3.4.2",
+
+        motan_core:                "com.weibo:motan-core:0.0.1",
+
+        netlit_java:               "com.github.fommil.netlib:all:1.1.2",
+
+        okhttp:                                 "com.squareup.okhttp3:okhttp:3.9.1",
+
+        pool2:         "org.apache.commons:commons-pool2:2.4.2",
+
+        prometheus_push:            "io.prometheus:simpleclient_pushgateway:0.0.21",
+
+        protobuf_java:                "com.google.protobuf:protobuf-java:3.0.0",
+        protobuf_java_format:            "com.googlecode.protobuf-java-format:protobuf-java-format:1.2",
+
+        redis_lettuce:                "biz.paluch.redis:lettuce:4.3.1.Final",
+
+        tensorflow_cpu_160:            "org.tensorflow:libtensorflow:1.6.0",
+        tensorflow_gpu_160:            "org.tensorflow:libtensorflow_jni_gpu:1.6.0",
+
+        servlet_api:                "javax.servlet:servlet-api:2.5",
+
+        slf4j_log4j12:                "org.slf4j:slf4j-log4j12:1.7.7",
+
+        spark_core_2_11:         "org.apache.spark:spark-core_2.11:2.2.0",
+        spark_streaming_2_11:         "org.apache.spark:spark-streaming_2.11:2.2.0",
+        spark_streaming_2_11_kafka10:         "org.apache.spark:spark-streaming-kafka-0-10_2.11:2.2.0",
+        spark_sql_2_11_kafka10:         "org.apache.spark:spark-sql-kafka-0-10_2.11:2.2.0",
+        spark_streaming_2_11_kafka8:         "org.apache.spark:spark-streaming-kafka-0-8_2.11:2.2.0",
+        spark_ml_2_11:         "org.apache.spark:spark-mllib_2.11:2.2.0",
+        spark_sql_2_11:         "org.apache.spark:spark-sql_2.11:2.2.0",
+
+        spring_aop:                     "org.springframework:spring-aop:${versions.spring}",
+        spring_aspects:                 "org.springframework:spring-aspects:${versions.spring}",
+        spring_context:                 "org.springframework:spring-context:${versions.spring}",
+        spring_context_support:         "org.springframework:spring-context-support:${versions.spring}",
+        spring_expression:              "org.springframework:spring-expression:${versions.spring}",
+        spring_instrument:              "org.springframework:spring-instrument:${versions.spring}",
+        spring_jdbc:                    "org.springframework:spring-jdbc:${versions.spring}",
+        spring_orm:                     "org.springframework:spring-orm:${versions.spring}",
+        spring_test:                    "org.springframework:spring-test:${versions.spring}",
+        spring_tx:                      "org.springframework:spring-tx:${versions.spring}",
+        spring_web:                     "org.springframework:spring-web:${versions.spring}",
+        spring_webmvc:                  "org.springframework:spring-webmvc:${versions.spring}",
+        spring_beans:                    "org.springframework:spring-beans:${versions.spring}",
+        spring_core:                    "org.springframework:spring-core:${versions.spring}",
+
+        sun_smtp:                    "com.sun.mail:smtp:1.4.5",
+
+        unidal:                    "org.unidal.framework:foundation-service:2.5.0",
+
+        zipkin2_okhttp:                     "io.zipkin.reporter2:zipkin-sender-okhttp3:2.2.0",
+        zipkin_brave:                "io.zipkin.brave:brave:4.11.0",
+        zipkin_brave_instrumentation_grpc:  "io.zipkin.brave:brave-instrumentation-grpc:4.11.0",
+        zipkin_brave_web_servlet: "io.zipkin.brave:brave-web-servlet-filter:4.11.0",
+        zipkin_brave_instrumentation_servlet: "io.zipkin.brave:brave-instrumentation-servlet:4.11.0",
+        zipkin_brave_instrumentation_httpclient: "io.zipkin.brave:brave-instrumentation-httpclient:4.11.0",
+        zipkin_brave_instrumentation_kafkaclients: "io.zipkin.brave:brave-instrumentation-kafka-clients:4.11.0",
+        zipkin2_kafka11:        "io.zipkin.reporter2:zipkin-sender-kafka11:2.1.4",
+        zipkin_storage_elasticsearch_http: "io.zipkin.java:zipkin-storage-elasticsearch-http:2.4.2"
+    ]
+}

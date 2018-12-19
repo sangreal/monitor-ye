@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.config.cluster.cluster";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorConfigClusterConnection";
+
+import "protobuf/clusterParameters.proto";
+
+service EnnMonitorConfigClusterServer {
+    // get cluster
+    rpc GetCluster (EnnMonitorConfigClusterGetRequest) returns (EnnMonitorConfigClusterGetResponse) {}
+
+    // create cluster
+    rpc CreateCluster (EnnMonitorConfigClusterCreateRequest) returns (EnnMonitorConfigClusterCreateResponse) {}
+
+    // update cluster
+    rpc UpdateCluster (EnnMonitorConfigClusterUpdateRequest) returns (EnnMonitorConfigClusterUpdateResponse) {}
+    
+    // delete cluster
+    rpc DeleteCluster (EnnMonitorConfigClusterDeleteRequest) returns (EnnMonitorConfigClusterDeleteResponse) {}
+
+    // get max deleted seqNo
+    rpc getMaxDeletedSeqNo (EnnMonitorConfigClusterGetMaxDeletedRequest) returns (EnnMonitorConfigClusterGetMaxDeletedResponse) {}
+
+    // get valid data
+    rpc getValidDataList (EnnMonitorConfigClusterGetValidDataListRequest) returns (EnnMonitorConfigClusterGetValidDataListResponse) {}
+
+    // get deleted data
+    rpc getDeletedDataList (EnnMonitorConfigClusterGetDeletedDataListRequest) returns (EnnMonitorConfigClusterGetDeletedDataListResponse) {}
+
+    // check whether or not the clusterName has existed
+    rpc checkClusterNameIsExistedOrNot(EnnMonitorConfigClusterExistClusterNameOrNotRequest) returns (EnnMonitorConfigClusterExistClusterNameOrNotResponse) {}
+    }

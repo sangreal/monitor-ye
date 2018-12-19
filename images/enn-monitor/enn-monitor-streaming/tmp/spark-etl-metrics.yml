@@ -1,0 +1,83 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spark-etl-metrics
+  namespace: monitor-system-metrics
+  labels:
+    name: spark-etl-metrics
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: spark-etl-metrics
+    spec:
+      containers:
+        - name: spark-etl-metrics
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 1
+              memory: 3Gi
+            requests:
+              cpu: 500m
+              memory: 2Gi
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.namespace"
+            - name: "METANAME"
+              value: "spark-etl-metrics"
+            - name: CEPH_PATH
+              value: /opt/ceph
+            - name: WORKSPACE
+              value: /opt/workspace
+            - name: JOB_JAR
+              value: enn-monitor-metric-kubelet-streaming-0.10.0-SNAPSHOT.jar
+            - name: JOB_SH
+              value: start-etl-metrics_1.sh
+            - name: SPARK_MASTER
+              value: spark://pre2-master1.monitor-essential-service:7077,pre2-master2.monitor-essential-service:7077,pre2-master3.monitor-essential-service:7077
+            - name: MAIN_CLASS
+              value: enn.monitor.metric.kubelet.streaming.Collector
+            - name: TOTAL_CORES
+              value: 3
+            - name: EXECUTOR_MEM
+              value: 1g
+            - name: EXECUTOR_CORES
+              value: 1
+            - name: MAX_RATE
+              value: 500
+            - name: KAFKA
+              value: pre2-kafka1.monitor-essential-service:9092,pre2-kafka2.monitor-essential-service:9092,pre2-kafka3.monitor-essential-service:9092
+            - name: PROM_PUSH
+              value: "prometheus-pushgateway.monitor-system-alert:27091"
+            - name: OPENTSDB_URL
+              value: monitoring-opentsdb.monitor-essential-service:4242
+            - name: APIUSER
+              value: zhtsC1002
+            - name: APISERVER
+              value: 10.19.140.200:6443
+            - name: APIPASS
+              value: zhtsC1002
+            - name: TOPIC_NAME
+              value: k8s-kubelet
+            - name: ASYNC
+              value: "off"
+            - name: GROUP_ID
+              value: etl-metrics
+            - name: RDD_PARTITION
+              value: 0
+            - name: GATEWAYTOKEN
+              value: "4B2603051E64250C2DC528B325AA242A"
+          image: 10.19.140.200:29006/enncloud/monitor-streaming-jobs:0.9.0.release
+          ports:
+            - containerPort: 4040
+          volumeMounts:
+            - name: monitor-etl-metrics
+              mountPath: /opt/ceph
+          command:
+            - /opt/start.sh
+      storage:
+        - name: monitor-etl-metrics

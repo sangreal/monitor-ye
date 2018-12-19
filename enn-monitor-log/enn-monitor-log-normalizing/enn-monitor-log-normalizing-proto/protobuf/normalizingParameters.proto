@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.normalizing.parameters";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogNormalizingParameters";
+
+// create service
+message EnnMonitorLogNormalizingRequest {
+	string regex = 1;
+	string logformat = 2;
+	string log = 3;
+}
+
+message EnnMonitorLogNormalizingResponse {
+    bool isSuccess = 1;
+    string result = 2;
+    string error = 3;
+}

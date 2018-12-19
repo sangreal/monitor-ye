@@ -1,0 +1,56 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    name: enn-monitor-log-storage-analyse-es
+    labels:
+        name: enn-monitor-log-storage-analyse-es
+    namespace: %NAMESPACE%
+spec:
+    replicas: %REPLICSNUM%
+    template:
+        metadata:
+            labels:
+                name: enn-monitor-log-storage-analyse-es
+        spec:
+            containers:
+                -
+                    name: enn-monitor-log-storage-analyse-es
+                    image: %IMAGEURL%
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    env:
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: PODNAME
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.name
+                        -
+                            name: APPNAME
+                            value: enn-monitor-log-storage-analyse-es
+                        -
+                            name: GATEWAYTOKEN
+                            value: '01C561B348479ECC66EB6D6C85C026C0'
+                    command:
+                        - /bin/sh
+                        - '-c'
+                    args:
+                        - 'cp /opt/conf/start.sh /opt/; chmod a+x /opt/start.sh; /opt/start.sh'
+                    volumeMounts:
+                        - 
+                            name: config-volume
+                            mountPath: /opt/conf
+            volumes:
+                - 
+                    name: config-volume
+                    configMap:
+                        name: log-storage-analyse-es-conf

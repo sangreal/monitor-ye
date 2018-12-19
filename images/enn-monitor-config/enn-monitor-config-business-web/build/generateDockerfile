@@ -1,0 +1,11 @@
+source ../../../common_script/funcs.sh
+
+addr=$(getClusterAddr)
+source ../$addr/common.sh
+
+cp ../../../../tools/tomcat-7.0.52-utf8.tar.gz tomcat-7.0.52-utf8.tar.gz
+
+docker build -t "$IMAGEURL" .
+docker push $IMAGEURL
+
+rm -rf tomcat-7.0.52-utf8.tar.gz

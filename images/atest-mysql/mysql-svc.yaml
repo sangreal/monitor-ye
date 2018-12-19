@@ -1,0 +1,26 @@
+{
+  "apiVersion": "v1",
+  "kind": "Service",
+  "metadata": {
+    "name": "mysql",
+    "namespace": "cat",
+    "labels": {
+      "app": "dojoyn-mysql-svc",
+      "name": "dojoyn-mysql-svc"
+    }
+  },
+  "spec": {
+    "type": "NodePort",
+    "ports": [
+        {
+            "port": 3306,
+            "nodePort": 30306
+        }
+    ],
+    "selector": {
+      "app": "dojoyn-mysql-rc",
+      "name": "dojoyn-mysql-rc",
+      "tier": "backend"
+    }
+  }
+}

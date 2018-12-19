@@ -1,0 +1,62 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    name: enn-monitor-log-analyse-tester
+    labels:
+        name: enn-monitor-log-analyse-tester
+    namespace: %NAMESPACE%
+spec:
+    replicas: %REPLICSNUM%
+    strategy:
+        type: RollingUpdate
+        maxUnavailable: 1
+        maxSurge: 0
+    template:
+        metadata:
+            labels:
+                name: enn-monitor-log-analyse-tester
+        spec:
+            containers:
+                -
+                    name: enn-monitor-log-analyse-tester
+                    image: %IMAGEURL%
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    ports:
+                        -
+                            name: port
+                            containerPort: %LISTENPORT%
+
+                    env:
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: PODNAME
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.name
+                        -
+                            name: GATEWAYTOKEN
+                            value: 'FE1F0E2458C2DB1CEB836D0A7A364638'
+                    command:
+                        - /bin/sh
+                        - '-c'
+                    args:
+                        - 'cp /opt/conf/run.sh /opt/run.sh; chmod a+x /opt/run.sh; /opt/run.sh'
+                    volumeMounts:
+                        - 
+                            name: config-volume
+                            mountPath: /opt/conf
+            volumes:
+                - 
+                    name: config-volume
+                    configMap:
+                        name: log-analyse-tester-conf

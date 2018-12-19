@@ -1,0 +1,105 @@
+---
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: extensions/v1beta1
+    kind: Deployment
+    metadata:
+        name: enn-monitor-test-kafka-consumer
+        namespace: monitor-system-trace
+        labels:
+            name: enn-monitor-test-kafka-consumer
+    spec:
+        replicas: 2
+        template:
+            metadata:
+                labels:
+                    name: enn-monitor-test-kafka-consumer
+            spec:
+                containers:
+                    -
+                        name: enn-monitor-test-kafka-consumer
+                        imagePullPolicy: Always
+                        image: 10.19.140.200:29006/enncloud/enn-monitor-test-kafka-consumer:0.9.2.trace-SNAPSHOT
+                        resources:
+                            requests:
+                                memory: 512Mi
+                                cpu: 300m
+                            limits:
+                                memory: 512Mi
+                                cpu: 500m
+                        ports:
+                            -
+                                containerPort: 8888
+                                protocol: TCP
+                        env:
+                            -
+                                name: NAMESPACE
+                                valueFrom:
+                                    fieldRef:
+                                        fieldPath: metadata.namespace
+                            -
+                                name: PODNAME
+                                valueFrom:
+                                    fieldRef:
+                                        fieldPath: metadata.name
+                            -
+                                name: APPNAME
+                                value: enn-monitor-test-kafka-consumer
+                        command:
+                            - "java"
+                            - "-cp"
+                            - "/opt/enn-monitor-test-kafka-1.0.jar"
+                            - "enn.monitor.test.kafka.TestConsumer"
+
+  - apiVersion: extensions/v1beta1
+    kind: Deployment
+    metadata:
+        name: enn-monitor-test-kafka-producer
+        namespace: monitor-system-trace
+        labels:
+            name: enn-monitor-test-kafka-producer
+    spec:
+        replicas: 5
+        template:
+            metadata:
+                labels:
+                    name: enn-monitor-test-kafka-producer
+            spec:
+                containers:
+                    -
+                        name: enn-monitor-test-kafka-producer
+                        imagePullPolicy: Always
+                        image: 10.19.140.200:29006/enncloud/enn-monitor-test-kafka-producer:0.9.2.trace-SNAPSHOT
+                        resources:
+                            requests:
+                                memory: 512Mi
+                                cpu: 300m
+                            limits:
+                                memory: 512Mi
+                                cpu: 500m
+                        ports:
+                            -
+                                containerPort: 8888
+                                protocol: TCP
+                        env:
+                            -
+                                name: NAMESPACE
+                                valueFrom:
+                                    fieldRef:
+                                        fieldPath: metadata.namespace
+                            -
+                                name: PODNAME
+                                valueFrom:
+                                    fieldRef:
+                                        fieldPath: metadata.name
+                            -
+                                name: APPNAME
+                                value: enn-monitor-test-kafka-producer
+                        command:
+                            - "java"
+                            - "-cp"
+                            - "/opt/enn-monitor-test-kafka-1.0.jar"
+                            - "enn.monitor.test.kafka.TestProducer"
+                            - "--send_interval"
+                            - "1"

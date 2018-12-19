@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+    name: zk%ZK_NUM%
+    namespace: %NAMESPACE%
+    labels:
+        name: zk%ZK_NUM%
+spec:
+    replicas: 1
+    selector:
+        name: zk%ZK_NUM%
+    template:
+        metadata:
+            labels:
+                name: zk%ZK_NUM%
+        spec:
+            containers:
+                -
+                    name: zk%ZK_NUM%
+                    image: %IMAGEURL%
+                    imagePullPolicy: IfNotPresent
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    env:
+                        -
+                            name: myid
+                            value: '%ZK_NUM%'
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: PODNAME
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.name
+                        -
+                            name: METANAME
+                            value: zk%ZK_NUM%
+                        -
+                            name: LOGPATTERN
+                            value: '^(?<dateTime>[\d\-]+[\s]+[\d\:\.]+)[\s]*(?<logLevel>[^\s]*)[\s]*\[(?<threadName>[^\s]*)\][\s]*\[(?<position>[^\s]*)\][\s\-]*(?<log>.*)$'
+                        -
+                            name: LOGASSEMBLE
+                            value: '%logLevel%,%position%,%log%,%dateTime%,%threadName%'
+                    ports:
+                        -
+                            containerPort: 2888
+                        -
+                            containerPort: 3888
+                        -
+                            containerPort: 2181
+                    volumeMounts:
+                        -
+                            name: zookeeper-storage
+                            mountPath: /data/db
+                        - 
+                            name: config-volume
+                            mountPath: /opt/conf
+            nodeName: %HOST%
+            volumes:
+                -
+                    name: zookeeper-storage
+                    hostPath:
+                        path: /mnt/%NAMESPACE%/zk%ZK_NUM%
+                - 
+                    name: config-volume
+                    configMap:
+                        name: zookeeper%ZK_NUM%-config

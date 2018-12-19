@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.log.analyse.storage.parameters";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorLogAnalyseStorageParameters";
+
+message EnnMonitorLogAnalyseStorageTable {
+	uint64 id = 1;
+    uint64 seqNo = 2;
+    
+    uint64 tokenId = 3;
+    string nndata = 4;
+    
+    uint64 lastUpdateTime = 5;
+    uint64 createTime = 6;
+}
+
+message EnnMonitorLogAnalyseStorageSearchRequest {
+	uint64 id = 1;
+    uint64 tokenId = 2;
+}
+
+message EnnMonitorLogAnalyseStorageSearchResponse {
+	bool isSuccess = 1;
+    string error = 2;
+    
+    repeated EnnMonitorLogAnalyseStorageTable analyseStorageTable = 3;
+}
+
+message EnnMonitorLogAnalyseStorageCreateRequest {
+    uint64 tokenId = 1;
+    string nndata = 2;
+}
+
+message EnnMonitorLogAnalyseStorageCreateResponse {
+	bool isSuccess = 1;
+    string error = 2;
+}
+
+// get valid data list
+message EnnMonitorLogAnalyseStorageLastestNNDataRequest {
+	uint64 startSeqNo = 1;
+	uint32 batchNum = 2;
+}
+
+message EnnMonitorLogAnalyseStorageLastestNNDataResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    
+    repeated EnnMonitorLogAnalyseStorageTable analyseStorageTable = 3;
+}

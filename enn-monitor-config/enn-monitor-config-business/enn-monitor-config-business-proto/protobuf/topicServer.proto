@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.config.business.topic.server";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorConfigBusinessTopicConnection";
+
+import "protobuf/topicParameters.proto";
+
+service EnnMonitorConfigBusinessTopicServer {
+    // get topic
+    rpc GetTopic (EnnMonitorConfigBusinessTopicGetRequest) returns (EnnMonitorConfigBusinessTopicGetResponse) {}
+    
+    // create topic
+    rpc CreateTopic (EnnMonitorConfigBusinessTopicCreateRequest) returns (EnnMonitorConfigBusinessTopicCreateResponse) {}
+    
+    // update topic
+    rpc UpdateTopic (EnnMonitorConfigBusinessTopicUpdateRequest) returns (EnnMonitorConfigBusinessTopicUpdateResponse) {}
+    
+    // delete topic
+    rpc DeleteTopic (EnnMonitorConfigBusinessTopicDeleteRequest) returns (EnnMonitorConfigBusinessTopicDeleteResponse) {}
+
+    // get max deleted seqNo
+    rpc getMaxDeletedSeqNo (EnnMonitorConfigBusinessTopicGetMaxDeletedRequest) returns (EnnMonitorConfigBusinessTopicGetMaxDeletedResponse) {}
+    
+    // get valid data
+    rpc getValidDataList (EnnMonitorConfigBusinessTopicGetValidDataListRequest) returns (EnnMonitorConfigBusinessTopicGetValidDataListResponse) {}
+    
+    // get deleted data
+    rpc getDeletedDataList (EnnMonitorConfigBusinessTopicGetDeletedDataListRequest) returns (EnnMonitorConfigBusinessTopicGetDeletedDataListResponse) {}
+}

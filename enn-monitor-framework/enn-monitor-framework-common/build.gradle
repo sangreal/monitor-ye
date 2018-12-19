@@ -1,0 +1,23 @@
+apply plugin: 'java'
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_framework}"
+jar {
+	baseName = 'enn-monitor-framework-common'
+}
+
+dependencies { 
+	compile libraries.kafka
+	compile libraries.log4j_api
+	compile libraries.log4j_jcl
+	
+	compile libraries.gson
+	
+	compile libraries.mongo_java_driver
+	
+	compile libraries.avaje_metric_core
+	
+	compile libraries.okhttp
+	compile libraries.httpclient
+}
+

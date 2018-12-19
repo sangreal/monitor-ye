@@ -1,0 +1,71 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spark-etl-app
+  namespace: monitor-system-metrics
+  labels:
+    name: spark-etl-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: spark-etl-app
+    spec:
+      containers:
+        - name: spark-etl-app
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: %CPU_LIMIT_APP%
+              memory: %MEM_LIMIT_APP%
+            requests:
+              cpu: %CPU_REQ_APP%
+              memory: %MEM_REQ_APP%
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.namespace"
+            - name: "METANAME"
+              value: "spark-etl-app"
+            - name: CEPH_PATH
+              value: %CEPH_PATH%
+            - name: WORKSPACE
+              value: %WORKSPACE%
+            - name: JOB_JAR
+              value: %JOB_JAR%
+            - name: JOB_SH
+              value: %JOB_SH%
+            - name: SPARK_MASTER
+              value: %SPARK_MASTER%
+            - name: MAIN_CLASS
+              value: %MAIN_CLASS%
+            - name: TOTAL_CORES
+              value: %TOTAL_CORES%
+            - name: EXECUTOR_MEM
+              value: %EXECUTOR_MEM%
+            - name: EXECUTOR_CORES
+              value: %EXECUTOR_CORES%
+            - name: MAX_RATE
+              value: %MAX_RATE%
+            - name: KAFKA
+              value: %KAFKA%
+            - name: TOPIC_NAME
+              value: %TOPIC_NAME%
+            - name: GROUP_ID
+              value: %GROUP_ID%
+            - name: OPENTSDB
+              value: %OPENTSDB%
+            - name: GATEWAYTOKEN
+              value: "CA4B7757AEEAA7EA547776653906EA42"
+          image: %IMAGEURL%
+          ports:
+            - containerPort: 4040
+          volumeMounts:
+            - name: monitor-etl-metrics
+              mountPath: /opt/ceph
+          command:
+            - /opt/start.sh
+      storage:
+        - name: monitor-etl-metrics

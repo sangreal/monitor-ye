@@ -1,0 +1,32 @@
+# line format: "$eventType###$pattern_str"
+Exception.UniqueId.Assign###Failed assign ID for tagv
+Process.NioWorker.Read###netty NioWorker read
+Process.Remove.CompletedQuery###Removed completed query
+Query.RegionClient.Done###HttpQuery region_clients done
+Query.Execute.New###QueryStats Executing new query
+Process.SaltScanner.Scan.Complete###SaltScanner Scanning completed
+Exception.RegionClient.Decode###RegionClient decodeException
+Exception.MetricName.Invalid###Invalid metric name
+Exception.Stumbleupon.Defer###stumbleupon async DeferredGroupException
+Process.QueryRpc.TSQuery###QueryRpc TSQuery
+Process.UniqueId.Complete.PendingAssignment###UniqueId Completed pending assignment
+Query.Completing###QueryStats Completing query
+Exception.UniqueId.Fail.PendingAssignment###UniqueId Failed pending assignment
+Process.UniqueId.Got###UniqueId Got ID for kind tagv
+Process.SaltScanner.MergeSort###SaltScanner merge and sort the rows into tree map
+Process.Query.RegexScan###QueryUtil Regex Scanner
+Exception.Hbase.Remote.IO###hbase async RemoteException IOException
+Success.Query.New###QueryStats Successfully new query
+Success.Stumbleupon.Defer###async DeferredGroup done
+Exception.QueryRpc###QueryRpc Query exception
+Process.CompactionQueue.Flush###CompactionQueue flush
+Process.Frame.Omit###common frames omitted
+Process.PutDataPointRpc###PutDataPointRpc execute
+Process.RpcHandler.HttpQuery###RpcHandler handleHttpQuery
+Exception.Runtime.ShouldNotBeHere###RuntimeException Should never be here
+Warn.UniqueId.AlreadyWaiting.Assign###UniqueId Already waiting for UID assignment
+Process.ConnectionManager.HandleUpstream###ConnectionManager handleUpstream
+Process.Incoming.RowkeyTemplate###IncomingDataPoints rowKeyTemplate
+Process.TSDB.AddPoint###TSDB addPoint
+Process.ConnectionManager.Open###ConnectionManager Open
+Process.Put.Done###HttpQuery api put done

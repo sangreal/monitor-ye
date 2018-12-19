@@ -1,0 +1,46 @@
+apply plugin: 'java'
+apply plugin: 'fatjar'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.2'
+    }
+}
+
+build.dependsOn fatJar
+
+fatJar {
+    exclude 'META-INF/*.DSA'
+}
+
+repositories { 
+  mavenCentral()
+}
+
+dependencies {
+	compile libraries.gson
+	compile libraries.jcommander
+	compile libraries.log4j_api
+	compile libraries.log4j_jcl
+	compile libraries.log4j_core
+	compile libraries.elasticsearch_client
+	compile libraries.elasticsearch_xpack_client
+	compile libraries.elasticsearch_xpack_api
+	
+	compile fileTree(dir: "/home/ennew_master_4/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686",include: '*.jar')
+
+	compile libraries.enn_monitor_framework_common
+    compile libraries.enn_monitor_framework_log_core
+
+	compile libraries.enn_monitor_metrics_app_client
+	
+	compile libraries.enn_monitor_security_token_proto
+    compile libraries.enn_monitor_security_token_client
+
+    compile libraries.enn_monitor_log_proto
+}
+

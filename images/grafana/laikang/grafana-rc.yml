@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    labels:
+        name: laikang-grafana
+    name: laikang-grafana
+    namespace: g-laikang-sh-qa
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            name: laikang-grafana
+    template:
+        metadata:
+            labels:
+                name: laikang-grafana
+        spec:
+            containers:
+                -
+                    name: laikang-grafana
+                    image: %IMAGEURL%
+                    imagePullPolicy: IfNotPresent
+                    resources:
+                        requests:
+                            memory: %MEMREQ%
+                            cpu: %CPUREQ%
+                        limits:
+                            memory: %MEMLIMIT%
+                            cpu: %CPULIMIT%
+                    env:
+                        -
+                            name: NAMESPACE
+                            valueFrom:
+                                fieldRef:
+                                    fieldPath: metadata.namespace
+                        -
+                            name: METANAME
+                            value: laikang-grafana
+                    ports:
+                        -
+                            containerPort: 3000
+                    volumeMounts:
+                        - 
+                            name: config-volume
+                            mountPath: /opt/conf
+                        - name: laikang-grafana-storage
+                          mountPath: /data/grafana
+                          subPath: laikang-grafana
+            volumes:
+                - 
+                    name: config-volume
+                    configMap:
+                        name: grafana-conf
+            storage:
+                - name: laikang-grafana-storage

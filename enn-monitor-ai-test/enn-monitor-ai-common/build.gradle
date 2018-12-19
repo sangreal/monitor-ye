@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+group = 'enn-monitor'
+version = "${versions.ennew_monitor_ai}"
+jar {
+	baseName = 'enn-monitor-ai-common'
+}
+
+dependencies { 
+
+}
+

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+IMAGEURL=10.38.240.34:29006/enncloud/enn-monitor-security-gateway-web:0.8.0-RELEASE
+NUM=3
+
+LISTENPORT=10000
+NODEPORT=30113
+
+CPUREQ="500m"
+CPULIMIT="3000m"
+
+MEMREQ="1G"
+MEMLIMIT="4G"

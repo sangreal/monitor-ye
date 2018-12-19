@@ -1,0 +1,71 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spark-etl-metrics-aggregator
+  namespace: monitor-system-metrics
+  labels:
+    name: spark-etl-metrics-aggregator
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: spark-etl-metrics-aggregator
+    spec:
+      containers:
+        - name: spark-etl-metrics-aggregator
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: %CPU_LIMIT_METRIC%
+              memory: %MEM_LIMIT_METRIC%
+            requests:
+              cpu: %CPU_REQ_METRIC%
+              memory: %MEM_REQ_METRIC%
+          env:
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.namespace"
+            - name: "METANAME"
+              value: "spark-etl-metrics-aggregator"
+            - name: CEPH_PATH
+              value: %CEPH_PATH%
+            - name: WORKSPACE
+              value: %WORKSPACE%
+            - name: JOB_JAR
+              value: %JOB_JAR%
+            - name: JOB_SH
+              value: %JOB_SH%
+            - name: SPARK_MASTER
+              value: %SPARK_MASTER%
+            - name: MAIN_CLASS
+              value: %MAIN_CLASS%
+            - name: TOTAL_CORES
+              value: %TOTAL_CORES%
+            - name: EXECUTOR_MEM
+              value: %EXECUTOR_MEM%
+            - name: EXECUTOR_CORES
+              value: %EXECUTOR_CORES%
+            - name: MAX_RATE
+              value: %MAX_RATE%
+            - name: KAFKA
+              value: %KAFKA%
+            - name: OPENTSDB_URL
+              value: %OPENTSDB_URL%
+            - name: TOPIC_NAME
+              value: %TOPIC_NAME%
+            - name: GROUP_ID
+              value: %GROUP_ID%
+            - name: GATEWAYTOKEN
+              value: "174E305D9A1AFD1E626CA19792C6177F"
+          image: %IMAGEURL%
+          ports:
+            - containerPort: 4040
+          volumeMounts:
+            - name: monitor-etl-metrics
+              mountPath: /opt/ceph
+          command:
+            - /opt/start.sh
+      storage:
+        - name: monitor-etl-metrics

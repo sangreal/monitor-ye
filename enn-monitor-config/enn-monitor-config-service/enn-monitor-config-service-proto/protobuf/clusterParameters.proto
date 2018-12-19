@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+option java_package = "enn.monitor.config.cluster.parameters";
+option java_multiple_files = true;
+option java_outer_classname = "EnnMonitorConfigClusterParameters";
+
+enum EnnMonitorConfigClusterStatus {
+	ClusterDefault = 0;
+    ClusterRunning = 1;
+    ClusterDeleting = 2;
+}
+
+message EnnMonitorConfigClusterTable {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+
+    EnnMonitorConfigClusterStatus status = 3;
+
+    string clusterName = 4;
+
+    uint64 createTime = 5;
+    uint64 lastUpdateTime = 6;
+    string createUser = 7;
+    string lastUpdateUser = 8;
+}
+
+// get cluster
+message EnnMonitorConfigClusterGetRequest {
+    uint64 id = 1;
+
+    EnnMonitorConfigClusterStatus status = 2;
+	string clusterName = 3;
+
+    string createUser = 4;
+    string lastUpdateUser = 5;
+}
+
+message EnnMonitorConfigClusterGetResponse {
+    bool isSuccess = 1;
+    repeated EnnMonitorConfigClusterTable clusterTable = 2;
+    string error = 3;
+}
+
+// create cluster
+message EnnMonitorConfigClusterCreateRequest {
+	string clusterName = 1;
+	string createUser = 2;
+}
+
+message EnnMonitorConfigClusterCreateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+// update cluster
+message EnnMonitorConfigClusterUpdateRequest {
+    uint64 id = 1;
+    EnnMonitorConfigClusterStatus status = 2;
+    string clusterName = 3;
+    string lastUpdateUser = 4;
+}
+
+message EnnMonitorConfigClusterUpdateResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+// delete cluster
+message EnnMonitorConfigClusterDeleteRequest {
+    uint64 id = 1;
+    string lastUpdateUser = 2;
+}
+
+message EnnMonitorConfigClusterDeleteResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}
+
+// get max deleted seqno
+message EnnMonitorConfigClusterGetMaxDeletedRequest {
+}
+
+message EnnMonitorConfigClusterGetMaxDeletedResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    uint64 seqNo = 3;
+}
+
+// get valid data list
+message EnnMonitorConfigClusterGetValidDataListRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorConfigClusterGetValidDataListResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    repeated EnnMonitorConfigClusterTable clusterTableList = 3;
+}
+
+// get delete data list
+message EnnMonitorConfigClusterGetDeletedDataListRequest {
+    uint64 startSeqNo = 1;
+    uint32 batchNum = 2;
+}
+
+message EnnMonitorConfigClusterGetDeletedData {
+    uint64 id = 1;
+    uint64 seqNo = 2;
+}
+
+message EnnMonitorConfigClusterGetDeletedDataListResponse {
+    bool isSuccess = 1;
+    string error = 2;
+    repeated EnnMonitorConfigClusterGetDeletedData deletedDataList = 3;
+}
+
+message EnnMonitorConfigClusterExistClusterNameOrNotRequest {
+    string clusterName = 1;
+}
+
+message EnnMonitorConfigClusterExistClusterNameOrNotResponse {
+    bool isSuccess = 1;
+    string error = 2;
+}

@@ -1,0 +1,3 @@
+include 'enn-monitor-framework-ai:enn-monitor-framework-ai-common'
+include 'enn-monitor-framework-ai:enn-monitor-framework-ai-nn'
+include 'enn-monitor-framework-ai:enn-monitor-framework-ai-ga'

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: enn-monitor-trace-data-api
+    labels:
+        name: enn-monitor-trace-data-api
+    namespace: monitor-system-trace
+spec:
+    type: NodePort
+    ports:
+        -
+            name: p1
+            port: 8888
+            nodePort: 29388
+            protocol: TCP
+    selector:
+        name: enn-monitor-trace-data-api
+

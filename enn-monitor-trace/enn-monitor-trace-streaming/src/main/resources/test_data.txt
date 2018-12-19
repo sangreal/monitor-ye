@@ -1,0 +1,17 @@
+caller_biz,caller_svc,caller_res,caller_ins,callee_biz,callee_svc,callee_res,callee_ins,count,error,avg_latency,minute
+
+monitor,gateway,pod1,/endpoint1,monitor,storage,pod2,metric/put,29,0,145631,1514881320
+monitor,gateway,pod1,/endpoint2,monitor,token,pod2,/get,26,0,142631,1014881380
+monitor,gateway,pod1,/endpoint3,monitor,storage,pod2,metric/put,23,0,115200,1514881440
+monitor,gateway,pod1,/endpoint1,monitor,token,pod2,/post,20,0,100300,1514881500
+monitor,gateway,pod1,/endpoint4,monitor,storage,pod2,metric/put,27,0,141000,1514881560
+monitor,gateway,pod1,/endpoint4,monitor,storage,pod2,metric/put,33,0,48000,1514881740
+monitor,gateway,pod1,/endpoint2,monitor,storage,pod2,metric/put,31,0,53000,1514881920
+
+console,gateway,pod1,/endpoint1,console,storage,pod2,metric/put,26,0,145631,1514881260
+console,gateway,pod1,/endpoint2,console,proxy,pod2,ennctl/get,25,0,142631,1514881320
+console,gateway,pod1,/endpoint3,console,storage,pod2,metric/put,21,0,125200,1514881380
+console,gateway,pod1,/endpoint1,console,proxy,pod2,ennctl/delete,21,0,100300,1514881440
+console,gateway,pod1,/endpoint4,console,storage,pod2,metric/put,20,0,111000,1514881560
+console,gateway,pod1,/endpoint4,console,storage,pod2,metric/put,39,0,46000,1514881620
+console,gateway,pod1,/endpoint2,console,storage,pod2,metric/put,31,0,43000,1514881680

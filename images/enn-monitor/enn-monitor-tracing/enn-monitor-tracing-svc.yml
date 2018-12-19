@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: enn-monitor-tracing
+    labels:
+        name: enn-monitor-tracing
+    namespace: %NAMESPACE%
+spec:
+    type: NodePort
+    ports:
+        -
+            name: p1
+            port: %LISTENPORT%
+            nodePort: %NODEPORT%
+            protocol: TCP
+    selector:
+        name: enn-monitor-tracing
+
